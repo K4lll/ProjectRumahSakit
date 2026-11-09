@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistem.pendaftaran.dan.pelayanan.pasien;
+package sistempendaftarandanpelayananpasien;
 
 /**
  *
@@ -88,7 +88,6 @@ public class Login extends javax.swing.JFrame {
         lblMenuPasien.setForeground(new java.awt.Color(23, 61, 104));
         lblMenuPasien.setText("Menu Pasien");
 
-        lblDeskPasien.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblDeskPasien.setForeground(new java.awt.Color(23, 61, 104));
         lblDeskPasien.setText("Daftar dan lihat jadwal dokter");
 
@@ -129,7 +128,6 @@ public class Login extends javax.swing.JFrame {
         lblMenuDokter.setForeground(new java.awt.Color(23, 61, 104));
         lblMenuDokter.setText("Menu Dokter");
 
-        lblDeskDokter.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblDeskDokter.setForeground(new java.awt.Color(23, 61, 104));
         lblDeskDokter.setText("Lihat jadwal dan daftar pasien");
 

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistem.pendaftaran.dan.pelayanan.pasien;
+package sistempendaftarandanpelayananpasien;
 
 /**
  *
@@ -99,7 +99,6 @@ public class FormPasien extends javax.swing.JFrame {
         lblDataDiri.setForeground(new java.awt.Color(23, 61, 104));
         lblDataDiri.setText("Data Diri");
 
-        lblDeskDataDiri.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblDeskDataDiri.setForeground(new java.awt.Color(23, 61, 104));
         lblDeskDataDiri.setText("Lihat dan isi data pribadi");
 
@@ -140,7 +139,6 @@ public class FormPasien extends javax.swing.JFrame {
         lblIsiJadwal.setForeground(new java.awt.Color(23, 61, 104));
         lblIsiJadwal.setText("Isi Jadwal");
 
-        lblDeskIsiJadwal.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblDeskIsiJadwal.setForeground(new java.awt.Color(23, 61, 104));
         lblDeskIsiJadwal.setText("Pilih jadwal kunjungan");
 
@@ -180,7 +178,6 @@ public class FormPasien extends javax.swing.JFrame {
         lblInfoDokter.setForeground(new java.awt.Color(23, 61, 104));
         lblInfoDokter.setText("Info Dokter");
 
-        lblDeskInfoDokter.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblDeskInfoDokter.setForeground(new java.awt.Color(23, 61, 104));
         lblDeskInfoDokter.setText("Daftar dokter yang praktik");
 
@@ -220,7 +217,6 @@ public class FormPasien extends javax.swing.JFrame {
         lblJadwal.setForeground(new java.awt.Color(23, 61, 104));
         lblJadwal.setText("Jadwal");
 
-        lblDeskJadwal.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblDeskJadwal.setForeground(new java.awt.Color(23, 61, 104));
         lblDeskJadwal.setText("Jadwal kunjungan Anda");
 

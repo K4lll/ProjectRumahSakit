@@ -2,23 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistem.pendaftaran.dan.pelayanan.pasien;
+package sistempendaftarandanpelayananpasien;
 
 /**
  *
  * @author LENOVO
  */
-public class FormPendaftaran extends javax.swing.JFrame {
+public class FormDaftarAkun extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPendaftaran.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormDaftarAkun.class.getName());
+
+    // Peran akun yang dibuat ("pasien" atau "dokter"), ditentukan dari menu login yang dipilih
+    private String peran = PenyimpananFile.PERAN_PASIEN;
 
     /**
-     * Creates new form FormPendaftaran
+     * Creates new form FormDaftarAkun
      */
-    public FormPendaftaran() {
+    public FormDaftarAkun() {
         initComponents();
-        // Umur dibatasi 0 sampai 120 tahun (diatur di sini karena bukan bagian dari desain)
-        spnUmur.setModel(new javax.swing.SpinnerNumberModel(0, 0, 120, 1));
+        // Tombol Daftar ikut jalan waktu user tekan Enter
+        getRootPane().setDefaultButton(btnDaftar);
+    }
+
+    /**
+     * Dipakai FormLogin: peran akun mengikuti menu login yang sedang dibuka.
+     */
+    public FormDaftarAkun(String peran) {
+        this();
+        this.peran = peran;
+        String label = PenyimpananFile.PERAN_DOKTER.equals(peran) ? "Dokter" : "Pasien";
+        lblSubJudul.setText("Daftar akun untuk masuk sebagai " + label);
     }
 
     /**
@@ -35,32 +48,31 @@ public class FormPendaftaran extends javax.swing.JFrame {
         lblJudul = new javax.swing.JLabel();
         lblSubJudul = new javax.swing.JLabel();
         panelForm = new javax.swing.JPanel();
-        lblNama = new javax.swing.JLabel();
-        txtNama = new javax.swing.JTextField();
-        lblAlamat = new javax.swing.JLabel();
-        txtAlamat = new javax.swing.JTextField();
-        lblTempatTglLahir = new javax.swing.JLabel();
-        txtTempatTglLahir = new javax.swing.JTextField();
-        lblUmur = new javax.swing.JLabel();
-        spnUmur = new javax.swing.JSpinner();
-        lblJenisKelamin = new javax.swing.JLabel();
-        rbPria = new javax.swing.JRadioButton();
-        rbWanita = new javax.swing.JRadioButton();
+        lblUsername = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        lblKonfirmasi = new javax.swing.JLabel();
+        txtKonfirmasi = new javax.swing.JPasswordField();
         btnBatal = new javax.swing.JButton();
         btnDaftar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pendaftaran Pasien");
+        setTitle("Buat Akun");
         setResizable(false);
 
         panelUtama.setBackground(new java.awt.Color(245, 249, 255));
+
         panelHeader.setBackground(new java.awt.Color(25, 118, 210));
+
         lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblJudul.setForeground(new java.awt.Color(255, 255, 255));
-        lblJudul.setText("Formulir Pendaftaran");
+        lblJudul.setText("Buat Akun");
+
         lblSubJudul.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSubJudul.setForeground(new java.awt.Color(227, 242, 253));
-        lblSubJudul.setText("Silakan isi data diri Anda dengan lengkap");
+        lblSubJudul.setText("Daftar akun untuk masuk ke sistem");
+
         javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
         panelHeader.setLayout(panelHeaderLayout);
         panelHeaderLayout.setHorizontalGroup(
@@ -81,37 +93,28 @@ public class FormPendaftaran extends javax.swing.JFrame {
                 .addComponent(lblSubJudul)
                 .addGap(24, 24, 24))
         );
+
         panelForm.setBackground(new java.awt.Color(255, 255, 255));
         panelForm.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblNama.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblNama.setForeground(new java.awt.Color(23, 61, 104));
-        lblNama.setText("Nama");
-        txtNama.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lblAlamat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblAlamat.setForeground(new java.awt.Color(23, 61, 104));
-        lblAlamat.setText("Alamat");
-        txtAlamat.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lblTempatTglLahir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblTempatTglLahir.setForeground(new java.awt.Color(23, 61, 104));
-        lblTempatTglLahir.setText("Tempat, tanggal lahir");
-        txtTempatTglLahir.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lblUmur.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblUmur.setForeground(new java.awt.Color(23, 61, 104));
-        lblUmur.setText("Umur");
-        spnUmur.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lblJenisKelamin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblJenisKelamin.setForeground(new java.awt.Color(23, 61, 104));
-        lblJenisKelamin.setText("Jenis kelamin");
-        rbPria.setBackground(new java.awt.Color(255, 255, 255));
-        rbPria.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        rbPria.setForeground(new java.awt.Color(23, 61, 104));
-        rbPria.setText("Pria");
-        rbPria.addActionListener(this::rbPriaActionPerformed);
-        rbWanita.setBackground(new java.awt.Color(255, 255, 255));
-        rbWanita.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        rbWanita.setForeground(new java.awt.Color(23, 61, 104));
-        rbWanita.setText("Wanita");
-        rbWanita.addActionListener(this::rbWanitaActionPerformed);
+
+        lblUsername.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(23, 61, 104));
+        lblUsername.setText("Username");
+
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        lblPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(23, 61, 104));
+        lblPassword.setText("Password");
+
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        lblKonfirmasi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblKonfirmasi.setForeground(new java.awt.Color(23, 61, 104));
+        lblKonfirmasi.setText("Konfirmasi password");
+
+        txtKonfirmasi.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
         javax.swing.GroupLayout panelFormLayout = new javax.swing.GroupLayout(panelForm);
         panelForm.setLayout(panelFormLayout);
         panelFormLayout.setHorizontalGroup(
@@ -119,21 +122,14 @@ public class FormPendaftaran extends javax.swing.JFrame {
             .addGroup(panelFormLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNama)
-                    .addComponent(lblAlamat)
-                    .addComponent(lblTempatTglLahir)
-                    .addComponent(lblUmur)
-                    .addComponent(lblJenisKelamin))
+                    .addComponent(lblUsername)
+                    .addComponent(lblPassword)
+                    .addComponent(lblKonfirmasi))
                 .addGap(20, 20, 20)
                 .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNama, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                    .addComponent(txtAlamat, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                    .addComponent(txtTempatTglLahir, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                    .addComponent(spnUmur, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelFormLayout.createSequentialGroup()
-                        .addComponent(rbPria)
-                        .addGap(24, 24, 24)
-                        .addComponent(rbWanita)))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(txtKonfirmasi, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
         panelFormLayout.setVerticalGroup(
@@ -141,37 +137,31 @@ public class FormPendaftaran extends javax.swing.JFrame {
             .addGroup(panelFormLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNama)
-                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUsername)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAlamat)
-                    .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPassword)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTempatTglLahir)
-                    .addComponent(txtTempatTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUmur)
-                    .addComponent(spnUmur, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJenisKelamin)
-                    .addComponent(rbPria)
-                    .addComponent(rbWanita))
+                    .addComponent(lblKonfirmasi)
+                    .addComponent(txtKonfirmasi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
+
         btnBatal.setBackground(new java.awt.Color(25, 118, 210));
         btnBatal.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnBatal.setForeground(new java.awt.Color(255, 255, 255));
         btnBatal.setText("Batal");
         btnBatal.addActionListener(this::btnBatalActionPerformed);
+
         btnDaftar.setBackground(new java.awt.Color(25, 118, 210));
         btnDaftar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnDaftar.setForeground(new java.awt.Color(255, 255, 255));
         btnDaftar.setText("Daftar");
         btnDaftar.addActionListener(this::btnDaftarActionPerformed);
+
         javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
         panelUtama.setLayout(panelUtamaLayout);
         panelUtamaLayout.setHorizontalGroup(
@@ -193,7 +183,7 @@ public class FormPendaftaran extends javax.swing.JFrame {
             .addGroup(panelUtamaLayout.createSequentialGroup()
                 .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,57 +206,76 @@ public class FormPendaftaran extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rbPriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPriaActionPerformed
-        // Pria dan Wanita nggak boleh kepilih dua-duanya
-        rbPria.setSelected(true);
-        rbWanita.setSelected(false);
-    }//GEN-LAST:event_rbPriaActionPerformed
-
-    private void rbWanitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbWanitaActionPerformed
-        rbWanita.setSelected(true);
-        rbPria.setSelected(false);
-    }//GEN-LAST:event_rbWanitaActionPerformed
-
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
-        // Tutup formulir saja, menu sebelumnya tetap terbuka
+        // Tutup formulir saja, layar login tetap terbuka
         dispose();
     }//GEN-LAST:event_btnBatalActionPerformed
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
         // Ambil isi formulir
-        String nama = txtNama.getText().trim();
-        String alamat = txtAlamat.getText().trim();
-        String ttl = txtTempatTglLahir.getText().trim();
-        int umur = (Integer) spnUmur.getValue();
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword());
+        String konfirmasi = new String(txtKonfirmasi.getPassword());
 
-        // Cek dulu, jangan sampai ada yang kosong
-        if (nama.isEmpty() || alamat.isEmpty() || ttl.isEmpty()) {
+        // Cek dulu isian dan aturannya
+        if (username.isEmpty() || password.isEmpty() || konfirmasi.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Nama, alamat, dan tempat tanggal lahir harus diisi ya.",
+                    "Username, password, dan konfirmasi password harus diisi ya.",
                     "Peringatan",
                     javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (umur <= 0) {
+        if (username.length() < 3 || username.matches(".*\\s.*")) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Umur harus lebih dari 0.",
+                    "Username minimal 3 karakter dan tidak boleh ada spasi.",
                     "Peringatan",
                     javax.swing.JOptionPane.WARNING_MESSAGE);
+            txtUsername.requestFocus();
             return;
         }
-        if (!rbPria.isSelected() && !rbWanita.isSelected()) {
+        if (password.length() < 6) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Pilih jenis kelamin dulu ya.",
+                    "Password minimal 6 karakter.",
                     "Peringatan",
                     javax.swing.JOptionPane.WARNING_MESSAGE);
+            txtPassword.requestFocus();
+            return;
+        }
+        if (!password.equals(konfirmasi)) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Konfirmasi password tidak sama dengan password.",
+                    "Peringatan",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            txtKonfirmasi.setText("");
+            txtKonfirmasi.requestFocus();
             return;
         }
 
-        // TODO: nanti simpan data pendaftaran ke database di sini
+        // Simpan akun (password otomatis di-hash oleh PenyimpananFile)
+        try {
+            boolean berhasil = PenyimpananFile.tambahPengguna(username, password, peran);
+            if (!berhasil) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Username itu sudah dipakai. Coba username lain ya.",
+                        "Peringatan",
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+                txtUsername.requestFocus();
+                return;
+            }
+        } catch (java.io.IOException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Akun gagal disimpan. Coba lagi nanti.",
+                    "Kesalahan",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         javax.swing.JOptionPane.showMessageDialog(this,
-                "Data sudah lengkap. Penyimpanan ke database belum dibuat.",
+                "Akun berhasil dibuat. Silakan login.",
                 "Info",
                 javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        dispose();
     }//GEN-LAST:event_btnDaftarActionPerformed
 
     /**
@@ -291,27 +300,22 @@ public class FormPendaftaran extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormPendaftaran().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FormDaftarAkun().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnDaftar;
-    private javax.swing.JLabel lblAlamat;
-    private javax.swing.JLabel lblJenisKelamin;
     private javax.swing.JLabel lblJudul;
-    private javax.swing.JLabel lblNama;
+    private javax.swing.JLabel lblKonfirmasi;
+    private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblSubJudul;
-    private javax.swing.JLabel lblTempatTglLahir;
-    private javax.swing.JLabel lblUmur;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel panelForm;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel panelUtama;
-    private javax.swing.JRadioButton rbPria;
-    private javax.swing.JRadioButton rbWanita;
-    private javax.swing.JSpinner spnUmur;
-    private javax.swing.JTextField txtAlamat;
-    private javax.swing.JTextField txtNama;
-    private javax.swing.JTextField txtTempatTglLahir;
+    private javax.swing.JPasswordField txtKonfirmasi;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package sistem.pendaftaran.dan.pelayanan.pasien;
+package sistempendaftarandanpelayananpasien;
 
 /**
  *
@@ -63,7 +63,6 @@ public class FormLogin extends javax.swing.JFrame {
         lblJudul.setForeground(new java.awt.Color(255, 255, 255));
         lblJudul.setText("Rumah Sakit");
 
-        lblSubJudul.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblSubJudul.setForeground(new java.awt.Color(227, 242, 253));
         lblSubJudul.setText("Sistem Pendaftaran dan Pelayanan Pasien");
 

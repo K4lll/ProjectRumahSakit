@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistem.pendaftaran.dan.pelayanan.pasien;
+package sistempendaftarandanpelayananpasien;
 
 /**
  *
@@ -45,13 +45,17 @@ public class FormJadwal extends javax.swing.JFrame {
         setResizable(false);
 
         panelUtama.setBackground(new java.awt.Color(245, 249, 255));
+
         panelHeader.setBackground(new java.awt.Color(25, 118, 210));
+
         lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblJudul.setForeground(new java.awt.Color(255, 255, 255));
         lblJudul.setText("Konfirmasi Jadwal");
+
         lblSubJudul.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSubJudul.setForeground(new java.awt.Color(227, 242, 253));
         lblSubJudul.setText("Pilih pasien pada tabel, lalu tekan Konfirmasi");
+
         javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
         panelHeader.setLayout(panelHeaderLayout);
         panelHeaderLayout.setHorizontalGroup(
@@ -72,11 +76,12 @@ public class FormJadwal extends javax.swing.JFrame {
                 .addComponent(lblSubJudul)
                 .addGap(24, 24, 24))
         );
+
         panelTabel.setBackground(new java.awt.Color(255, 255, 255));
         panelTabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         tblJadwal.setBackground(new java.awt.Color(255, 255, 255));
         tblJadwal.setFillsViewportHeight(true);
-        tblJadwal.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         tblJadwal.setForeground(new java.awt.Color(23, 61, 104));
         tblJadwal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,32 +97,36 @@ public class FormJadwal extends javax.swing.JFrame {
         tblJadwal.setRowHeight(28);
         tblJadwal.setSelectionBackground(new java.awt.Color(25, 118, 210));
         scrollJadwal.setViewportView(tblJadwal);
+
         javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
         panelTabel.setLayout(panelTabelLayout);
         panelTabelLayout.setHorizontalGroup(
             panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTabelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(scrollJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrollJadwal)
                 .addGap(16, 16, 16))
         );
         panelTabelLayout.setVerticalGroup(
             panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTabelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(scrollJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrollJadwal)
                 .addGap(16, 16, 16))
         );
+
         btnKembali.setBackground(new java.awt.Color(25, 118, 210));
         btnKembali.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnKembali.setForeground(new java.awt.Color(255, 255, 255));
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(this::btnKembaliActionPerformed);
+
         btnKonfirmasi.setBackground(new java.awt.Color(25, 118, 210));
         btnKonfirmasi.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnKonfirmasi.setForeground(new java.awt.Color(255, 255, 255));
         btnKonfirmasi.setText("Konfirmasi");
         btnKonfirmasi.addActionListener(this::btnKonfirmasiActionPerformed);
+
         javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
         panelUtama.setLayout(panelUtamaLayout);
         panelUtamaLayout.setHorizontalGroup(

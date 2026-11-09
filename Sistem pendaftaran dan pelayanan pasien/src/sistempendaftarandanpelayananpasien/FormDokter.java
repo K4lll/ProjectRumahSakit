@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sistem.pendaftaran.dan.pelayanan.pasien;
+package sistempendaftarandanpelayananpasien;
 
 /**
  *
@@ -51,13 +51,17 @@ public class FormDokter extends javax.swing.JFrame {
         setResizable(false);
 
         panelUtama.setBackground(new java.awt.Color(245, 249, 255));
+
         panelHeader.setBackground(new java.awt.Color(25, 118, 210));
+
         lblHalo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblHalo.setForeground(new java.awt.Color(255, 255, 255));
         lblHalo.setText("Halo, Dokter!");
+
         lblNamaDokter.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNamaDokter.setForeground(new java.awt.Color(227, 242, 253));
         lblNamaDokter.setText("Nama Dokter");
+
         javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
         panelHeader.setLayout(panelHeaderLayout);
         panelHeaderLayout.setHorizontalGroup(
@@ -78,39 +82,46 @@ public class FormDokter extends javax.swing.JFrame {
                 .addComponent(lblNamaDokter)
                 .addGap(24, 24, 24))
         );
+
         lblMenuDokter.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblMenuDokter.setForeground(new java.awt.Color(23, 61, 104));
         lblMenuDokter.setText("Menu Dokter");
+
         btnJadwal.setBackground(new java.awt.Color(25, 118, 210));
         btnJadwal.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnJadwal.setForeground(new java.awt.Color(255, 255, 255));
         btnJadwal.setText("Jadwal");
         btnJadwal.addActionListener(this::btnJadwalActionPerformed);
+
         btnDaftarPasien.setBackground(new java.awt.Color(25, 118, 210));
         btnDaftarPasien.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnDaftarPasien.setForeground(new java.awt.Color(255, 255, 255));
         btnDaftarPasien.setText("Daftar Pasien");
         btnDaftarPasien.addActionListener(this::btnDaftarPasienActionPerformed);
+
         btnIsiJadwal.setBackground(new java.awt.Color(25, 118, 210));
         btnIsiJadwal.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnIsiJadwal.setForeground(new java.awt.Color(255, 255, 255));
         btnIsiJadwal.setText("Isi Jadwal");
         btnIsiJadwal.addActionListener(this::btnIsiJadwalActionPerformed);
+
         btnDataDiri.setBackground(new java.awt.Color(25, 118, 210));
         btnDataDiri.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnDataDiri.setForeground(new java.awt.Color(255, 255, 255));
         btnDataDiri.setText("Data Diri");
         btnDataDiri.addActionListener(this::btnDataDiriActionPerformed);
+
         panelPasienHariIni.setBackground(new java.awt.Color(255, 255, 255));
         panelPasienHariIni.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         lblPasienHariIni.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblPasienHariIni.setForeground(new java.awt.Color(23, 61, 104));
         lblPasienHariIni.setText("Pasien Hari Ini");
-        lblDeskPasienHariIni.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
         lblDeskPasienHariIni.setForeground(new java.awt.Color(23, 61, 104));
         lblDeskPasienHariIni.setText("Daftar pasien yang sudah terjadwal");
+
         tblPasien.setBackground(new java.awt.Color(255, 255, 255));
-        tblPasien.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         tblPasien.setForeground(new java.awt.Color(23, 61, 104));
         tblPasien.setFillsViewportHeight(true);
         tblPasien.setModel(new javax.swing.table.DefaultTableModel(
@@ -127,6 +138,7 @@ public class FormDokter extends javax.swing.JFrame {
         tblPasien.setRowHeight(28);
         tblPasien.setSelectionBackground(new java.awt.Color(25, 118, 210));
         scrollPasien.setViewportView(tblPasien);
+
         javax.swing.GroupLayout panelPasienHariIniLayout = new javax.swing.GroupLayout(panelPasienHariIni);
         panelPasienHariIni.setLayout(panelPasienHariIniLayout);
         panelPasienHariIniLayout.setHorizontalGroup(
@@ -136,7 +148,7 @@ public class FormDokter extends javax.swing.JFrame {
                 .addGroup(panelPasienHariIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPasienHariIni)
                     .addComponent(lblDeskPasienHariIni)
-                    .addComponent(scrollPasien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(scrollPasien))
                 .addGap(20, 20, 20))
         );
         panelPasienHariIniLayout.setVerticalGroup(
@@ -150,11 +162,13 @@ public class FormDokter extends javax.swing.JFrame {
                 .addComponent(scrollPasien, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
+
         btnLogout.setBackground(new java.awt.Color(25, 118, 210));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Log out");
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
+
         javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
         panelUtama.setLayout(panelUtamaLayout);
         panelUtamaLayout.setHorizontalGroup(
