@@ -17,6 +17,12 @@ public class FormLoginPasien extends javax.swing.JFrame {
      */
     public FormLoginPasien() {
         initComponents();
+        setLocationRelativeTo(null);
+        getRootPane().setDefaultButton(btnLogin);
+        java.awt.Cursor tangan = new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR);
+        btnLogin.setCursor(tangan);
+        btnRegistrasi.setCursor(tangan);
+        chkTampilkan.setCursor(tangan);
     }
 
     /**
@@ -28,47 +34,204 @@ public class FormLoginPasien extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlLatar = new javax.swing.JPanel();
+        pnlKartu = new javax.swing.JPanel();
+        lblBrand = new javax.swing.JLabel();
+        lblJudul = new javax.swing.JLabel();
+        lblSubjudul = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        chkTampilkan = new javax.swing.JCheckBox();
+        btnLogin = new javax.swing.JButton();
+        lblBelumPunyaAkun = new javax.swing.JLabel();
+        btnRegistrasi = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login Pasien - Sistem Rumah Sakit");
+
+        pnlLatar.setBackground(new java.awt.Color(245, 238, 221));
+
+        pnlKartu.setBackground(new java.awt.Color(255, 255, 255));
+        pnlKartu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206), 2, true));
+
+        lblBrand.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblBrand.setForeground(new java.awt.Color(132, 179, 206));
+        lblBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrand.setText("SISTEM RUMAH SAKIT");
+
+        lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        lblJudul.setForeground(new java.awt.Color(22, 88, 123));
+        lblJudul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJudul.setText("Login Pasien");
+
+        lblSubjudul.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblSubjudul.setForeground(new java.awt.Color(102, 102, 102));
+        lblSubjudul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubjudul.setText("Masuk untuk mendaftar dan mendapat pelayanan");
+
+        lblUsername.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(22, 88, 123));
+        lblUsername.setText("Username");
+
+        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsername.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206), 1, true), javax.swing.BorderFactory.createEmptyBorder(6, 10, 6, 10)));
+
+        lblPassword.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(22, 88, 123));
+        lblPassword.setText("Password");
+
+        txtPassword.setBackground(new java.awt.Color(255, 255, 255));
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassword.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206), 1, true), javax.swing.BorderFactory.createEmptyBorder(6, 10, 6, 10)));
+
+        chkTampilkan.setBackground(new java.awt.Color(255, 255, 255));
+        chkTampilkan.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        chkTampilkan.setForeground(new java.awt.Color(22, 88, 123));
+        chkTampilkan.setText("Tampilkan password");
+        chkTampilkan.setFocusPainted(false);
+        chkTampilkan.addActionListener(this::chkTampilkanActionPerformed);
+
+        btnLogin.setBackground(new java.awt.Color(22, 88, 123));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(245, 238, 221));
+        btnLogin.setText("Masuk");
+        btnLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(22, 88, 123), 1, true));
+        btnLogin.setFocusPainted(false);
+        btnLogin.addActionListener(this::btnLoginActionPerformed);
+
+        lblBelumPunyaAkun.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblBelumPunyaAkun.setForeground(new java.awt.Color(102, 102, 102));
+        lblBelumPunyaAkun.setText("Belum punya akun?");
+
+        btnRegistrasi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegistrasi.setForeground(new java.awt.Color(22, 88, 123));
+        btnRegistrasi.setText("Daftar di sini");
+        btnRegistrasi.setBorderPainted(false);
+        btnRegistrasi.setContentAreaFilled(false);
+        btnRegistrasi.setFocusPainted(false);
+        btnRegistrasi.addActionListener(this::btnRegistrasiActionPerformed);
+
+        javax.swing.GroupLayout pnlKartuLayout = new javax.swing.GroupLayout(pnlKartu);
+        pnlKartu.setLayout(pnlKartuLayout);
+        pnlKartuLayout.setHorizontalGroup(
+            pnlKartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlKartuLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(pnlKartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSubjudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtUsername)
+                    .addComponent(lblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPassword)
+                    .addComponent(chkTampilkan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlKartuLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblBelumPunyaAkun)
+                        .addGap(4, 4, 4)
+                        .addComponent(btnRegistrasi)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(32, 32, 32))
+        );
+        pnlKartuLayout.setVerticalGroup(
+            pnlKartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlKartuLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(lblBrand)
+                .addGap(4, 4, 4)
+                .addComponent(lblJudul)
+                .addGap(6, 6, 6)
+                .addComponent(lblSubjudul)
+                .addGap(28, 28, 28)
+                .addComponent(lblUsername)
+                .addGap(6, 6, 6)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(lblPassword)
+                .addGap(6, 6, 6)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(chkTampilkan)
+                .addGap(24, 24, 24)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(pnlKartuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBelumPunyaAkun)
+                    .addComponent(btnRegistrasi))
+                .addGap(0, 36, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlLatarLayout = new javax.swing.GroupLayout(pnlLatar);
+        pnlLatar.setLayout(pnlLatarLayout);
+        pnlLatarLayout.setHorizontalGroup(
+            pnlLatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLatarLayout.createSequentialGroup()
+                .addGap(0, 260, Short.MAX_VALUE)
+                .addComponent(pnlKartu, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 260, Short.MAX_VALUE))
+        );
+        pnlLatarLayout.setVerticalGroup(
+            pnlLatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLatarLayout.createSequentialGroup()
+                .addGap(0, 60, Short.MAX_VALUE)
+                .addComponent(pnlKartu, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 60, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(pnlLatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(pnlLatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chkTampilkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTampilkanActionPerformed
+        txtPassword.setEchoChar(chkTampilkan.isSelected() ? (char) 0 : '\u2022');
+    }//GEN-LAST:event_chkTampilkanActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnRegistrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrasiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrasiActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        /* Look and Feel: memakai Metal bawaan Java Swing (tidak perlu diubah). */
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FormLoginPasien().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnRegistrasi;
+    private javax.swing.JCheckBox chkTampilkan;
+    private javax.swing.JLabel lblBelumPunyaAkun;
+    private javax.swing.JLabel lblBrand;
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblSubjudul;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JPanel pnlKartu;
+    private javax.swing.JPanel pnlLatar;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
