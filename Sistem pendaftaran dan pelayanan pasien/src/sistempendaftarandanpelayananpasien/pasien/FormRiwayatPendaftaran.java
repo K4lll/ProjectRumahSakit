@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package sistempendaftarandanpelayananpasien.pasien;
 
@@ -8,15 +8,25 @@ package sistempendaftarandanpelayananpasien.pasien;
  *
  * @author LENOVO
  */
-public class FormRiwayatPendaftaran extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormRiwayatPendaftaran.class.getName());
+
+public class FormRiwayatPendaftaran extends javax.swing.JPanel {
+
+    // DATA CONTOH untuk tampilan. Ganti dengan data dari penyimpanan file pada tahap berikutnya.
+    private static final String[][] DATA_CONTOH = {
+        {"PD-001", "10-11-2026", "Umum", "dr. Andi Pratama", "Menunggu"},
+        {"PD-002", "08-11-2026", "Gigi", "drg. Budi Santoso", "Selesai"},
+        {"PD-003", "05-11-2026", "Anak", "dr. Sari Wulandari", "Selesai"},
+        {"PD-004", "01-11-2026", "Penyakit Dalam", "dr. Andi Pratama", "Dibatalkan"}
+    };
 
     /**
      * Creates new form FormRiwayatPendaftaran
      */
     public FormRiwayatPendaftaran() {
         initComponents();
+        Tema.gayaTabel(tblRiwayat);
+        isiDataContoh();
+        perbaruiStatistik();
     }
 
     /**
@@ -28,47 +38,323 @@ public class FormRiwayatPendaftaran extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblJudulRiwayat = new javax.swing.JLabel();
+        lblSubRiwayat = new javax.swing.JLabel();
+        cardTotal = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblTotalAngka = new javax.swing.JLabel();
+        lblTotalNama = new javax.swing.JLabel();
+        cardMenunggu = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblMenungguAngka = new javax.swing.JLabel();
+        lblMenungguNama = new javax.swing.JLabel();
+        cardSelesai = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblSelesaiAngka = new javax.swing.JLabel();
+        lblSelesaiNama = new javax.swing.JLabel();
+        cardTabelRiwayat = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblTabelRiwayatJudul = new javax.swing.JLabel();
+        scrollRiwayat = new javax.swing.JScrollPane();
+        tblRiwayat = new javax.swing.JTable();
+        btnBatalkan = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnLihatHasil = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        setBackground(new java.awt.Color(245, 238, 221));
+
+        lblJudulRiwayat.setText("Riwayat Pendaftaran");
+        lblJudulRiwayat.setFont(new java.awt.Font("Segoe UI", 1, 26));
+        lblJudulRiwayat.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblSubRiwayat.setText("Pantau status seluruh pendaftaran kunjungan Anda.");
+        lblSubRiwayat.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblSubRiwayat.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblTotalAngka.setText("0");
+        lblTotalAngka.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        lblTotalAngka.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblTotalNama.setText("Total Pendaftaran");
+        lblTotalNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblTotalNama.setForeground(new java.awt.Color(255, 255, 255));
+
+        cardTotal.setBackground(new java.awt.Color(22, 88, 123));
+        javax.swing.GroupLayout cardTotalLayout = new javax.swing.GroupLayout(cardTotal);
+        cardTotal.setLayout(cardTotalLayout);
+        cardTotalLayout.setHorizontalGroup(
+            cardTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardTotalLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addGroup(cardTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTotalAngka)
+                        .addComponent(lblTotalNama)
+                    )
+                    .addGap(20, 20, 20)
+                )
+            )
+        );
+        cardTotalLayout.setVerticalGroup(
+            cardTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTotalLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblTotalAngka)
+                .addGap(2, 2, 2)
+                .addComponent(lblTotalNama)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblMenungguAngka.setText("0");
+        lblMenungguAngka.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        lblMenungguAngka.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblMenungguNama.setText("Menunggu");
+        lblMenungguNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblMenungguNama.setForeground(new java.awt.Color(22, 88, 123));
+
+        cardMenunggu.setBackground(new java.awt.Color(132, 179, 206));
+        javax.swing.GroupLayout cardMenungguLayout = new javax.swing.GroupLayout(cardMenunggu);
+        cardMenunggu.setLayout(cardMenungguLayout);
+        cardMenungguLayout.setHorizontalGroup(
+            cardMenungguLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardMenungguLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardMenungguLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addGroup(cardMenungguLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblMenungguAngka)
+                        .addComponent(lblMenungguNama)
+                    )
+                    .addGap(20, 20, 20)
+                )
+            )
+        );
+        cardMenungguLayout.setVerticalGroup(
+            cardMenungguLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardMenungguLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblMenungguAngka)
+                .addGap(2, 2, 2)
+                .addComponent(lblMenungguNama)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblSelesaiAngka.setText("0");
+        lblSelesaiAngka.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        lblSelesaiAngka.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblSelesaiNama.setText("Selesai");
+        lblSelesaiNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblSelesaiNama.setForeground(new java.awt.Color(22, 88, 123));
+
+        cardSelesai.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardSelesaiLayout = new javax.swing.GroupLayout(cardSelesai);
+        cardSelesai.setLayout(cardSelesaiLayout);
+        cardSelesaiLayout.setHorizontalGroup(
+            cardSelesaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardSelesaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardSelesaiLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addGroup(cardSelesaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblSelesaiAngka)
+                        .addComponent(lblSelesaiNama)
+                    )
+                    .addGap(20, 20, 20)
+                )
+            )
+        );
+        cardSelesaiLayout.setVerticalGroup(
+            cardSelesaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardSelesaiLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblSelesaiAngka)
+                .addGap(2, 2, 2)
+                .addComponent(lblSelesaiNama)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblTabelRiwayatJudul.setText("Daftar Pendaftaran");
+        lblTabelRiwayatJudul.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        lblTabelRiwayatJudul.setForeground(new java.awt.Color(22, 88, 123));
+
+        tblRiwayat.setModel(new javax.swing.table.DefaultTableModel(
+    new Object [][] {
+
+    },
+    new String [] {
+        "No. Daftar", "Tanggal", "Poli", "Dokter", "Status"
+    }
+) {
+    boolean[] canEdit = new boolean [] {
+        false, false, false, false, false
+    };
+
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return canEdit [columnIndex];
+    }
+});
+
+        scrollRiwayat.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollRiwayat.setViewportView(tblRiwayat);
+
+        btnBatalkan.setText("Batalkan");
+        btnBatalkan.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnBatalkan.setBackground(new java.awt.Color(132, 179, 206));
+        btnBatalkan.setForeground(new java.awt.Color(22, 88, 123));
+        btnBatalkan.addActionListener(this::btnBatalkanActionPerformed);
+
+        btnLihatHasil.setText("Lihat Hasil");
+        btnLihatHasil.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnLihatHasil.setBackground(new java.awt.Color(22, 88, 123));
+        btnLihatHasil.setForeground(new java.awt.Color(255, 255, 255));
+        btnLihatHasil.addActionListener(this::btnLihatHasilActionPerformed);
+
+        cardTabelRiwayat.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardTabelRiwayatLayout = new javax.swing.GroupLayout(cardTabelRiwayat);
+        cardTabelRiwayat.setLayout(cardTabelRiwayatLayout);
+        cardTabelRiwayatLayout.setHorizontalGroup(
+            cardTabelRiwayatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTabelRiwayatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardTabelRiwayatLayout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addGroup(cardTabelRiwayatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTabelRiwayatJudul)
+                        .addComponent(scrollRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(cardTabelRiwayatLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(btnBatalkan, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(btnLihatHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        )
+                    )
+                    .addGap(24, 24, 24)
+                )
+            )
+        );
+        cardTabelRiwayatLayout.setVerticalGroup(
+            cardTabelRiwayatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTabelRiwayatLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTabelRiwayatJudul)
+                .addGap(12, 12, 12)
+                .addComponent(scrollRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(cardTabelRiwayatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBatalkan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLihatHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(32, 32, 32)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJudulRiwayat)
+                        .addComponent(lblSubRiwayat)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cardTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(20, 20, 20)
+                            .addComponent(cardMenunggu, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(20, 20, 20)
+                            .addComponent(cardSelesai, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        )
+                        .addComponent(cardTabelRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(32, 32, 32)
+                )
+            )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblJudulRiwayat)
+                .addGap(4, 4, 4)
+                .addComponent(lblSubRiwayat)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cardTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cardMenunggu, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cardSelesai, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(20, 20, 20)
+                .addComponent(cardTabelRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnBatalkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalkanActionPerformed
+        int baris = tblRiwayat.getSelectedRow();
+        if (baris < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih satu baris pendaftaran terlebih dahulu.", "Batalkan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        //</editor-fold>
+        String noDaftar = String.valueOf(tblRiwayat.getValueAt(baris, 0));
+        if (!"Menunggu".equals(String.valueOf(tblRiwayat.getValueAt(baris, 4)))) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Hanya pendaftaran berstatus Menunggu yang dapat dibatalkan.", "Batalkan", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Batalkan pendaftaran " + noDaftar + "?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
+            tblRiwayat.setValueAt("Dibatalkan", baris, 4);
+            perbaruiStatistik();
+        }
+    }//GEN-LAST:event_btnBatalkanActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormRiwayatPendaftaran().setVisible(true));
+    private void btnLihatHasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLihatHasilActionPerformed
+        java.awt.Container induk = getParent();
+        if (induk != null && induk.getLayout() instanceof java.awt.CardLayout) {
+            ((java.awt.CardLayout) induk.getLayout()).show(induk, FormPendaftaran.HALAMAN_HASIL);
+        }
+    }//GEN-LAST:event_btnLihatHasilActionPerformed
+
+    private void isiDataContoh() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblRiwayat.getModel();
+        model.setRowCount(0);
+        for (String[] baris : DATA_CONTOH) {
+            model.addRow(baris);
+        }
+    }
+
+    private void perbaruiStatistik() {
+        int total = tblRiwayat.getRowCount();
+        int menunggu = 0;
+        int selesai = 0;
+        for (int i = 0; i < total; i++) {
+            String status = String.valueOf(tblRiwayat.getValueAt(i, 4));
+            if ("Menunggu".equals(status)) {
+                menunggu++;
+            } else if ("Selesai".equals(status)) {
+                selesai++;
+            }
+        }
+        lblTotalAngka.setText(String.valueOf(total));
+        lblMenungguAngka.setText(String.valueOf(menunggu));
+        lblSelesaiAngka.setText(String.valueOf(selesai));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnBatalkan;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnLihatHasil;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardMenunggu;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardSelesai;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardTabelRiwayat;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardTotal;
+    private javax.swing.JLabel lblJudulRiwayat;
+    private javax.swing.JLabel lblMenungguAngka;
+    private javax.swing.JLabel lblMenungguNama;
+    private javax.swing.JLabel lblSelesaiAngka;
+    private javax.swing.JLabel lblSelesaiNama;
+    private javax.swing.JLabel lblSubRiwayat;
+    private javax.swing.JLabel lblTabelRiwayatJudul;
+    private javax.swing.JLabel lblTotalAngka;
+    private javax.swing.JLabel lblTotalNama;
+    private javax.swing.JScrollPane scrollRiwayat;
+    private javax.swing.JTable tblRiwayat;
     // End of variables declaration//GEN-END:variables
 }
