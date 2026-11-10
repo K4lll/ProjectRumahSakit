@@ -25,20 +25,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-            <Component id="panelSidebar" min="-2" pref="240" max="-2" attributes="0"/>
-            <Component id="panelKonten" pref="800" max="32767" attributes="0"/>
+              <Component id="panelSidebar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="panelKonten" max="32767" attributes="0"/>
           </Group>
-        </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelSidebar" pref="680" max="32767" attributes="0"/>
+          <Component id="panelSidebar" max="32767" attributes="0"/>
           <Component id="panelKonten" pref="680" max="32767" attributes="0"/>
-        </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -49,86 +46,79 @@
           <Color blue="7b" green="58" red="16" type="rgb"/>
         </Property>
       </Properties>
+
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-            <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblBrand" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblBrandSub" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnMenuPendaftaran" min="-2" pref="208" max="-2" attributes="0"/>
-                  <Component id="btnMenuRiwayat" min="-2" pref="208" max="-2" attributes="0"/>
-                  <Component id="btnMenuHasil" min="-2" pref="208" max="-2" attributes="0"/>
-                  <Component id="btnKembali" min="-2" pref="208" max="-2" attributes="0"/>
-                </Group>
-                <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblBrand" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblBrandSub" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMenuPendaftaran" min="-2" pref="208" max="-2" attributes="0"/>
+                      <Component id="btnMenuRiwayat" min="-2" pref="208" max="-2" attributes="0"/>
+                      <Component id="btnMenuHasil" min="-2" pref="208" max="-2" attributes="0"/>
+                      <Component id="btnKembali" min="-2" pref="208" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
-            </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-            <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Component id="lblBrand" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-              <Component id="lblBrandSub" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Component id="btnMenuPendaftaran" min="-2" pref="44" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-              <Component id="btnMenuRiwayat" min="-2" pref="44" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-              <Component id="btnMenuHasil" min="-2" pref="44" max="-2" attributes="0"/>
-              <EmptySpace min="16" pref="16" max="32767" attributes="0"/>
-              <Component id="btnKembali" min="-2" pref="44" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-            </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="lblBrand" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                  <Component id="lblBrandSub" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="btnMenuPendaftaran" min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <Component id="btnMenuRiwayat" min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <Component id="btnMenuHasil" min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="16" pref="16" max="32767" attributes="0"/>
+                  <Component id="btnKembali" min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblBrand">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Portal Pasien"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="22" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Portal Pasien"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBrandSub">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Rumah Sakit"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ce" green="b3" red="84" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Rumah Sakit"/>
           </Properties>
         </Component>
         <Component class="sistempendaftarandanpelayananpasien.pasien.TombolBulat" name="btnMenuPendaftaran">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pendaftaran"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="1"/>
-            </Property>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="7b" green="58" red="16" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                 <EmptyBorder bottom="0" left="18" right="0" top="0"/>
               </Border>
             </Property>
+            <Property name="text" type="java.lang.String" value="Pendaftaran"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuPendaftaranActionPerformed"/>
@@ -136,22 +126,16 @@
         </Component>
         <Component class="sistempendaftarandanpelayananpasien.pasien.TombolBulat" name="btnMenuRiwayat">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Riwayat Pendaftaran"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="1"/>
-            </Property>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="7b" green="58" red="16" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                 <EmptyBorder bottom="0" left="18" right="0" top="0"/>
               </Border>
             </Property>
+            <Property name="text" type="java.lang.String" value="Riwayat Pendaftaran"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuRiwayatActionPerformed"/>
@@ -159,22 +143,16 @@
         </Component>
         <Component class="sistempendaftarandanpelayananpasien.pasien.TombolBulat" name="btnMenuHasil">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hasil Pemeriksaan"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="1"/>
-            </Property>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="7b" green="58" red="16" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                 <EmptyBorder bottom="0" left="18" right="0" top="0"/>
               </Border>
             </Property>
+            <Property name="text" type="java.lang.String" value="Hasil Pemeriksaan"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuHasilActionPerformed"/>
@@ -182,15 +160,15 @@
         </Component>
         <Component class="sistempendaftarandanpelayananpasien.pasien.TombolBulat" name="btnKembali">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Kembali"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="1"/>
-            </Property>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="dd" green="ee" red="f5" type="rgb"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="7b" green="58" red="16" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Kembali"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
             </Property>
           </Properties>
           <Events>
@@ -205,187 +183,176 @@
           <Color blue="dd" green="ee" red="f5" type="rgb"/>
         </Property>
       </Properties>
+
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelPendaftaran">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraints">
-              <CardConstraints cardName="pendaftaran"/>
-            </Constraint>
-          </Constraints>
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="dd" green="ee" red="f5" type="rgb"/>
             </Property>
           </Properties>
+
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                    <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                    <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblJudulDaftar" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSubDaftar" min="-2" max="-2" attributes="0"/>
-                      <Component id="cardFormDaftar" min="-2" pref="736" max="-2" attributes="0"/>
-                    </Group>
-                    <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblJudulDaftar" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblSubDaftar" min="-2" max="-2" attributes="0"/>
+                          <Component id="cardFormDaftar" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
-                </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="lblJudulDaftar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                  <Component id="lblSubDaftar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="cardFormDaftar" min="-2" pref="510" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="lblJudulDaftar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Component id="lblSubDaftar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="cardFormDaftar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lblJudulDaftar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pendaftaran Pasien"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="26" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="7b" green="58" red="16" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Pendaftaran Pasien"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblSubDaftar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Isi data berikut untuk membuat pendaftaran kunjungan baru."/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="7b" green="58" red="16" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Isi data berikut untuk membuat pendaftaran kunjungan baru."/>
               </Properties>
             </Component>
             <Container class="sistempendaftarandanpelayananpasien.pasien.PanelBulat" name="cardFormDaftar">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-              </Properties>
+
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                        <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                        <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                            <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblNama" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNama" min="-2" pref="328" max="-2" attributes="0"/>
-                              <Component id="lblNik" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNik" min="-2" pref="328" max="-2" attributes="0"/>
-                              <Component id="lblJk" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbJk" min="-2" pref="328" max="-2" attributes="0"/>
-                            </Group>
-                            <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                            <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblPoli" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbPoli" min="-2" pref="328" max="-2" attributes="0"/>
-                              <Component id="lblDokter" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbDokter" min="-2" pref="328" max="-2" attributes="0"/>
-                              <Component id="lblTanggal" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtTanggal" min="-2" pref="328" max="-2" attributes="0"/>
-                            </Group>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblNama" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNama" min="-2" pref="328" max="-2" attributes="0"/>
+                                      <Component id="lblNik" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNik" min="-2" pref="328" max="-2" attributes="0"/>
+                                      <Component id="lblJk" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbJk" min="-2" pref="328" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblPoli" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbPoli" min="-2" pref="328" max="-2" attributes="0"/>
+                                      <Component id="lblDokter" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbDokter" min="-2" pref="328" max="-2" attributes="0"/>
+                                      <Component id="lblTanggal" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTanggal" min="-2" pref="328" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="lblKeluhan" min="-2" max="-2" attributes="0"/>
+                              <Component id="scrollKeluhan" min="-2" pref="680" max="-2" attributes="0"/>
+                              <Component id="chkBpjs" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnReset" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Component id="btnDaftar" min="-2" pref="170" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="lblKeluhan" min="-2" max="-2" attributes="0"/>
-                          <Component id="scrollKeluhan" min="-2" pref="680" max="-2" attributes="0"/>
-                          <Component id="chkBpjs" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                            <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                            <Component id="btnReset" min="-2" pref="120" max="-2" attributes="0"/>
-                            <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                            <Component id="btnDaftar" min="-2" pref="170" max="-2" attributes="0"/>
-                          </Group>
-                        </Group>
-                        <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
-                    </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                    <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="lblNama" min="-2" max="-2" attributes="0"/>
-                        <Component id="lblPoli" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblNama" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPoli" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtNama" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="cmbPoli" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblNik" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblDokter" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtNik" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="cmbDokter" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblJk" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTanggal" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cmbJk" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="txtTanggal" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="lblKeluhan" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="scrollKeluhan" min="-2" pref="90" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="chkBpjs" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="16" pref="30" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnReset" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="btnDaftar" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="txtNama" min="-2" pref="38" max="-2" attributes="0"/>
-                        <Component id="cmbPoli" min="-2" pref="38" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="lblNik" min="-2" max="-2" attributes="0"/>
-                        <Component id="lblDokter" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="txtNik" min="-2" pref="38" max="-2" attributes="0"/>
-                        <Component id="cmbDokter" min="-2" pref="38" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="lblJk" min="-2" max="-2" attributes="0"/>
-                        <Component id="lblTanggal" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="cmbJk" min="-2" pref="38" max="-2" attributes="0"/>
-                        <Component id="txtTanggal" min="-2" pref="38" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="lblKeluhan" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="scrollKeluhan" min="-2" pref="90" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="chkBpjs" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="16" pref="16" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                        <Component id="btnReset" min="-2" pref="40" max="-2" attributes="0"/>
-                        <Component id="btnDaftar" min="-2" pref="40" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                    </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lblNama">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nama Pasien"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="13" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Nama Pasien"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtNama">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="0"/>
-                    </Property>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="dd" green="ee" red="f5" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
@@ -399,22 +366,22 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblNik">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="NIK"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="13" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="NIK"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtNik">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="0"/>
-                    </Property>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="dd" green="ee" red="f5" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
@@ -428,17 +395,26 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblJk">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Jenis Kelamin"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="13" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Jenis Kelamin"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbJk">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="dd" green="ee" red="f5" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="7b" green="58" red="16" type="rgb"/>
+                    </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="3">
                         <StringItem index="0" value="Pilih jenis kelamin"/>
@@ -446,33 +422,36 @@
                         <StringItem index="2" value="Perempuan"/>
                       </StringArray>
                     </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="0"/>
-                    </Property>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="dd" green="ee" red="f5" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="7b" green="58" red="16" type="rgb"/>
-                    </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbJkActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblPoli">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Poli Tujuan"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="13" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Poli Tujuan"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbPoli">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="dd" green="ee" red="f5" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="7b" green="58" red="16" type="rgb"/>
+                    </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="6">
                         <StringItem index="0" value="Pilih poli"/>
@@ -483,15 +462,6 @@
                         <StringItem index="5" value="Mata"/>
                       </StringArray>
                     </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="0"/>
-                    </Property>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="dd" green="ee" red="f5" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="7b" green="58" red="16" type="rgb"/>
-                    </Property>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -499,17 +469,26 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblDokter">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Dokter"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="13" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Dokter"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbDokter">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="dd" green="ee" red="f5" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="7b" green="58" red="16" type="rgb"/>
+                    </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
                         <StringItem index="0" value="Pilih dokter"/>
@@ -518,15 +497,6 @@
                         <StringItem index="3" value="drg. Budi Santoso"/>
                       </StringArray>
                     </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="0"/>
-                    </Property>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="dd" green="ee" red="f5" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="7b" green="58" red="16" type="rgb"/>
-                    </Property>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -534,22 +504,22 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblTanggal">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Tanggal Kunjungan (dd-mm-yyyy)"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="13" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Tanggal Kunjungan (dd-mm-yyyy)"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtTanggal">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="0"/>
-                    </Property>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="dd" green="ee" red="f5" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
@@ -563,13 +533,13 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblKeluhan">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Keluhan"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="13" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Keluhan"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="scrollKeluhan">
@@ -583,6 +553,7 @@
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
+
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="javax.swing.JTextArea" name="txaKeluhan">
@@ -611,27 +582,26 @@
                 </Container>
                 <Component class="javax.swing.JCheckBox" name="chkBpjs">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Pasien BPJS"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
                     </Property>
-                    <Property name="opaque" type="boolean" value="false"/>
+                    <Property name="text" type="java.lang.String" value="Pasien BPJS"/>
                   </Properties>
                 </Component>
                 <Component class="sistempendaftarandanpelayananpasien.pasien.TombolBulat" name="btnReset">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Reset"/>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="14" style="1"/>
-                    </Property>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ce" green="b3" red="84" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="7b" green="58" red="16" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Reset"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -643,12 +613,6 @@
                     <Property name="text" type="java.lang.String" value="Daftar Sekarang"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="1"/>
-                    </Property>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="7b" green="58" red="16" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                   </Properties>
                   <Events>

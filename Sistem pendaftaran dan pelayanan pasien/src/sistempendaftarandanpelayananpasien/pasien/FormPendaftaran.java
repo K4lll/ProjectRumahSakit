@@ -84,64 +84,56 @@ public class FormPendaftaran extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        setTitle("Portal Pasien - Sistem Pendaftaran dan Pelayanan Pasien");
+
+        panelSidebar.setBackground(new java.awt.Color(22, 88, 123));
 
         lblBrand.setText("Portal Pasien");
-        lblBrand.setFont(new java.awt.Font("Segoe UI", 1, 22));
+        lblBrand.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblBrand.setForeground(new java.awt.Color(255, 255, 255));
 
         lblBrandSub.setText("Rumah Sakit");
-        lblBrandSub.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        lblBrandSub.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblBrandSub.setForeground(new java.awt.Color(132, 179, 206));
 
         btnMenuPendaftaran.setText("Pendaftaran");
-        btnMenuPendaftaran.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btnMenuPendaftaran.setBackground(new java.awt.Color(22, 88, 123));
-        btnMenuPendaftaran.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuPendaftaran.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPendaftaran.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMenuPendaftaran.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
         btnMenuPendaftaran.addActionListener(this::btnMenuPendaftaranActionPerformed);
 
         btnMenuRiwayat.setText("Riwayat Pendaftaran");
-        btnMenuRiwayat.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btnMenuRiwayat.setBackground(new java.awt.Color(22, 88, 123));
-        btnMenuRiwayat.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuRiwayat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuRiwayat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMenuRiwayat.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
         btnMenuRiwayat.addActionListener(this::btnMenuRiwayatActionPerformed);
 
         btnMenuHasil.setText("Hasil Pemeriksaan");
-        btnMenuHasil.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btnMenuHasil.setBackground(new java.awt.Color(22, 88, 123));
-        btnMenuHasil.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuHasil.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuHasil.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMenuHasil.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
         btnMenuHasil.addActionListener(this::btnMenuHasilActionPerformed);
 
         btnKembali.setText("Kembali");
-        btnKembali.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnKembali.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnKembali.setBackground(new java.awt.Color(245, 238, 221));
         btnKembali.setForeground(new java.awt.Color(22, 88, 123));
         btnKembali.addActionListener(this::btnKembaliActionPerformed);
 
-        panelSidebar.setBackground(new java.awt.Color(22, 88, 123));
         javax.swing.GroupLayout panelSidebarLayout = new javax.swing.GroupLayout(panelSidebar);
         panelSidebar.setLayout(panelSidebarLayout);
         panelSidebarLayout.setHorizontalGroup(
             panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelSidebarLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblBrand)
-                        .addComponent(lblBrandSub)
-                        .addComponent(btnMenuPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnMenuRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnMenuHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    )
-                    .addGap(16, 16, 16)
-                )
-            )
+            .addGroup(panelSidebarLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBrand)
+                    .addComponent(lblBrandSub)
+                    .addComponent(btnMenuPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMenuRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMenuHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
         panelSidebarLayout.setVerticalGroup(
             panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,146 +150,139 @@ public class FormPendaftaran extends javax.swing.JFrame {
                 .addComponent(btnMenuHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, Short.MAX_VALUE)
                 .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-            )
+                .addGap(24, 24, 24))
         );
 
+        panelKonten.setBackground(new java.awt.Color(245, 238, 221));
+        panelKonten.setLayout(new java.awt.CardLayout());
+
+        panelPendaftaran.setBackground(new java.awt.Color(245, 238, 221));
+
         lblJudulDaftar.setText("Pendaftaran Pasien");
-        lblJudulDaftar.setFont(new java.awt.Font("Segoe UI", 1, 26));
+        lblJudulDaftar.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         lblJudulDaftar.setForeground(new java.awt.Color(22, 88, 123));
 
         lblSubDaftar.setText("Isi data berikut untuk membuat pendaftaran kunjungan baru.");
-        lblSubDaftar.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblSubDaftar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSubDaftar.setForeground(new java.awt.Color(22, 88, 123));
 
         lblNama.setText("Nama Pasien");
-        lblNama.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNama.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblNama.setForeground(new java.awt.Color(22, 88, 123));
 
-        txtNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNama.setBackground(new java.awt.Color(245, 238, 221));
         txtNama.setForeground(new java.awt.Color(22, 88, 123));
         txtNama.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
 
         lblNik.setText("NIK");
-        lblNik.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNik.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblNik.setForeground(new java.awt.Color(22, 88, 123));
 
-        txtNik.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNik.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNik.setBackground(new java.awt.Color(245, 238, 221));
         txtNik.setForeground(new java.awt.Color(22, 88, 123));
         txtNik.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
 
         lblJk.setText("Jenis Kelamin");
-        lblJk.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblJk.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblJk.setForeground(new java.awt.Color(22, 88, 123));
 
         cmbJk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih jenis kelamin", "Laki-laki", "Perempuan" }));
-        cmbJk.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        cmbJk.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbJk.setBackground(new java.awt.Color(245, 238, 221));
         cmbJk.setForeground(new java.awt.Color(22, 88, 123));
+        cmbJk.addActionListener(this::cmbJkActionPerformed);
 
         lblPoli.setText("Poli Tujuan");
-        lblPoli.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblPoli.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblPoli.setForeground(new java.awt.Color(22, 88, 123));
 
         cmbPoli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih poli", "Umum", "Gigi", "Anak", "Penyakit Dalam", "Mata" }));
-        cmbPoli.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        cmbPoli.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbPoli.setBackground(new java.awt.Color(245, 238, 221));
         cmbPoli.setForeground(new java.awt.Color(22, 88, 123));
 
         lblDokter.setText("Dokter");
-        lblDokter.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblDokter.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblDokter.setForeground(new java.awt.Color(22, 88, 123));
 
         cmbDokter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih dokter", "dr. Andi Pratama", "dr. Sari Wulandari", "drg. Budi Santoso" }));
-        cmbDokter.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        cmbDokter.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbDokter.setBackground(new java.awt.Color(245, 238, 221));
         cmbDokter.setForeground(new java.awt.Color(22, 88, 123));
 
         lblTanggal.setText("Tanggal Kunjungan (dd-mm-yyyy)");
-        lblTanggal.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblTanggal.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTanggal.setForeground(new java.awt.Color(22, 88, 123));
 
-        txtTanggal.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtTanggal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTanggal.setBackground(new java.awt.Color(245, 238, 221));
         txtTanggal.setForeground(new java.awt.Color(22, 88, 123));
         txtTanggal.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
 
         lblKeluhan.setText("Keluhan");
-        lblKeluhan.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblKeluhan.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblKeluhan.setForeground(new java.awt.Color(22, 88, 123));
+
+        scrollKeluhan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         txaKeluhan.setColumns(20);
         txaKeluhan.setRows(3);
         txaKeluhan.setLineWrap(true);
         txaKeluhan.setWrapStyleWord(true);
-        txaKeluhan.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txaKeluhan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txaKeluhan.setBackground(new java.awt.Color(245, 238, 221));
         txaKeluhan.setForeground(new java.awt.Color(22, 88, 123));
         txaKeluhan.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
-
-        scrollKeluhan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollKeluhan.setViewportView(txaKeluhan);
 
         chkBpjs.setText("Pasien BPJS");
-        chkBpjs.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        chkBpjs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         chkBpjs.setForeground(new java.awt.Color(22, 88, 123));
-        chkBpjs.setOpaque(false);
 
         btnReset.setText("Reset");
-        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnReset.setBackground(new java.awt.Color(132, 179, 206));
         btnReset.setForeground(new java.awt.Color(22, 88, 123));
         btnReset.addActionListener(this::btnResetActionPerformed);
 
         btnDaftar.setText("Daftar Sekarang");
-        btnDaftar.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btnDaftar.setBackground(new java.awt.Color(22, 88, 123));
-        btnDaftar.setForeground(new java.awt.Color(255, 255, 255));
+        btnDaftar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDaftar.addActionListener(this::btnDaftarActionPerformed);
 
-        cardFormDaftar.setBackground(new java.awt.Color(255, 255, 255));
         javax.swing.GroupLayout cardFormDaftarLayout = new javax.swing.GroupLayout(cardFormDaftar);
         cardFormDaftar.setLayout(cardFormDaftarLayout);
         cardFormDaftarLayout.setHorizontalGroup(
             cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(cardFormDaftarLayout.createSequentialGroup()
-                    .addGap(28, 28, 28)
-                    .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(cardFormDaftarLayout.createSequentialGroup()
-                            .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNama)
-                                .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblNik)
-                                .addComponent(txtNik, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblJk)
-                                .addComponent(cmbJk, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            )
-                            .addGap(24, 24, 24)
-                            .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblPoli)
-                                .addComponent(cmbPoli, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblDokter)
-                                .addComponent(cmbDokter, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblTanggal)
-                                .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            )
-                        )
-                        .addComponent(lblKeluhan)
-                        .addComponent(scrollKeluhan, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(chkBpjs)
-                        .addGroup(cardFormDaftarLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(12, 12, 12)
-                            .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        )
-                    )
-                    .addGap(28, 28, 28)
-                )
-            )
+            .addGroup(cardFormDaftarLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cardFormDaftarLayout.createSequentialGroup()
+                        .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNama)
+                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNik)
+                            .addComponent(txtNik, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblJk)
+                            .addComponent(cmbJk, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPoli)
+                            .addComponent(cmbPoli, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDokter)
+                            .addComponent(cmbDokter, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTanggal)
+                            .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblKeluhan)
+                    .addComponent(scrollKeluhan, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkBpjs)
+                    .addGroup(cardFormDaftarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28))
         );
         cardFormDaftarLayout.setVerticalGroup(
             cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,64 +290,51 @@ public class FormPendaftaran extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNama)
-                    .addComponent(lblPoli)
-                )
+                    .addComponent(lblPoli))
                 .addGap(6, 6, 6)
                 .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbPoli, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                )
+                    .addComponent(cmbPoli, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNik)
-                    .addComponent(lblDokter)
-                )
+                    .addComponent(lblDokter))
                 .addGap(6, 6, 6)
                 .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNik, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbDokter, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                )
+                    .addComponent(cmbDokter, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblJk)
-                    .addComponent(lblTanggal)
-                )
+                    .addComponent(lblTanggal))
                 .addGap(6, 6, 6)
                 .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbJk, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                )
+                    .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(lblKeluhan)
                 .addGap(6, 6, 6)
                 .addComponent(scrollKeluhan, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(chkBpjs)
-                .addGap(16, 16, Short.MAX_VALUE)
+                .addGap(16, 30, Short.MAX_VALUE)
                 .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                )
-                .addGap(28, 28, 28)
-            )
+                    .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
         );
 
-        panelPendaftaran.setBackground(new java.awt.Color(245, 238, 221));
         javax.swing.GroupLayout panelPendaftaranLayout = new javax.swing.GroupLayout(panelPendaftaran);
         panelPendaftaran.setLayout(panelPendaftaranLayout);
         panelPendaftaranLayout.setHorizontalGroup(
             panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelPendaftaranLayout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addGroup(panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblJudulDaftar)
-                        .addComponent(lblSubDaftar)
-                        .addComponent(cardFormDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    )
-                    .addGap(32, 32, 32)
-                )
-            )
+            .addGroup(panelPendaftaranLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblJudulDaftar)
+                    .addComponent(lblSubDaftar)
+                    .addComponent(cardFormDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
         panelPendaftaranLayout.setVerticalGroup(
             panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,32 +344,25 @@ public class FormPendaftaran extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(lblSubDaftar)
                 .addGap(20, 20, 20)
-                .addComponent(cardFormDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-            )
+                .addComponent(cardFormDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        panelKonten.setBackground(new java.awt.Color(245, 238, 221));
-        panelKonten.setLayout(new java.awt.CardLayout());
-        panelKonten.add(panelPendaftaran, "pendaftaran");
+        panelKonten.add(panelPendaftaran);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(panelSidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                )
-            )
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelSidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-                .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-            )
+            .addComponent(panelSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
         );
 
         pack();
@@ -465,6 +430,10 @@ public class FormPendaftaran extends javax.swing.JFrame {
                 "Data pendaftaran sudah valid.\nPenyimpanan ke file akan disambungkan pada tahap berikutnya.",
                 "Pendaftaran", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnDaftarActionPerformed
+
+    private void cmbJkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbJkActionPerformed
 
     /** Menampilkan satu halaman pada area konten tanpa membuka JFrame baru. */
     public void tampilkan(String nama) {
