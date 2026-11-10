@@ -8,15 +8,38 @@ package sistempendaftarandanpelayananpasien.pasien;
  *
  * @author LENOVO
  */
+
 public class FormPendaftaran extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPendaftaran.class.getName());
+
+    /** Nama kartu pada CardLayout panelKonten. */
+    public static final String HALAMAN_PENDAFTARAN = "pendaftaran";
+    public static final String HALAMAN_RIWAYAT = "riwayat";
+    public static final String HALAMAN_HASIL = "hasil";
+
+    private final FormRiwayatPendaftaran halamanRiwayat = new FormRiwayatPendaftaran();
+    private final FormHasilPemeriksaan halamanHasil = new FormHasilPemeriksaan();
 
     /**
      * Creates new form FormPendaftaran
      */
     public FormPendaftaran() {
         initComponents();
+        // CardLayout khusus: setiap pemanggilan show() (dari sidebar maupun dari dalam halaman,
+        // mis. tombol "Lihat Hasil") otomatis menandai menu sidebar yang aktif.
+        panelKonten.removeAll();
+        panelKonten.setLayout(new java.awt.CardLayout() {
+            @Override
+            public void show(java.awt.Container parent, String name) {
+                super.show(parent, name);
+                tandaiMenu(name);
+            }
+        });
+        panelKonten.add(panelPendaftaran, HALAMAN_PENDAFTARAN);
+        panelKonten.add(halamanRiwayat, HALAMAN_RIWAYAT);
+        panelKonten.add(halamanHasil, HALAMAN_HASIL);
+        tampilkan(HALAMAN_PENDAFTARAN);
     }
 
     /**
@@ -28,38 +51,450 @@ public class FormPendaftaran extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelSidebar = new javax.swing.JPanel();
+        lblBrand = new javax.swing.JLabel();
+        lblBrandSub = new javax.swing.JLabel();
+        btnMenuPendaftaran = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnMenuRiwayat = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnMenuHasil = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnKembali = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        panelKonten = new javax.swing.JPanel();
+        panelPendaftaran = new javax.swing.JPanel();
+        lblJudulDaftar = new javax.swing.JLabel();
+        lblSubDaftar = new javax.swing.JLabel();
+        cardFormDaftar = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblNama = new javax.swing.JLabel();
+        txtNama = new javax.swing.JTextField();
+        lblNik = new javax.swing.JLabel();
+        txtNik = new javax.swing.JTextField();
+        lblJk = new javax.swing.JLabel();
+        cmbJk = new javax.swing.JComboBox<>();
+        lblPoli = new javax.swing.JLabel();
+        cmbPoli = new javax.swing.JComboBox<>();
+        lblDokter = new javax.swing.JLabel();
+        cmbDokter = new javax.swing.JComboBox<>();
+        lblTanggal = new javax.swing.JLabel();
+        txtTanggal = new javax.swing.JTextField();
+        lblKeluhan = new javax.swing.JLabel();
+        scrollKeluhan = new javax.swing.JScrollPane();
+        txaKeluhan = new javax.swing.JTextArea();
+        chkBpjs = new javax.swing.JCheckBox();
+        btnReset = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnDaftar = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+
+        lblBrand.setText("Portal Pasien");
+        lblBrand.setFont(new java.awt.Font("Segoe UI", 1, 22));
+        lblBrand.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblBrandSub.setText("Rumah Sakit");
+        lblBrandSub.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        lblBrandSub.setForeground(new java.awt.Color(132, 179, 206));
+
+        btnMenuPendaftaran.setText("Pendaftaran");
+        btnMenuPendaftaran.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMenuPendaftaran.setBackground(new java.awt.Color(22, 88, 123));
+        btnMenuPendaftaran.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuPendaftaran.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenuPendaftaran.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
+        btnMenuPendaftaran.addActionListener(this::btnMenuPendaftaranActionPerformed);
+
+        btnMenuRiwayat.setText("Riwayat Pendaftaran");
+        btnMenuRiwayat.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMenuRiwayat.setBackground(new java.awt.Color(22, 88, 123));
+        btnMenuRiwayat.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuRiwayat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenuRiwayat.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
+        btnMenuRiwayat.addActionListener(this::btnMenuRiwayatActionPerformed);
+
+        btnMenuHasil.setText("Hasil Pemeriksaan");
+        btnMenuHasil.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMenuHasil.setBackground(new java.awt.Color(22, 88, 123));
+        btnMenuHasil.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuHasil.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenuHasil.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
+        btnMenuHasil.addActionListener(this::btnMenuHasilActionPerformed);
+
+        btnKembali.setText("Kembali");
+        btnKembali.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnKembali.setBackground(new java.awt.Color(245, 238, 221));
+        btnKembali.setForeground(new java.awt.Color(22, 88, 123));
+        btnKembali.addActionListener(this::btnKembaliActionPerformed);
+
+        panelSidebar.setBackground(new java.awt.Color(22, 88, 123));
+        javax.swing.GroupLayout panelSidebarLayout = new javax.swing.GroupLayout(panelSidebar);
+        panelSidebar.setLayout(panelSidebarLayout);
+        panelSidebarLayout.setHorizontalGroup(
+            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelSidebarLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblBrand)
+                        .addComponent(lblBrandSub)
+                        .addComponent(btnMenuPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMenuRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMenuHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(16, 16, 16)
+                )
+            )
+        );
+        panelSidebarLayout.setVerticalGroup(
+            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSidebarLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblBrand)
+                .addGap(2, 2, 2)
+                .addComponent(lblBrandSub)
+                .addGap(36, 36, 36)
+                .addComponent(btnMenuPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(btnMenuRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(btnMenuHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, Short.MAX_VALUE)
+                .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+            )
+        );
+
+        lblJudulDaftar.setText("Pendaftaran Pasien");
+        lblJudulDaftar.setFont(new java.awt.Font("Segoe UI", 1, 26));
+        lblJudulDaftar.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblSubDaftar.setText("Isi data berikut untuk membuat pendaftaran kunjungan baru.");
+        lblSubDaftar.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblSubDaftar.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblNama.setText("Nama Pasien");
+        lblNama.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNama.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNama.setBackground(new java.awt.Color(245, 238, 221));
+        txtNama.setForeground(new java.awt.Color(22, 88, 123));
+        txtNama.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        lblNik.setText("NIK");
+        lblNik.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNik.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtNik.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNik.setBackground(new java.awt.Color(245, 238, 221));
+        txtNik.setForeground(new java.awt.Color(22, 88, 123));
+        txtNik.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        lblJk.setText("Jenis Kelamin");
+        lblJk.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblJk.setForeground(new java.awt.Color(22, 88, 123));
+
+        cmbJk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih jenis kelamin", "Laki-laki", "Perempuan" }));
+        cmbJk.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        cmbJk.setBackground(new java.awt.Color(245, 238, 221));
+        cmbJk.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblPoli.setText("Poli Tujuan");
+        lblPoli.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblPoli.setForeground(new java.awt.Color(22, 88, 123));
+
+        cmbPoli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih poli", "Umum", "Gigi", "Anak", "Penyakit Dalam", "Mata" }));
+        cmbPoli.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        cmbPoli.setBackground(new java.awt.Color(245, 238, 221));
+        cmbPoli.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblDokter.setText("Dokter");
+        lblDokter.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblDokter.setForeground(new java.awt.Color(22, 88, 123));
+
+        cmbDokter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih dokter", "dr. Andi Pratama", "dr. Sari Wulandari", "drg. Budi Santoso" }));
+        cmbDokter.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        cmbDokter.setBackground(new java.awt.Color(245, 238, 221));
+        cmbDokter.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblTanggal.setText("Tanggal Kunjungan (dd-mm-yyyy)");
+        lblTanggal.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblTanggal.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtTanggal.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtTanggal.setBackground(new java.awt.Color(245, 238, 221));
+        txtTanggal.setForeground(new java.awt.Color(22, 88, 123));
+        txtTanggal.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        lblKeluhan.setText("Keluhan");
+        lblKeluhan.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblKeluhan.setForeground(new java.awt.Color(22, 88, 123));
+
+        txaKeluhan.setColumns(20);
+        txaKeluhan.setRows(3);
+        txaKeluhan.setLineWrap(true);
+        txaKeluhan.setWrapStyleWord(true);
+        txaKeluhan.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txaKeluhan.setBackground(new java.awt.Color(245, 238, 221));
+        txaKeluhan.setForeground(new java.awt.Color(22, 88, 123));
+        txaKeluhan.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        scrollKeluhan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollKeluhan.setViewportView(txaKeluhan);
+
+        chkBpjs.setText("Pasien BPJS");
+        chkBpjs.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        chkBpjs.setForeground(new java.awt.Color(22, 88, 123));
+        chkBpjs.setOpaque(false);
+
+        btnReset.setText("Reset");
+        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnReset.setBackground(new java.awt.Color(132, 179, 206));
+        btnReset.setForeground(new java.awt.Color(22, 88, 123));
+        btnReset.addActionListener(this::btnResetActionPerformed);
+
+        btnDaftar.setText("Daftar Sekarang");
+        btnDaftar.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnDaftar.setBackground(new java.awt.Color(22, 88, 123));
+        btnDaftar.setForeground(new java.awt.Color(255, 255, 255));
+        btnDaftar.addActionListener(this::btnDaftarActionPerformed);
+
+        cardFormDaftar.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardFormDaftarLayout = new javax.swing.GroupLayout(cardFormDaftar);
+        cardFormDaftar.setLayout(cardFormDaftarLayout);
+        cardFormDaftarLayout.setHorizontalGroup(
+            cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardFormDaftarLayout.createSequentialGroup()
+                    .addGap(28, 28, 28)
+                    .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(cardFormDaftarLayout.createSequentialGroup()
+                            .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblNama)
+                                .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNik)
+                                .addComponent(txtNik, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblJk)
+                                .addComponent(cmbJk, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            )
+                            .addGap(24, 24, 24)
+                            .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblPoli)
+                                .addComponent(cmbPoli, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDokter)
+                                .addComponent(cmbDokter, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTanggal)
+                                .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            )
+                        )
+                        .addComponent(lblKeluhan)
+                        .addComponent(scrollKeluhan, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chkBpjs)
+                        .addGroup(cardFormDaftarLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        )
+                    )
+                    .addGap(28, 28, 28)
+                )
+            )
+        );
+        cardFormDaftarLayout.setVerticalGroup(
+            cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardFormDaftarLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNama)
+                    .addComponent(lblPoli)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbPoli, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, 16)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNik)
+                    .addComponent(lblDokter)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNik, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDokter, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, 16)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJk)
+                    .addComponent(lblTanggal)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbJk, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, 16)
+                .addComponent(lblKeluhan)
+                .addGap(6, 6, 6)
+                .addComponent(scrollKeluhan, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(chkBpjs)
+                .addGap(16, 16, Short.MAX_VALUE)
+                .addGroup(cardFormDaftarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(28, 28, 28)
+            )
+        );
+
+        panelPendaftaran.setBackground(new java.awt.Color(245, 238, 221));
+        javax.swing.GroupLayout panelPendaftaranLayout = new javax.swing.GroupLayout(panelPendaftaran);
+        panelPendaftaran.setLayout(panelPendaftaranLayout);
+        panelPendaftaranLayout.setHorizontalGroup(
+            panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPendaftaranLayout.createSequentialGroup()
+                    .addGap(32, 32, 32)
+                    .addGroup(panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJudulDaftar)
+                        .addComponent(lblSubDaftar)
+                        .addComponent(cardFormDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(32, 32, 32)
+                )
+            )
+        );
+        panelPendaftaranLayout.setVerticalGroup(
+            panelPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPendaftaranLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblJudulDaftar)
+                .addGap(4, 4, 4)
+                .addComponent(lblSubDaftar)
+                .addGap(20, 20, 20)
+                .addComponent(cardFormDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        panelKonten.setBackground(new java.awt.Color(245, 238, 221));
+        panelKonten.setLayout(new java.awt.CardLayout());
+        panelKonten.add(panelPendaftaran, "pendaftaran");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(panelSidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                )
+            )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            )
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMenuPendaftaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPendaftaranActionPerformed
+        tampilkan(HALAMAN_PENDAFTARAN);
+    }//GEN-LAST:event_btnMenuPendaftaranActionPerformed
+
+    private void btnMenuRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuRiwayatActionPerformed
+        tampilkan(HALAMAN_RIWAYAT);
+    }//GEN-LAST:event_btnMenuRiwayatActionPerformed
+
+    private void btnMenuHasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuHasilActionPerformed
+        tampilkan(HALAMAN_HASIL);
+    }//GEN-LAST:event_btnMenuHasilActionPerformed
+
+    private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnKembaliActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        txtNama.setText("");
+        txtNik.setText("");
+        txtTanggal.setText("");
+        txaKeluhan.setText("");
+        cmbJk.setSelectedIndex(0);
+        cmbPoli.setSelectedIndex(0);
+        cmbDokter.setSelectedIndex(0);
+        chkBpjs.setSelected(false);
+        txtNama.requestFocusInWindow();
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
+        if (txtNama.getText().trim().isEmpty()) {
+            peringatan("Nama pasien wajib diisi.", txtNama);
+            return;
+        }
+        if (!txtNik.getText().trim().matches("\\d{16}")) {
+            peringatan("NIK harus terdiri dari 16 digit angka.", txtNik);
+            return;
+        }
+        if (cmbJk.getSelectedIndex() == 0) {
+            peringatan("Pilih jenis kelamin.", cmbJk);
+            return;
+        }
+        if (cmbPoli.getSelectedIndex() == 0) {
+            peringatan("Pilih poli tujuan.", cmbPoli);
+            return;
+        }
+        if (cmbDokter.getSelectedIndex() == 0) {
+            peringatan("Pilih dokter.", cmbDokter);
+            return;
+        }
+        if (!txtTanggal.getText().trim().matches("\\d{2}-\\d{2}-\\d{4}")) {
+            peringatan("Tanggal kunjungan harus berformat dd-mm-yyyy.", txtTanggal);
+            return;
+        }
+        if (txaKeluhan.getText().trim().isEmpty()) {
+            peringatan("Keluhan wajib diisi.", txaKeluhan);
+            return;
+        }
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Data pendaftaran sudah valid.\nPenyimpanan ke file akan disambungkan pada tahap berikutnya.",
+                "Pendaftaran", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnDaftarActionPerformed
+
+    /** Menampilkan satu halaman pada area konten tanpa membuka JFrame baru. */
+    public void tampilkan(String nama) {
+        ((java.awt.CardLayout) panelKonten.getLayout()).show(panelKonten, nama);
+    }
+
+    private void tandaiMenu(String nama) {
+        aturMenu(btnMenuPendaftaran, HALAMAN_PENDAFTARAN.equals(nama));
+        aturMenu(btnMenuRiwayat, HALAMAN_RIWAYAT.equals(nama));
+        aturMenu(btnMenuHasil, HALAMAN_HASIL.equals(nama));
+    }
+
+    private void aturMenu(TombolBulat tombol, boolean aktif) {
+        tombol.setBackground(aktif ? Tema.BIRU_MUDA : Tema.BIRU_TUA);
+        tombol.setForeground(aktif ? Tema.BIRU_TUA : Tema.PUTIH);
+    }
+
+    private void peringatan(String pesan, java.awt.Component fokus) {
+        javax.swing.JOptionPane.showMessageDialog(this, pesan, "Periksa Kembali", javax.swing.JOptionPane.WARNING_MESSAGE);
+        fokus.requestFocusInWindow();
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Look and Feel Metal bawaan Java */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -70,5 +505,35 @@ public class FormPendaftaran extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnDaftar;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnKembali;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMenuHasil;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMenuPendaftaran;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMenuRiwayat;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnReset;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardFormDaftar;
+    private javax.swing.JCheckBox chkBpjs;
+    private javax.swing.JComboBox<String> cmbDokter;
+    private javax.swing.JComboBox<String> cmbJk;
+    private javax.swing.JComboBox<String> cmbPoli;
+    private javax.swing.JLabel lblBrand;
+    private javax.swing.JLabel lblBrandSub;
+    private javax.swing.JLabel lblDokter;
+    private javax.swing.JLabel lblJk;
+    private javax.swing.JLabel lblJudulDaftar;
+    private javax.swing.JLabel lblKeluhan;
+    private javax.swing.JLabel lblNama;
+    private javax.swing.JLabel lblNik;
+    private javax.swing.JLabel lblPoli;
+    private javax.swing.JLabel lblSubDaftar;
+    private javax.swing.JLabel lblTanggal;
+    private javax.swing.JPanel panelKonten;
+    private javax.swing.JPanel panelPendaftaran;
+    private javax.swing.JPanel panelSidebar;
+    private javax.swing.JScrollPane scrollKeluhan;
+    private javax.swing.JTextArea txaKeluhan;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtNik;
+    private javax.swing.JTextField txtTanggal;
     // End of variables declaration//GEN-END:variables
 }
