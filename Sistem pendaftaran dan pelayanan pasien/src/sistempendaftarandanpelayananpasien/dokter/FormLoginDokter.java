@@ -12,11 +12,35 @@ public class FormLoginDokter extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormLoginDokter.class.getName());
 
+    public static String dokterAktif;
+
     /**
      * Creates new form FormLoginDokter
      */
     public FormLoginDokter() {
         initComponents();
+        setLocationRelativeTo(null);
+
+    }
+    private void pesan(String s) {
+        javax.swing.JOptionPane.showMessageDialog(this, s);
+    }
+
+    private void login() {
+        String u = txtUsername.getText().trim(), p = new String(txtPassword.getPassword());
+        if (u.isEmpty() || p.isEmpty()) {
+            pesan("Username dan password wajib diisi.");
+            return;
+        }
+        // TODO: ganti dengan pengecekan ke data akun dokter yang dibuat admin.
+        if (u.equals("dokter") && p.equals("dokter123")) {
+            dokterAktif = "dr. Andi Pratama, Sp.PD";
+            new FormMenuDokter().setVisible(true);
+            dispose();
+        } else {
+            pesan("Username atau password salah.");
+            txtPassword.setText("");
+        }
     }
 
     /**
@@ -28,47 +52,116 @@ public class FormLoginDokter extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        pnlBrand = new javax.swing.JPanel();
+        lblBrandTitle = new javax.swing.JLabel();
+        lblBrandSub = new javax.swing.JLabel();
+        lblBrandNote = new javax.swing.JLabel();
+        pnlForm = new javax.swing.JPanel();
+        lblMasuk = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        lblPass = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        btnLogin = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login Dokter");
+        setResizable(false);
+
+        pnlBrand.setBackground(new java.awt.Color(22, 88, 123));
+        pnlBrand.setBorder(javax.swing.BorderFactory.createEmptyBorder(110, 20, 110, 20));
+        pnlBrand.setPreferredSize(new java.awt.Dimension(300, 380));
+        pnlBrand.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        lblBrandTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandTitle.setText("Klinik Sehat");
+        lblBrandTitle.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        lblBrandTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblBrandTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        pnlBrand.add(lblBrandTitle);
+
+        lblBrandSub.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandSub.setText("Portal Dokter");
+        lblBrandSub.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblBrandSub.setForeground(new java.awt.Color(132, 179, 206));
+        lblBrandSub.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        pnlBrand.add(lblBrandSub);
+
+        lblBrandNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandNote.setText("Akun dokter disediakan oleh admin");
+        lblBrandNote.setForeground(new java.awt.Color(245, 238, 221));
+        pnlBrand.add(lblBrandNote);
+
+        getContentPane().add(pnlBrand, java.awt.BorderLayout.WEST);
+
+        pnlForm.setBackground(new java.awt.Color(245, 238, 221));
+        pnlForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 40, 40, 40));
+        pnlForm.setPreferredSize(new java.awt.Dimension(400, 380));
+        pnlForm.setLayout(new java.awt.GridLayout(0, 1, 0, 8));
+
+        lblMasuk.setText("Masuk Akun Dokter");
+        lblMasuk.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblMasuk.setForeground(new java.awt.Color(22, 88, 123));
+        pnlForm.add(lblMasuk);
+
+        lblUser.setText("Username");
+        lblUser.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblUser.setForeground(new java.awt.Color(22, 88, 123));
+        pnlForm.add(lblUser);
+
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pnlForm.add(txtUsername);
+
+        lblPass.setText("Password");
+        lblPass.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblPass.setForeground(new java.awt.Color(22, 88, 123));
+        pnlForm.add(lblPass);
+
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassword.addActionListener(this::txtPasswordActionPerformed);
+        pnlForm.add(txtPassword);
+
+        btnLogin.setText("Masuk");
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLogin.setBackground(new java.awt.Color(22, 88, 123));
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        btnLogin.setFocusPainted(false);
+        btnLogin.addActionListener(this::btnLoginActionPerformed);
+        pnlForm.add(btnLogin);
+
+        getContentPane().add(pnlForm, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        login();
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        login();
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        /* Look and Feel: Metal (default), no changes needed. */
         java.awt.EventQueue.invokeLater(() -> new FormLoginDokter().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JLabel lblBrandNote;
+    private javax.swing.JLabel lblBrandSub;
+    private javax.swing.JLabel lblBrandTitle;
+    private javax.swing.JLabel lblMasuk;
+    private javax.swing.JLabel lblPass;
+    private javax.swing.JLabel lblUser;
+    private javax.swing.JPanel pnlBrand;
+    private javax.swing.JPanel pnlForm;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
