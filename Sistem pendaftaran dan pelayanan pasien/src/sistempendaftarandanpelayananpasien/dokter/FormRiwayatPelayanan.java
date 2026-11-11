@@ -1,22 +1,45 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package sistempendaftarandanpelayananpasien.dokter;
+
+import sistempendaftarandanpelayananpasien.pasien.Tema;
 
 /**
  *
  * @author LENOVO
  */
-public class FormRiwayatPelayanan extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormRiwayatPelayanan.class.getName());
+
+public class FormRiwayatPelayanan extends javax.swing.JPanel {
+
+    private static final java.time.format.DateTimeFormatter FORMAT_TANGGAL = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+    // DATA CONTOH untuk tampilan. Kolom: no. daftar, tanggal, pasien, diagnosis, keluhan, hasil.
+    // Ganti dengan data dari penyimpanan file pada tahap berikutnya.
+    private final java.util.List<String[]> data = new java.util.ArrayList<>(java.util.Arrays.asList(
+        new String[]{"PD-011", "03-11-2026", "Siti Rahmawati", "Infeksi saluran pernapasan atas",
+            "Batuk dan demam selama tiga hari.", "Tenggorokan tampak merah. Disarankan istirahat dan banyak minum."},
+        new String[]{"PD-012", "04-11-2026", "Budi Hartono", "Hipertensi ringan",
+            "Pusing dan tengkuk terasa berat.", "Tekanan darah sedikit tinggi. Disarankan mengurangi garam dan kontrol ulang."},
+        new String[]{"PD-013", "05-11-2026", "Dewi Lestari", "Gastritis",
+            "Nyeri ulu hati setelah makan.", "Nyeri tekan ringan di ulu hati. Disarankan makan teratur."},
+        new String[]{"PD-014", "09-11-2026", "Andi Saputra", "Karies gigi",
+            "Gigi berlubang dan terasa nyeri.", "Karies pada gigi geraham. Disarankan penambalan."}
+    ));
+
+    private javax.swing.table.TableRowSorter<javax.swing.table.TableModel> sorter;
 
     /**
      * Creates new form FormRiwayatPelayanan
      */
     public FormRiwayatPelayanan() {
         initComponents();
+        Tema.gayaTabel(tblLayanan);
+        sorter = new javax.swing.table.TableRowSorter<>(tblLayanan.getModel());
+        tblLayanan.setRowSorter(sorter);
+        isiDataContoh();
+        perbaruiStatistik();
     }
 
     /**
@@ -28,47 +51,394 @@ public class FormRiwayatPelayanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblJudulLayanan = new javax.swing.JLabel();
+        lblSubLayanan = new javax.swing.JLabel();
+        cardTotalLayanan = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblTotalLayananAngka = new javax.swing.JLabel();
+        lblTotalLayananNama = new javax.swing.JLabel();
+        cardBulanIni = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblBulanIniAngka = new javax.swing.JLabel();
+        lblBulanIniNama = new javax.swing.JLabel();
+        cardHariIni = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblHariIniAngka = new javax.swing.JLabel();
+        lblHariIniNama = new javax.swing.JLabel();
+        cardTabelLayanan = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblTabelLayananJudul = new javax.swing.JLabel();
+        lblCari = new javax.swing.JLabel();
+        txtCari = new javax.swing.JTextField();
+        scrollLayanan = new javax.swing.JScrollPane();
+        tblLayanan = new javax.swing.JTable();
+        cardDetailLayanan = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblDetailLayananJudul = new javax.swing.JLabel();
+        scrollDetailLayanan = new javax.swing.JScrollPane();
+        txaDetailLayanan = new javax.swing.JTextArea();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        setBackground(new java.awt.Color(245, 238, 221));
+
+        lblJudulLayanan.setText("Riwayat Pelayanan");
+        lblJudulLayanan.setFont(new java.awt.Font("Segoe UI", 1, 26));
+        lblJudulLayanan.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblSubLayanan.setText("Daftar pemeriksaan pasien yang pernah Anda tangani.");
+        lblSubLayanan.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblSubLayanan.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblTotalLayananAngka.setText("0");
+        lblTotalLayananAngka.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        lblTotalLayananAngka.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblTotalLayananNama.setText("Total Pasien Ditangani");
+        lblTotalLayananNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblTotalLayananNama.setForeground(new java.awt.Color(255, 255, 255));
+
+        cardTotalLayanan.setBackground(new java.awt.Color(22, 88, 123));
+        javax.swing.GroupLayout cardTotalLayananLayout = new javax.swing.GroupLayout(cardTotalLayanan);
+        cardTotalLayanan.setLayout(cardTotalLayananLayout);
+        cardTotalLayananLayout.setHorizontalGroup(
+            cardTotalLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTotalLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardTotalLayananLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addGroup(cardTotalLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTotalLayananAngka)
+                        .addComponent(lblTotalLayananNama)
+                    )
+                    .addGap(20, 20, 20)
+                )
+            )
+        );
+        cardTotalLayananLayout.setVerticalGroup(
+            cardTotalLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTotalLayananLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblTotalLayananAngka)
+                .addGap(2, 2, 2)
+                .addComponent(lblTotalLayananNama)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblBulanIniAngka.setText("0");
+        lblBulanIniAngka.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        lblBulanIniAngka.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblBulanIniNama.setText("Bulan Ini");
+        lblBulanIniNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblBulanIniNama.setForeground(new java.awt.Color(22, 88, 123));
+
+        cardBulanIni.setBackground(new java.awt.Color(132, 179, 206));
+        javax.swing.GroupLayout cardBulanIniLayout = new javax.swing.GroupLayout(cardBulanIni);
+        cardBulanIni.setLayout(cardBulanIniLayout);
+        cardBulanIniLayout.setHorizontalGroup(
+            cardBulanIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardBulanIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardBulanIniLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addGroup(cardBulanIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblBulanIniAngka)
+                        .addComponent(lblBulanIniNama)
+                    )
+                    .addGap(20, 20, 20)
+                )
+            )
+        );
+        cardBulanIniLayout.setVerticalGroup(
+            cardBulanIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardBulanIniLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblBulanIniAngka)
+                .addGap(2, 2, 2)
+                .addComponent(lblBulanIniNama)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblHariIniAngka.setText("0");
+        lblHariIniAngka.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        lblHariIniAngka.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblHariIniNama.setText("Hari Ini");
+        lblHariIniNama.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblHariIniNama.setForeground(new java.awt.Color(22, 88, 123));
+
+        cardHariIni.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardHariIniLayout = new javax.swing.GroupLayout(cardHariIni);
+        cardHariIni.setLayout(cardHariIniLayout);
+        cardHariIniLayout.setHorizontalGroup(
+            cardHariIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardHariIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardHariIniLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addGroup(cardHariIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblHariIniAngka)
+                        .addComponent(lblHariIniNama)
+                    )
+                    .addGap(20, 20, 20)
+                )
+            )
+        );
+        cardHariIniLayout.setVerticalGroup(
+            cardHariIniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardHariIniLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblHariIniAngka)
+                .addGap(2, 2, 2)
+                .addComponent(lblHariIniNama)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblTabelLayananJudul.setText("Pasien yang Pernah Ditangani");
+        lblTabelLayananJudul.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        lblTabelLayananJudul.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblCari.setText("Cari");
+        lblCari.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblCari.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtCari.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtCari.setBackground(new java.awt.Color(245, 238, 221));
+        txtCari.setForeground(new java.awt.Color(22, 88, 123));
+        txtCari.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCariKeyReleased(evt);
+            }
+        });
+
+        tblLayanan.setModel(new javax.swing.table.DefaultTableModel(
+    new Object [][] {
+
+    },
+    new String [] {
+        "No. Daftar", "Tanggal", "Pasien", "Diagnosis"
+    }
+) {
+    boolean[] canEdit = new boolean [] {
+        false, false, false, false
+    };
+
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return canEdit [columnIndex];
+    }
+});
+        tblLayanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLayananMouseClicked(evt);
+            }
+        });
+
+        scrollLayanan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollLayanan.setViewportView(tblLayanan);
+
+        cardTabelLayanan.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardTabelLayananLayout = new javax.swing.GroupLayout(cardTabelLayanan);
+        cardTabelLayanan.setLayout(cardTabelLayananLayout);
+        cardTabelLayananLayout.setHorizontalGroup(
+            cardTabelLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTabelLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardTabelLayananLayout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addGroup(cardTabelLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(cardTabelLayananLayout.createSequentialGroup()
+                            .addComponent(lblTabelLayananJudul)
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(lblCari)
+                            .addGap(10, 10, 10)
+                            .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        )
+                        .addComponent(scrollLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(24, 24, 24)
+                )
+            )
+        );
+        cardTabelLayananLayout.setVerticalGroup(
+            cardTabelLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardTabelLayananLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(cardTabelLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTabelLayananJudul)
+                    .addComponent(lblCari)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(12, 12, 12)
+                .addComponent(scrollLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblDetailLayananJudul.setText("Detail Pelayanan");
+        lblDetailLayananJudul.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        lblDetailLayananJudul.setForeground(new java.awt.Color(22, 88, 123));
+
+        txaDetailLayanan.setColumns(20);
+        txaDetailLayanan.setRows(3);
+        txaDetailLayanan.setLineWrap(true);
+        txaDetailLayanan.setWrapStyleWord(true);
+        txaDetailLayanan.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txaDetailLayanan.setBackground(new java.awt.Color(245, 238, 221));
+        txaDetailLayanan.setForeground(new java.awt.Color(22, 88, 123));
+        txaDetailLayanan.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txaDetailLayanan.setEditable(false);
+
+        scrollDetailLayanan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollDetailLayanan.setViewportView(txaDetailLayanan);
+
+        cardDetailLayanan.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardDetailLayananLayout = new javax.swing.GroupLayout(cardDetailLayanan);
+        cardDetailLayanan.setLayout(cardDetailLayananLayout);
+        cardDetailLayananLayout.setHorizontalGroup(
+            cardDetailLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardDetailLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardDetailLayananLayout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addGroup(cardDetailLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblDetailLayananJudul)
+                        .addComponent(scrollDetailLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(24, 24, 24)
+                )
+            )
+        );
+        cardDetailLayananLayout.setVerticalGroup(
+            cardDetailLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardDetailLayananLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblDetailLayananJudul)
+                .addGap(10, 10, 10)
+                .addComponent(scrollDetailLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(32, 32, 32)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJudulLayanan)
+                        .addComponent(lblSubLayanan)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cardTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(20, 20, 20)
+                            .addComponent(cardBulanIni, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(20, 20, 20)
+                            .addComponent(cardHariIni, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        )
+                        .addComponent(cardTabelLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cardDetailLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(32, 32, 32)
+                )
+            )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblJudulLayanan)
+                .addGap(4, 4, 4)
+                .addComponent(lblSubLayanan)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cardTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cardBulanIni, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cardHariIni, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(20, 20, 20)
+                .addComponent(cardTabelLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(cardDetailLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+    private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
+        String teks = txtCari.getText().trim();
+        if (teks.isEmpty()) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + java.util.regex.Pattern.quote(teks)));
         }
-        //</editor-fold>
+    }//GEN-LAST:event_txtCariKeyReleased
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormRiwayatPelayanan().setVisible(true));
+    private void tblLayananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLayananMouseClicked
+        int baris = tblLayanan.getSelectedRow();
+        if (baris >= 0) {
+            tampilkanDetail(tblLayanan.convertRowIndexToModel(baris));
+        }
+    }//GEN-LAST:event_tblLayananMouseClicked
+
+    /** Dipanggil halaman Pemeriksaan setelah hasil pemeriksaan disimpan. */
+    public void tambahRiwayat(String noDaftar, String pasien, String keluhan, String diagnosis, String hasil) {
+        String tanggal = java.time.LocalDate.now().format(FORMAT_TANGGAL);
+        data.add(new String[]{noDaftar, tanggal, pasien, diagnosis, keluhan, hasil});
+        ((javax.swing.table.DefaultTableModel) tblLayanan.getModel()).addRow(new Object[]{noDaftar, tanggal, pasien, diagnosis});
+        perbaruiStatistik();
+    }
+
+    private void isiDataContoh() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblLayanan.getModel();
+        model.setRowCount(0);
+        for (String[] baris : data) {
+            model.addRow(new Object[]{baris[0], baris[1], baris[2], baris[3]});
+        }
+    }
+
+    private void tampilkanDetail(int indeksModel) {
+        String[] d = data.get(indeksModel);
+        txaDetailLayanan.setText("Keluhan\n" + d[4] + "\n\nDiagnosis\n" + d[3] + "\n\nHasil Pemeriksaan\n" + d[5]);
+        txaDetailLayanan.setCaretPosition(0);
+    }
+
+    private void perbaruiStatistik() {
+        java.time.LocalDate hariIni = java.time.LocalDate.now();
+        int bulanIni = 0;
+        int hariIniJumlah = 0;
+        for (String[] d : data) {
+            try {
+                java.time.LocalDate tgl = java.time.LocalDate.parse(d[1], FORMAT_TANGGAL);
+                if (tgl.getYear() == hariIni.getYear() && tgl.getMonth() == hariIni.getMonth()) {
+                    bulanIni++;
+                }
+                if (tgl.equals(hariIni)) {
+                    hariIniJumlah++;
+                }
+            } catch (java.time.format.DateTimeParseException ex) {
+                // tanggal tidak valid diabaikan dari statistik
+            }
+        }
+        lblTotalLayananAngka.setText(String.valueOf(data.size()));
+        lblBulanIniAngka.setText(String.valueOf(bulanIni));
+        lblHariIniAngka.setText(String.valueOf(hariIniJumlah));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardBulanIni;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardDetailLayanan;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardHariIni;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardTabelLayanan;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardTotalLayanan;
+    private javax.swing.JLabel lblBulanIniAngka;
+    private javax.swing.JLabel lblBulanIniNama;
+    private javax.swing.JLabel lblCari;
+    private javax.swing.JLabel lblDetailLayananJudul;
+    private javax.swing.JLabel lblHariIniAngka;
+    private javax.swing.JLabel lblHariIniNama;
+    private javax.swing.JLabel lblJudulLayanan;
+    private javax.swing.JLabel lblSubLayanan;
+    private javax.swing.JLabel lblTabelLayananJudul;
+    private javax.swing.JLabel lblTotalLayananAngka;
+    private javax.swing.JLabel lblTotalLayananNama;
+    private javax.swing.JScrollPane scrollDetailLayanan;
+    private javax.swing.JScrollPane scrollLayanan;
+    private javax.swing.JTable tblLayanan;
+    private javax.swing.JTextArea txaDetailLayanan;
+    private javax.swing.JTextField txtCari;
     // End of variables declaration//GEN-END:variables
 }
