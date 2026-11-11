@@ -4,19 +4,57 @@
  */
 package sistempendaftarandanpelayananpasien.dokter;
 
+import sistempendaftarandanpelayananpasien.pasien.Tema;
+
 /**
  *
  * @author LENOVO
  */
+
 public class FormDetailPendaftaran extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormDetailPendaftaran.class.getName());
+
+    /** Nama kartu pada CardLayout panelKonten. */
+    public static final String HALAMAN_DETAIL = "detail";
+    public static final String HALAMAN_PEMERIKSAAN = "pemeriksaan";
+    public static final String HALAMAN_RIWAYAT = "riwayat";
+
+    private final FormPemeriksaan halamanPemeriksaan = new FormPemeriksaan();
+    private final FormRiwayatPelayanan halamanRiwayat = new FormRiwayatPelayanan();
+
+    // DATA CONTOH untuk tampilan. Kolom: no. daftar, nama, NIK, poli, tanggal kunjungan, jadwal, keluhan, status, alasan penolakan.
+    // Ganti dengan data dari penyimpanan file pada tahap berikutnya.
+    private final String[][] dataPendaftaran = {
+        {"PD-001", "Budi Hartono", "3174010101900001", "Umum", "11-11-2026", "Rabu 08:00-12:00",
+            "Pusing dan tengkuk terasa berat sejak dua hari.", "Menunggu", ""},
+        {"PD-005", "Siti Rahmawati", "3174015505920002", "Umum", "11-11-2026", "Rabu 08:00-12:00",
+            "Batuk dan demam selama tiga hari.", "Menunggu", ""},
+        {"PD-008", "Andi Saputra", "3174012012880003", "Umum", "12-11-2026", "Kamis 13:00-16:00",
+            "Nyeri ulu hati setelah makan.", "Diterima", ""}
+    };
 
     /**
      * Creates new form FormDetailPendaftaran
      */
     public FormDetailPendaftaran() {
         initComponents();
+        // CardLayout khusus: setiap pemanggilan show() (dari sidebar maupun dari dalam halaman)
+        // otomatis menandai menu sidebar yang aktif.
+        panelKonten.removeAll();
+        panelKonten.setLayout(new java.awt.CardLayout() {
+            @Override
+            public void show(java.awt.Container parent, String name) {
+                super.show(parent, name);
+                tandaiMenu(name);
+            }
+        });
+        panelKonten.add(panelDetailPendaftaran, HALAMAN_DETAIL);
+        panelKonten.add(halamanPemeriksaan, HALAMAN_PEMERIKSAAN);
+        panelKonten.add(halamanRiwayat, HALAMAN_RIWAYAT);
+        halamanPemeriksaan.setRiwayat(halamanRiwayat);
+        isiDaftarPendaftaran();
+        tampilkan(HALAMAN_DETAIL);
     }
 
     /**
@@ -28,38 +66,566 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelSidebar = new javax.swing.JPanel();
+        lblBrand = new javax.swing.JLabel();
+        lblBrandSub = new javax.swing.JLabel();
+        btnMenuDetail = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnMenuPemeriksaan = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnMenuRiwayat = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnKembali = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        panelKonten = new javax.swing.JPanel();
+        panelDetailPendaftaran = new javax.swing.JPanel();
+        lblJudulDetail = new javax.swing.JLabel();
+        lblSubDetail = new javax.swing.JLabel();
+        cardDetailPendaftaran = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblPilihDaftar = new javax.swing.JLabel();
+        cmbPendaftaran = new javax.swing.JComboBox<>();
+        lblStatusJudul = new javax.swing.JLabel();
+        lblStatusNilai = new javax.swing.JLabel();
+        lblNoDaftar = new javax.swing.JLabel();
+        txtNoDaftar = new javax.swing.JTextField();
+        lblPoliDetail = new javax.swing.JLabel();
+        txtPoliDetail = new javax.swing.JTextField();
+        lblNamaPasien = new javax.swing.JLabel();
+        txtNamaPasien = new javax.swing.JTextField();
+        lblTanggalDetail = new javax.swing.JLabel();
+        txtTanggalDetail = new javax.swing.JTextField();
+        lblNikPasien = new javax.swing.JLabel();
+        txtNikPasien = new javax.swing.JTextField();
+        lblJadwalDetail = new javax.swing.JLabel();
+        txtJadwalDetail = new javax.swing.JTextField();
+        lblKeluhanDetail = new javax.swing.JLabel();
+        scrollKeluhanDetail = new javax.swing.JScrollPane();
+        txaKeluhanDetail = new javax.swing.JTextArea();
+        lblAlasan = new javax.swing.JLabel();
+        scrollAlasan = new javax.swing.JScrollPane();
+        txaAlasan = new javax.swing.JTextArea();
+        btnTolak = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnTerima = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnMulaiPemeriksaan = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+
+        lblBrand.setText("Portal Dokter");
+        lblBrand.setFont(new java.awt.Font("Segoe UI", 1, 22));
+        lblBrand.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblBrandSub.setText("Rumah Sakit");
+        lblBrandSub.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        lblBrandSub.setForeground(new java.awt.Color(132, 179, 206));
+
+        btnMenuDetail.setText("Detail Pendaftaran");
+        btnMenuDetail.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMenuDetail.setBackground(new java.awt.Color(22, 88, 123));
+        btnMenuDetail.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuDetail.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenuDetail.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
+        btnMenuDetail.addActionListener(this::btnMenuDetailActionPerformed);
+
+        btnMenuPemeriksaan.setText("Pemeriksaan");
+        btnMenuPemeriksaan.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMenuPemeriksaan.setBackground(new java.awt.Color(22, 88, 123));
+        btnMenuPemeriksaan.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuPemeriksaan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenuPemeriksaan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
+        btnMenuPemeriksaan.addActionListener(this::btnMenuPemeriksaanActionPerformed);
+
+        btnMenuRiwayat.setText("Riwayat Pelayanan");
+        btnMenuRiwayat.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMenuRiwayat.setBackground(new java.awt.Color(22, 88, 123));
+        btnMenuRiwayat.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuRiwayat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenuRiwayat.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 18, 0, 0));
+        btnMenuRiwayat.addActionListener(this::btnMenuRiwayatActionPerformed);
+
+        btnKembali.setText("Kembali");
+        btnKembali.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnKembali.setBackground(new java.awt.Color(245, 238, 221));
+        btnKembali.setForeground(new java.awt.Color(22, 88, 123));
+        btnKembali.addActionListener(this::btnKembaliActionPerformed);
+
+        panelSidebar.setBackground(new java.awt.Color(22, 88, 123));
+        javax.swing.GroupLayout panelSidebarLayout = new javax.swing.GroupLayout(panelSidebar);
+        panelSidebar.setLayout(panelSidebarLayout);
+        panelSidebarLayout.setHorizontalGroup(
+            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelSidebarLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblBrand)
+                        .addComponent(lblBrandSub)
+                        .addComponent(btnMenuDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMenuPemeriksaan, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMenuRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(16, 16, 16)
+                )
+            )
+        );
+        panelSidebarLayout.setVerticalGroup(
+            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSidebarLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblBrand)
+                .addGap(2, 2, 2)
+                .addComponent(lblBrandSub)
+                .addGap(36, 36, 36)
+                .addComponent(btnMenuDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(btnMenuPemeriksaan, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(btnMenuRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, Short.MAX_VALUE)
+                .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+            )
+        );
+
+        lblJudulDetail.setText("Detail Pendaftaran");
+        lblJudulDetail.setFont(new java.awt.Font("Segoe UI", 1, 26));
+        lblJudulDetail.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblSubDetail.setText("Periksa informasi pendaftaran pasien, lalu terima atau tolak.");
+        lblSubDetail.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblSubDetail.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblPilihDaftar.setText("Pendaftaran Pasien");
+        lblPilihDaftar.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblPilihDaftar.setForeground(new java.awt.Color(22, 88, 123));
+
+        cmbPendaftaran.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih pendaftaran" }));
+        cmbPendaftaran.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        cmbPendaftaran.setBackground(new java.awt.Color(245, 238, 221));
+        cmbPendaftaran.setForeground(new java.awt.Color(22, 88, 123));
+        cmbPendaftaran.addActionListener(this::cmbPendaftaranActionPerformed);
+
+        lblStatusJudul.setText("Status Pendaftaran");
+        lblStatusJudul.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblStatusJudul.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblStatusNilai.setText("-");
+        lblStatusNilai.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        lblStatusNilai.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblNoDaftar.setText("No. Pendaftaran");
+        lblNoDaftar.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNoDaftar.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtNoDaftar.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNoDaftar.setBackground(new java.awt.Color(245, 238, 221));
+        txtNoDaftar.setForeground(new java.awt.Color(22, 88, 123));
+        txtNoDaftar.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtNoDaftar.setEditable(false);
+
+        lblPoliDetail.setText("Poli");
+        lblPoliDetail.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblPoliDetail.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtPoliDetail.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtPoliDetail.setBackground(new java.awt.Color(245, 238, 221));
+        txtPoliDetail.setForeground(new java.awt.Color(22, 88, 123));
+        txtPoliDetail.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtPoliDetail.setEditable(false);
+
+        lblNamaPasien.setText("Nama Pasien");
+        lblNamaPasien.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNamaPasien.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtNamaPasien.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNamaPasien.setBackground(new java.awt.Color(245, 238, 221));
+        txtNamaPasien.setForeground(new java.awt.Color(22, 88, 123));
+        txtNamaPasien.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtNamaPasien.setEditable(false);
+
+        lblTanggalDetail.setText("Tanggal Kunjungan");
+        lblTanggalDetail.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblTanggalDetail.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtTanggalDetail.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtTanggalDetail.setBackground(new java.awt.Color(245, 238, 221));
+        txtTanggalDetail.setForeground(new java.awt.Color(22, 88, 123));
+        txtTanggalDetail.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtTanggalDetail.setEditable(false);
+
+        lblNikPasien.setText("NIK");
+        lblNikPasien.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNikPasien.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtNikPasien.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNikPasien.setBackground(new java.awt.Color(245, 238, 221));
+        txtNikPasien.setForeground(new java.awt.Color(22, 88, 123));
+        txtNikPasien.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtNikPasien.setEditable(false);
+
+        lblJadwalDetail.setText("Jadwal Praktik");
+        lblJadwalDetail.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblJadwalDetail.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtJadwalDetail.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtJadwalDetail.setBackground(new java.awt.Color(245, 238, 221));
+        txtJadwalDetail.setForeground(new java.awt.Color(22, 88, 123));
+        txtJadwalDetail.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtJadwalDetail.setEditable(false);
+
+        lblKeluhanDetail.setText("Keluhan Pasien");
+        lblKeluhanDetail.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblKeluhanDetail.setForeground(new java.awt.Color(22, 88, 123));
+
+        txaKeluhanDetail.setColumns(20);
+        txaKeluhanDetail.setRows(3);
+        txaKeluhanDetail.setLineWrap(true);
+        txaKeluhanDetail.setWrapStyleWord(true);
+        txaKeluhanDetail.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txaKeluhanDetail.setBackground(new java.awt.Color(245, 238, 221));
+        txaKeluhanDetail.setForeground(new java.awt.Color(22, 88, 123));
+        txaKeluhanDetail.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txaKeluhanDetail.setEditable(false);
+
+        scrollKeluhanDetail.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollKeluhanDetail.setViewportView(txaKeluhanDetail);
+
+        lblAlasan.setText("Alasan Penolakan (isi bila menolak)");
+        lblAlasan.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblAlasan.setForeground(new java.awt.Color(22, 88, 123));
+
+        txaAlasan.setColumns(20);
+        txaAlasan.setRows(3);
+        txaAlasan.setLineWrap(true);
+        txaAlasan.setWrapStyleWord(true);
+        txaAlasan.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txaAlasan.setBackground(new java.awt.Color(245, 238, 221));
+        txaAlasan.setForeground(new java.awt.Color(22, 88, 123));
+        txaAlasan.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        scrollAlasan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollAlasan.setViewportView(txaAlasan);
+
+        btnTolak.setText("Tolak");
+        btnTolak.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnTolak.setBackground(new java.awt.Color(132, 179, 206));
+        btnTolak.setForeground(new java.awt.Color(22, 88, 123));
+        btnTolak.addActionListener(this::btnTolakActionPerformed);
+
+        btnTerima.setText("Terima");
+        btnTerima.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnTerima.setBackground(new java.awt.Color(22, 88, 123));
+        btnTerima.setForeground(new java.awt.Color(255, 255, 255));
+        btnTerima.addActionListener(this::btnTerimaActionPerformed);
+
+        btnMulaiPemeriksaan.setText("Mulai Pemeriksaan");
+        btnMulaiPemeriksaan.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMulaiPemeriksaan.setBackground(new java.awt.Color(22, 88, 123));
+        btnMulaiPemeriksaan.setForeground(new java.awt.Color(255, 255, 255));
+        btnMulaiPemeriksaan.addActionListener(this::btnMulaiPemeriksaanActionPerformed);
+
+        cardDetailPendaftaran.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardDetailPendaftaranLayout = new javax.swing.GroupLayout(cardDetailPendaftaran);
+        cardDetailPendaftaran.setLayout(cardDetailPendaftaranLayout);
+        cardDetailPendaftaranLayout.setHorizontalGroup(
+            cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardDetailPendaftaranLayout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(cardDetailPendaftaranLayout.createSequentialGroup()
+                            .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblPilihDaftar)
+                                .addComponent(cmbPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNoDaftar)
+                                .addComponent(txtNoDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNamaPasien)
+                                .addComponent(txtNamaPasien, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNikPasien)
+                                .addComponent(txtNikPasien, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblKeluhanDetail)
+                                .addComponent(scrollKeluhanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            )
+                            .addGap(24, 24, 24)
+                            .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblStatusJudul)
+                                .addComponent(lblStatusNilai)
+                                .addComponent(lblPoliDetail)
+                                .addComponent(txtPoliDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTanggalDetail)
+                                .addComponent(txtTanggalDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblJadwalDetail)
+                                .addComponent(txtJadwalDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblAlasan)
+                                .addComponent(scrollAlasan, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            )
+                        )
+                        .addGroup(cardDetailPendaftaranLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(btnTolak, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(btnTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(btnMulaiPemeriksaan, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        )
+                    )
+                    .addGap(24, 24, 24)
+                )
+            )
+        );
+        cardDetailPendaftaranLayout.setVerticalGroup(
+            cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardDetailPendaftaranLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPilihDaftar)
+                    .addComponent(lblStatusJudul)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStatusNilai)
+                )
+                .addGap(16, 16, 16)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNoDaftar)
+                    .addComponent(lblPoliDetail)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNoDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPoliDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, 16)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNamaPasien)
+                    .addComponent(lblTanggalDetail)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNamaPasien, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTanggalDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, 16)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNikPasien)
+                    .addComponent(lblJadwalDetail)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNikPasien, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtJadwalDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, 16)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblKeluhanDetail)
+                    .addComponent(lblAlasan)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollKeluhanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollAlasan, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, Short.MAX_VALUE)
+                .addGroup(cardDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTolak, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMulaiPemeriksaan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(24, 24, 24)
+            )
+        );
+
+        panelDetailPendaftaran.setBackground(new java.awt.Color(245, 238, 221));
+        javax.swing.GroupLayout panelDetailPendaftaranLayout = new javax.swing.GroupLayout(panelDetailPendaftaran);
+        panelDetailPendaftaran.setLayout(panelDetailPendaftaranLayout);
+        panelDetailPendaftaranLayout.setHorizontalGroup(
+            panelDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelDetailPendaftaranLayout.createSequentialGroup()
+                    .addGap(32, 32, 32)
+                    .addGroup(panelDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJudulDetail)
+                        .addComponent(lblSubDetail)
+                        .addComponent(cardDetailPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(32, 32, 32)
+                )
+            )
+        );
+        panelDetailPendaftaranLayout.setVerticalGroup(
+            panelDetailPendaftaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDetailPendaftaranLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblJudulDetail)
+                .addGap(4, 4, 4)
+                .addComponent(lblSubDetail)
+                .addGap(20, 20, 20)
+                .addComponent(cardDetailPendaftaran, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        panelKonten.setBackground(new java.awt.Color(245, 238, 221));
+        panelKonten.setLayout(new java.awt.CardLayout());
+        panelKonten.add(panelDetailPendaftaran, "detail");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(panelSidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                )
+            )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                .addComponent(panelKonten, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            )
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMenuDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuDetailActionPerformed
+        tampilkan(HALAMAN_DETAIL);
+    }//GEN-LAST:event_btnMenuDetailActionPerformed
+
+    private void btnMenuPemeriksaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPemeriksaanActionPerformed
+        tampilkan(HALAMAN_PEMERIKSAAN);
+    }//GEN-LAST:event_btnMenuPemeriksaanActionPerformed
+
+    private void btnMenuRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuRiwayatActionPerformed
+        tampilkan(HALAMAN_RIWAYAT);
+    }//GEN-LAST:event_btnMenuRiwayatActionPerformed
+
+    private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnKembaliActionPerformed
+
+    private void cmbPendaftaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPendaftaranActionPerformed
+        tampilkanPendaftaran(cmbPendaftaran.getSelectedIndex() - 1);
+    }//GEN-LAST:event_cmbPendaftaranActionPerformed
+
+    private void btnTolakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTolakActionPerformed
+        int i = cmbPendaftaran.getSelectedIndex() - 1;
+        if (i < 0) {
+            return;
+        }
+        String alasan = txaAlasan.getText().trim();
+        if (alasan.isEmpty()) {
+            peringatan("Isi alasan penolakan terlebih dahulu.", txaAlasan);
+            return;
+        }
+        int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Tolak pendaftaran " + dataPendaftaran[i][0] + "?",
+                "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
+            dataPendaftaran[i][7] = "Ditolak";
+            dataPendaftaran[i][8] = alasan;
+            tampilkanPendaftaran(i);
+        }
+    }//GEN-LAST:event_btnTolakActionPerformed
+
+    private void btnTerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerimaActionPerformed
+        int i = cmbPendaftaran.getSelectedIndex() - 1;
+        if (i < 0) {
+            return;
+        }
+        int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Terima pendaftaran " + dataPendaftaran[i][0] + "?",
+                "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
+            dataPendaftaran[i][7] = "Diterima";
+            tampilkanPendaftaran(i);
+        }
+    }//GEN-LAST:event_btnTerimaActionPerformed
+
+    private void btnMulaiPemeriksaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMulaiPemeriksaanActionPerformed
+        int i = cmbPendaftaran.getSelectedIndex() - 1;
+        if (i < 0) {
+            return;
+        }
+        halamanPemeriksaan.muatPasien(dataPendaftaran[i][0], dataPendaftaran[i][1], dataPendaftaran[i][6]);
+        tampilkan(HALAMAN_PEMERIKSAAN);
+    }//GEN-LAST:event_btnMulaiPemeriksaanActionPerformed
+
+    /** Menampilkan satu halaman pada area konten tanpa membuka JFrame baru. */
+    public void tampilkan(String nama) {
+        ((java.awt.CardLayout) panelKonten.getLayout()).show(panelKonten, nama);
+    }
+
+    private void tandaiMenu(String nama) {
+        aturMenu(btnMenuDetail, HALAMAN_DETAIL.equals(nama));
+        aturMenu(btnMenuPemeriksaan, HALAMAN_PEMERIKSAAN.equals(nama));
+        aturMenu(btnMenuRiwayat, HALAMAN_RIWAYAT.equals(nama));
+    }
+
+    private void aturMenu(sistempendaftarandanpelayananpasien.pasien.TombolBulat tombol, boolean aktif) {
+        tombol.setBackground(aktif ? Tema.BIRU_MUDA : Tema.BIRU_TUA);
+        tombol.setForeground(aktif ? Tema.BIRU_TUA : Tema.PUTIH);
+    }
+
+    private void isiDaftarPendaftaran() {
+        String[] item = new String[dataPendaftaran.length + 1];
+        item[0] = "Pilih pendaftaran";
+        for (int i = 0; i < dataPendaftaran.length; i++) {
+            item[i + 1] = dataPendaftaran[i][0] + " - " + dataPendaftaran[i][1];
+        }
+        cmbPendaftaran.setModel(new javax.swing.DefaultComboBoxModel<>(item));
+        tampilkanPendaftaran(-1);
+    }
+
+    /** Menampilkan data pendaftaran ke-i (-1 untuk mengosongkan tampilan). */
+    private void tampilkanPendaftaran(int i) {
+        if (i < 0) {
+            txtNoDaftar.setText("");
+            txtNamaPasien.setText("");
+            txtNikPasien.setText("");
+            txtPoliDetail.setText("");
+            txtTanggalDetail.setText("");
+            txtJadwalDetail.setText("");
+            txaKeluhanDetail.setText("");
+            txaAlasan.setText("");
+            lblStatusNilai.setText("-");
+            aturTombol("-");
+            return;
+        }
+        String[] d = dataPendaftaran[i];
+        txtNoDaftar.setText(d[0]);
+        txtNamaPasien.setText(d[1]);
+        txtNikPasien.setText(d[2]);
+        txtPoliDetail.setText(d[3]);
+        txtTanggalDetail.setText(d[4]);
+        txtJadwalDetail.setText(d[5]);
+        txaKeluhanDetail.setText(d[6]);
+        txaAlasan.setText(d[8]);
+        lblStatusNilai.setText(d[7]);
+        aturTombol(d[7]);
+    }
+
+    private void aturTombol(String status) {
+        boolean menunggu = "Menunggu".equals(status);
+        btnTerima.setEnabled(menunggu);
+        btnTolak.setEnabled(menunggu);
+        txaAlasan.setEditable(menunggu);
+        btnMulaiPemeriksaan.setEnabled("Diterima".equals(status));
+    }
+
+    private void peringatan(String pesan, java.awt.Component fokus) {
+        javax.swing.JOptionPane.showMessageDialog(this, pesan, "Periksa Kembali", javax.swing.JOptionPane.WARNING_MESSAGE);
+        fokus.requestFocusInWindow();
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Look and Feel Metal bawaan Java */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -70,5 +636,42 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnKembali;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMenuDetail;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMenuPemeriksaan;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMenuRiwayat;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMulaiPemeriksaan;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnTerima;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnTolak;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardDetailPendaftaran;
+    private javax.swing.JComboBox<String> cmbPendaftaran;
+    private javax.swing.JLabel lblAlasan;
+    private javax.swing.JLabel lblBrand;
+    private javax.swing.JLabel lblBrandSub;
+    private javax.swing.JLabel lblJadwalDetail;
+    private javax.swing.JLabel lblJudulDetail;
+    private javax.swing.JLabel lblKeluhanDetail;
+    private javax.swing.JLabel lblNamaPasien;
+    private javax.swing.JLabel lblNikPasien;
+    private javax.swing.JLabel lblNoDaftar;
+    private javax.swing.JLabel lblPilihDaftar;
+    private javax.swing.JLabel lblPoliDetail;
+    private javax.swing.JLabel lblStatusJudul;
+    private javax.swing.JLabel lblStatusNilai;
+    private javax.swing.JLabel lblSubDetail;
+    private javax.swing.JLabel lblTanggalDetail;
+    private javax.swing.JPanel panelDetailPendaftaran;
+    private javax.swing.JPanel panelKonten;
+    private javax.swing.JPanel panelSidebar;
+    private javax.swing.JScrollPane scrollAlasan;
+    private javax.swing.JScrollPane scrollKeluhanDetail;
+    private javax.swing.JTextArea txaAlasan;
+    private javax.swing.JTextArea txaKeluhanDetail;
+    private javax.swing.JTextField txtJadwalDetail;
+    private javax.swing.JTextField txtNamaPasien;
+    private javax.swing.JTextField txtNikPasien;
+    private javax.swing.JTextField txtNoDaftar;
+    private javax.swing.JTextField txtPoliDetail;
+    private javax.swing.JTextField txtTanggalDetail;
     // End of variables declaration//GEN-END:variables
 }
