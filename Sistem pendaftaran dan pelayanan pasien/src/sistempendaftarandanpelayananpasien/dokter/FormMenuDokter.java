@@ -17,6 +17,15 @@ public class FormMenuDokter extends javax.swing.JFrame {
      */
     public FormMenuDokter() {
         initComponents();
+        setLocationRelativeTo(null);
+        if (FormLoginDokter.dokterAktif != null) {
+            lblSideDokter.setText(FormLoginDokter.dokterAktif);
+        }
+    }
+
+    private void buka(String kartu) {
+        new MainDokter(kartu).setVisible(true);
+        dispose();
     }
 
     /**
@@ -28,47 +37,152 @@ public class FormMenuDokter extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        pnlSide = new javax.swing.JPanel();
+        pnlSideTop = new javax.swing.JPanel();
+        lblSideTitle = new javax.swing.JLabel();
+        lblSideDokter = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
+        pnlBody = new javax.swing.JPanel();
+        lblMenuTitle = new javax.swing.JLabel();
+        pnlCards = new javax.swing.JPanel();
+        btnProfil = new javax.swing.JButton();
+        btnPasien = new javax.swing.JButton();
+        btnPeriksa = new javax.swing.JButton();
+        btnRiwayat = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Dokter");
+
+        pnlSide.setBackground(new java.awt.Color(22, 88, 123));
+        pnlSide.setBorder(javax.swing.BorderFactory.createEmptyBorder(25, 20, 25, 20));
+        pnlSide.setPreferredSize(new java.awt.Dimension(260, 420));
+        pnlSide.setLayout(new java.awt.BorderLayout());
+
+        pnlSideTop.setBackground(new java.awt.Color(22, 88, 123));
+        pnlSideTop.setPreferredSize(new java.awt.Dimension(200, 70));
+        pnlSideTop.setLayout(new java.awt.GridLayout(0, 1, 0, 4));
+
+        lblSideTitle.setText("Klinik Sehat");
+        lblSideTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblSideTitle.setForeground(new java.awt.Color(255, 255, 255));
+        pnlSideTop.add(lblSideTitle);
+
+        lblSideDokter.setText("Dokter");
+        lblSideDokter.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblSideDokter.setForeground(new java.awt.Color(132, 179, 206));
+        pnlSideTop.add(lblSideDokter);
+
+        pnlSide.add(pnlSideTop, java.awt.BorderLayout.NORTH);
+
+        btnLogout.setText("Logout");
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLogout.setBackground(new java.awt.Color(132, 179, 206));
+        btnLogout.setForeground(new java.awt.Color(22, 88, 123));
+        btnLogout.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        btnLogout.setFocusPainted(false);
+        btnLogout.setPreferredSize(new java.awt.Dimension(200, 42));
+        btnLogout.addActionListener(this::btnLogoutActionPerformed);
+        pnlSide.add(btnLogout, java.awt.BorderLayout.SOUTH);
+
+        getContentPane().add(pnlSide, java.awt.BorderLayout.WEST);
+
+        pnlBody.setBackground(new java.awt.Color(245, 238, 221));
+        pnlBody.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        pnlBody.setPreferredSize(new java.awt.Dimension(600, 420));
+        pnlBody.setLayout(new java.awt.BorderLayout());
+
+        lblMenuTitle.setText("Menu Utama");
+        lblMenuTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblMenuTitle.setForeground(new java.awt.Color(22, 88, 123));
+        lblMenuTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 15, 0));
+        pnlBody.add(lblMenuTitle, java.awt.BorderLayout.NORTH);
+
+        pnlCards.setBackground(new java.awt.Color(245, 238, 221));
+        pnlCards.setLayout(new java.awt.GridLayout(2, 2, 20, 20));
+
+        btnProfil.setText("Profil & Jadwal Praktik");
+        btnProfil.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnProfil.setForeground(new java.awt.Color(22, 88, 123));
+        btnProfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206)));
+        btnProfil.setFocusPainted(false);
+        btnProfil.addActionListener(this::btnProfilActionPerformed);
+        pnlCards.add(btnProfil);
+
+        btnPasien.setText("Daftar Pasien");
+        btnPasien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnPasien.setForeground(new java.awt.Color(22, 88, 123));
+        btnPasien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206)));
+        btnPasien.setFocusPainted(false);
+        btnPasien.addActionListener(this::btnPasienActionPerformed);
+        pnlCards.add(btnPasien);
+
+        btnPeriksa.setText("Pemeriksaan Pasien");
+        btnPeriksa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+        btnPeriksa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206)));
+        btnPeriksa.setFocusPainted(false);
+        btnPeriksa.addActionListener(this::btnPeriksaActionPerformed);
+        pnlCards.add(btnPeriksa);
+
+        btnRiwayat.setText("Riwayat Pelayanan");
+        btnRiwayat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRiwayat.setForeground(new java.awt.Color(22, 88, 123));
+        btnRiwayat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206)));
+        btnRiwayat.setFocusPainted(false);
+        btnRiwayat.addActionListener(this::btnRiwayatActionPerformed);
+        pnlCards.add(btnRiwayat);
+
+        pnlBody.add(pnlCards, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(pnlBody, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfilActionPerformed
+        buka("profil");
+    }//GEN-LAST:event_btnProfilActionPerformed
+
+    private void btnPasienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasienActionPerformed
+        buka("pasien");
+    }//GEN-LAST:event_btnPasienActionPerformed
+
+    private void btnPeriksaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriksaActionPerformed
+        buka("pemeriksaan");
+    }//GEN-LAST:event_btnPeriksaActionPerformed
+
+    private void btnRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiwayatActionPerformed
+        buka("riwayat");
+    }//GEN-LAST:event_btnRiwayatActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        if (javax.swing.JOptionPane.showConfirmDialog(this, "Yakin ingin logout?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION) == javax.swing.JOptionPane.YES_OPTION) {
+            FormLoginDokter.dokterAktif = null;
+            new FormLoginDokter().setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        /* Look and Feel: Metal (default), no changes needed. */
         java.awt.EventQueue.invokeLater(() -> new FormMenuDokter().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnPasien;
+    private javax.swing.JButton btnPeriksa;
+    private javax.swing.JButton btnProfil;
+    private javax.swing.JButton btnRiwayat;
+    private javax.swing.JLabel lblMenuTitle;
+    private javax.swing.JLabel lblSideDokter;
+    private javax.swing.JLabel lblSideTitle;
+    private javax.swing.JPanel pnlBody;
+    private javax.swing.JPanel pnlCards;
+    private javax.swing.JPanel pnlSide;
+    private javax.swing.JPanel pnlSideTop;
     // End of variables declaration//GEN-END:variables
 }
