@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package sistempendaftarandanpelayananpasien.dokter;
 
@@ -8,15 +8,21 @@ package sistempendaftarandanpelayananpasien.dokter;
  *
  * @author LENOVO
  */
-public class FormPemeriksaan extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPemeriksaan.class.getName());
+
+public class FormPemeriksaan extends javax.swing.JPanel {
+
+    public static final String STATUS_MENUNGGU = "Menunggu";
+    public static final String STATUS_DIPERIKSA = "Sedang Diperiksa";
+    public static final String STATUS_SELESAI = "Selesai";
+
+    private FormRiwayatPelayanan riwayat;
 
     /**
      * Creates new form FormPemeriksaan
      */
     public FormPemeriksaan() {
         initComponents();
+        aturStatus("-");
     }
 
     /**
@@ -28,47 +34,341 @@ public class FormPemeriksaan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblJudulPeriksa = new javax.swing.JLabel();
+        lblSubPeriksa = new javax.swing.JLabel();
+        cardPasienPeriksa = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblNoDaftarPeriksa = new javax.swing.JLabel();
+        txtNoDaftarPeriksa = new javax.swing.JTextField();
+        lblNamaPeriksa = new javax.swing.JLabel();
+        txtNamaPeriksa = new javax.swing.JTextField();
+        lblStatusPeriksaJudul = new javax.swing.JLabel();
+        lblStatusPeriksaNilai = new javax.swing.JLabel();
+        cardInputHasil = new sistempendaftarandanpelayananpasien.pasien.PanelBulat();
+        lblInputJudul = new javax.swing.JLabel();
+        lblKeluhanPeriksa = new javax.swing.JLabel();
+        scrollKeluhanPeriksa = new javax.swing.JScrollPane();
+        txaKeluhanPeriksa = new javax.swing.JTextArea();
+        lblHasilPeriksa = new javax.swing.JLabel();
+        scrollHasilPeriksa = new javax.swing.JScrollPane();
+        txaHasilPeriksa = new javax.swing.JTextArea();
+        lblDiagnosis = new javax.swing.JLabel();
+        txtDiagnosis = new javax.swing.JTextField();
+        btnMulaiPeriksa = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
+        btnSimpanSelesai = new sistempendaftarandanpelayananpasien.pasien.TombolBulat();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        setBackground(new java.awt.Color(245, 238, 221));
+
+        lblJudulPeriksa.setText("Pemeriksaan Pasien");
+        lblJudulPeriksa.setFont(new java.awt.Font("Segoe UI", 1, 26));
+        lblJudulPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblSubPeriksa.setText("Ubah status pemeriksaan, lalu catat keluhan, diagnosis, dan hasil pemeriksaan.");
+        lblSubPeriksa.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lblSubPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblNoDaftarPeriksa.setText("No. Pendaftaran");
+        lblNoDaftarPeriksa.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNoDaftarPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtNoDaftarPeriksa.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNoDaftarPeriksa.setBackground(new java.awt.Color(245, 238, 221));
+        txtNoDaftarPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+        txtNoDaftarPeriksa.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtNoDaftarPeriksa.setEditable(false);
+
+        lblNamaPeriksa.setText("Nama Pasien");
+        lblNamaPeriksa.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblNamaPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtNamaPeriksa.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtNamaPeriksa.setBackground(new java.awt.Color(245, 238, 221));
+        txtNamaPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+        txtNamaPeriksa.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtNamaPeriksa.setEditable(false);
+
+        lblStatusPeriksaJudul.setText("Status Pemeriksaan");
+        lblStatusPeriksaJudul.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblStatusPeriksaJudul.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblStatusPeriksaNilai.setText("-");
+        lblStatusPeriksaNilai.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        lblStatusPeriksaNilai.setForeground(new java.awt.Color(22, 88, 123));
+
+        cardPasienPeriksa.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardPasienPeriksaLayout = new javax.swing.GroupLayout(cardPasienPeriksa);
+        cardPasienPeriksa.setLayout(cardPasienPeriksaLayout);
+        cardPasienPeriksaLayout.setHorizontalGroup(
+            cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardPasienPeriksaLayout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addGroup(cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblNoDaftarPeriksa)
+                        .addComponent(txtNoDaftarPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(16, 16, 16)
+                    .addGroup(cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblNamaPeriksa)
+                        .addComponent(txtNamaPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(16, 16, 16)
+                    .addGroup(cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblStatusPeriksaJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblStatusPeriksaNilai, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(24, 24, 24)
+                )
+            )
+        );
+        cardPasienPeriksaLayout.setVerticalGroup(
+            cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardPasienPeriksaLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNoDaftarPeriksa)
+                    .addComponent(lblNamaPeriksa)
+                    .addComponent(lblStatusPeriksaJudul)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardPasienPeriksaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNoDaftarPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamaPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStatusPeriksaNilai)
+                )
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
+        );
+
+        lblInputJudul.setText("Input Hasil Pemeriksaan");
+        lblInputJudul.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        lblInputJudul.setForeground(new java.awt.Color(22, 88, 123));
+
+        lblKeluhanPeriksa.setText("Keluhan");
+        lblKeluhanPeriksa.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblKeluhanPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+
+        txaKeluhanPeriksa.setColumns(20);
+        txaKeluhanPeriksa.setRows(3);
+        txaKeluhanPeriksa.setLineWrap(true);
+        txaKeluhanPeriksa.setWrapStyleWord(true);
+        txaKeluhanPeriksa.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txaKeluhanPeriksa.setBackground(new java.awt.Color(245, 238, 221));
+        txaKeluhanPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+        txaKeluhanPeriksa.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        scrollKeluhanPeriksa.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollKeluhanPeriksa.setViewportView(txaKeluhanPeriksa);
+
+        lblHasilPeriksa.setText("Hasil Pemeriksaan");
+        lblHasilPeriksa.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblHasilPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+
+        txaHasilPeriksa.setColumns(20);
+        txaHasilPeriksa.setRows(3);
+        txaHasilPeriksa.setLineWrap(true);
+        txaHasilPeriksa.setWrapStyleWord(true);
+        txaHasilPeriksa.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txaHasilPeriksa.setBackground(new java.awt.Color(245, 238, 221));
+        txaHasilPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+        txaHasilPeriksa.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        scrollHasilPeriksa.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollHasilPeriksa.setViewportView(txaHasilPeriksa);
+
+        lblDiagnosis.setText("Diagnosis");
+        lblDiagnosis.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        lblDiagnosis.setForeground(new java.awt.Color(22, 88, 123));
+
+        txtDiagnosis.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        txtDiagnosis.setBackground(new java.awt.Color(245, 238, 221));
+        txtDiagnosis.setForeground(new java.awt.Color(22, 88, 123));
+        txtDiagnosis.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        btnMulaiPeriksa.setText("Mulai Periksa");
+        btnMulaiPeriksa.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnMulaiPeriksa.setBackground(new java.awt.Color(132, 179, 206));
+        btnMulaiPeriksa.setForeground(new java.awt.Color(22, 88, 123));
+        btnMulaiPeriksa.addActionListener(this::btnMulaiPeriksaActionPerformed);
+
+        btnSimpanSelesai.setText("Simpan dan Selesai");
+        btnSimpanSelesai.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btnSimpanSelesai.setBackground(new java.awt.Color(22, 88, 123));
+        btnSimpanSelesai.setForeground(new java.awt.Color(255, 255, 255));
+        btnSimpanSelesai.addActionListener(this::btnSimpanSelesaiActionPerformed);
+
+        cardInputHasil.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout cardInputHasilLayout = new javax.swing.GroupLayout(cardInputHasil);
+        cardInputHasil.setLayout(cardInputHasilLayout);
+        cardInputHasilLayout.setHorizontalGroup(
+            cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cardInputHasilLayout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addGroup(cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblInputJudul)
+                        .addGroup(cardInputHasilLayout.createSequentialGroup()
+                            .addGroup(cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblKeluhanPeriksa)
+                                .addComponent(scrollKeluhanPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            )
+                            .addGap(24, 24, 24)
+                            .addGroup(cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblHasilPeriksa)
+                                .addComponent(scrollHasilPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            )
+                        )
+                        .addComponent(lblDiagnosis)
+                        .addComponent(txtDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(cardInputHasilLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(btnMulaiPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(12, 12, 12)
+                            .addComponent(btnSimpanSelesai, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        )
+                    )
+                    .addGap(24, 24, 24)
+                )
+            )
+        );
+        cardInputHasilLayout.setVerticalGroup(
+            cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardInputHasilLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblInputJudul)
+                .addGap(14, 14, 14)
+                .addGroup(cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblKeluhanPeriksa)
+                    .addComponent(lblHasilPeriksa)
+                )
+                .addGap(6, 6, 6)
+                .addGroup(cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollKeluhanPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollHasilPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(16, 16, 16)
+                .addComponent(lblDiagnosis)
+                .addGap(6, 6, 6)
+                .addComponent(txtDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, Short.MAX_VALUE)
+                .addGroup(cardInputHasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMulaiPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSimpanSelesai, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(20, 20, 20)
+            )
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(32, 32, 32)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJudulPeriksa)
+                        .addComponent(lblSubPeriksa)
+                        .addComponent(cardPasienPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cardInputHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(32, 32, 32)
+                )
+            )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblJudulPeriksa)
+                .addGap(4, 4, 4)
+                .addComponent(lblSubPeriksa)
+                .addGap(20, 20, 20)
+                .addComponent(cardPasienPeriksa, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(cardInputHasil, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+            )
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnMulaiPeriksaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMulaiPeriksaActionPerformed
+        aturStatus(STATUS_DIPERIKSA);
+    }//GEN-LAST:event_btnMulaiPeriksaActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormPemeriksaan().setVisible(true));
+    private void btnSimpanSelesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanSelesaiActionPerformed
+        if (txaKeluhanPeriksa.getText().trim().isEmpty()) {
+            peringatan("Keluhan wajib diisi.", txaKeluhanPeriksa);
+            return;
+        }
+        if (txtDiagnosis.getText().trim().isEmpty()) {
+            peringatan("Diagnosis wajib diisi.", txtDiagnosis);
+            return;
+        }
+        if (txaHasilPeriksa.getText().trim().isEmpty()) {
+            peringatan("Hasil pemeriksaan wajib diisi.", txaHasilPeriksa);
+            return;
+        }
+        if (riwayat != null) {
+            riwayat.tambahRiwayat(txtNoDaftarPeriksa.getText(), txtNamaPeriksa.getText(), txaKeluhanPeriksa.getText().trim(),
+                    txtDiagnosis.getText().trim(), txaHasilPeriksa.getText().trim());
+        }
+        aturStatus(STATUS_SELESAI);
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Hasil pemeriksaan dicatat di Riwayat Pelayanan.\nPenyimpanan ke file akan disambungkan pada tahap berikutnya.",
+                "Pemeriksaan Selesai", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnSimpanSelesaiActionPerformed
+
+    /** Menghubungkan halaman ini dengan Riwayat Pelayanan agar hasil yang disimpan langsung tercatat. */
+    public void setRiwayat(FormRiwayatPelayanan riwayat) {
+        this.riwayat = riwayat;
+    }
+
+    /** Dipanggil dari halaman Detail Pendaftaran setelah pendaftaran diterima. */
+    public void muatPasien(String noDaftar, String nama, String keluhan) {
+        txtNoDaftarPeriksa.setText(noDaftar);
+        txtNamaPeriksa.setText(nama);
+        txaKeluhanPeriksa.setText(keluhan);
+        txtDiagnosis.setText("");
+        txaHasilPeriksa.setText("");
+        aturStatus(STATUS_MENUNGGU);
+    }
+
+    private void aturStatus(String status) {
+        lblStatusPeriksaNilai.setText(status);
+        boolean diperiksa = STATUS_DIPERIKSA.equals(status);
+        btnMulaiPeriksa.setEnabled(STATUS_MENUNGGU.equals(status));
+        btnSimpanSelesai.setEnabled(diperiksa);
+        txaKeluhanPeriksa.setEditable(diperiksa);
+        txaHasilPeriksa.setEditable(diperiksa);
+        txtDiagnosis.setEditable(diperiksa);
+    }
+
+    private void peringatan(String pesan, java.awt.Component fokus) {
+        javax.swing.JOptionPane.showMessageDialog(this, pesan, "Periksa Kembali", javax.swing.JOptionPane.WARNING_MESSAGE);
+        fokus.requestFocusInWindow();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnMulaiPeriksa;
+    private sistempendaftarandanpelayananpasien.pasien.TombolBulat btnSimpanSelesai;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardInputHasil;
+    private sistempendaftarandanpelayananpasien.pasien.PanelBulat cardPasienPeriksa;
+    private javax.swing.JLabel lblDiagnosis;
+    private javax.swing.JLabel lblHasilPeriksa;
+    private javax.swing.JLabel lblInputJudul;
+    private javax.swing.JLabel lblJudulPeriksa;
+    private javax.swing.JLabel lblKeluhanPeriksa;
+    private javax.swing.JLabel lblNamaPeriksa;
+    private javax.swing.JLabel lblNoDaftarPeriksa;
+    private javax.swing.JLabel lblStatusPeriksaJudul;
+    private javax.swing.JLabel lblStatusPeriksaNilai;
+    private javax.swing.JLabel lblSubPeriksa;
+    private javax.swing.JScrollPane scrollHasilPeriksa;
+    private javax.swing.JScrollPane scrollKeluhanPeriksa;
+    private javax.swing.JTextArea txaHasilPeriksa;
+    private javax.swing.JTextArea txaKeluhanPeriksa;
+    private javax.swing.JTextField txtDiagnosis;
+    private javax.swing.JTextField txtNamaPeriksa;
+    private javax.swing.JTextField txtNoDaftarPeriksa;
     // End of variables declaration//GEN-END:variables
 }
