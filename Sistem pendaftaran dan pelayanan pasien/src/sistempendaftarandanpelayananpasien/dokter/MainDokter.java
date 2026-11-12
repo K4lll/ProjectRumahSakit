@@ -4,6 +4,17 @@
  */
 package sistempendaftarandanpelayananpasien.dokter;
 
+import java.util.List;
+import sistempendaftarandanpelayananpasien.auth.SessionManager;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.JadwalPraktik;
+import sistempendaftarandanpelayananpasien.model.Pelayanan;
+import sistempendaftarandanpelayananpasien.model.Pendaftaran;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.JadwalService;
+import sistempendaftarandanpelayananpasien.service.PelayananService;
+import sistempendaftarandanpelayananpasien.service.PendaftaranService;
+
 /**
  *
  * @author LENOVO
@@ -16,6 +27,12 @@ public class MainDokter extends javax.swing.JFrame {
     private static final java.awt.Color ROCK = new java.awt.Color(0x84B3CE);
     private boolean loading;
 
+    private final DokterService dokterService = DokterService.getInstance();
+    private final JadwalService jadwalService = JadwalService.getInstance();
+    private final PendaftaranService pendaftaranService = PendaftaranService.getInstance();
+    private final PelayananService pelayananService = PelayananService.getInstance();
+    private Dokter dokterSaatIni = null;
+
     /**
      * Creates new form MainDokter
      */
@@ -24,17 +41,88 @@ public class MainDokter extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         gayaTabel(tblPasien);
         gayaTabel(tblRiwayat);
-        if (FormLoginDokter.dokterAktif != null) {
-            txtNama.setText(FormLoginDokter.dokterAktif);
-        }
-        lblNamaDokter.setText(txtNama.getText());
-        mp().addRow(new Object[]{"P-001", "Budi Santoso", "11/11/2026", "Demam 3 hari", "Menunggu"});
-        mp().addRow(new Object[]{"P-002", "Siti Rahma", "11/11/2026", "Sakit kepala", "Menunggu"});
-        mp().addRow(new Object[]{"P-003", "Agus Salim", "11/11/2026", "Batuk berdahak", "Diterima"});
-        mp().addRow(new Object[]{"P-004", "Dewi Lestari", "11/11/2026", "Nyeri lambung", "Menunggu"});
-        mr().addRow(new Object[]{"P-000", "Rina Wulandari", "10/11/2026", "Pusing", "Hipertensi", "TD 150/95, diberi amlodipine"});
+        muatDataAwal();
         refresh();
         tampil("dashboard", btnDashboard);
+    }
+
+    private void muatDataAwal() {
+        String user = SessionManager.getUsername();
+        if (user == null || user.trim().isEmpty()) {
+            user = FormLoginDokter.dokterAktif;
+        }
+
+        if (user != null && !user.trim().isEmpty()) {
+            var optDok = dokterService.getDokterByUsername(user);
+            if (optDok.isEmpty()) {
+                optDok = dokterService.getDokterByNama(user);
+            }
+            if (optDok.isEmpty()) {
+                optDok = dokterService.getDokterById(user);
+            }
+            if (optDok.isPresent()) {
+                dokterSaatIni = optDok.get();
+            }
+        }
+
+        if (dokterSaatIni == null) {
+            List<Dokter> allDok = dokterService.getAllDokter();
+            if (!allDok.isEmpty()) {
+                dokterSaatIni = allDok.get(0);
+            }
+        }
+
+        if (dokterSaatIni != null) {
+            txtNama.setText(dokterSaatIni.getNamaLengkap());
+            lblNamaDokter.setText(dokterSaatIni.getNamaLengkap());
+            txtSpesialis.setText(dokterSaatIni.getSpesialisasi());
+            txtTelp.setText(dokterSaatIni.getNoTelepon());
+            List<JadwalPraktik> jdw = jadwalService.getJadwalByDokter(dokterSaatIni.getIdDokter());
+            if (!jdw.isEmpty()) {
+                cbHari.setSelectedItem(jdw.get(0).getHari());
+                txtJam.setText(jdw.get(0).getJamMulai() + " - " + jdw.get(0).getJamSelesai());
+            }
+        } else if (user != null) {
+            txtNama.setText(user);
+            lblNamaDokter.setText(user);
+        }
+
+        mp().setRowCount(0);
+        List<Pendaftaran> listP;
+        if (dokterSaatIni != null) {
+            listP = pendaftaranService.getPendaftaranByDokter(dokterSaatIni.getIdDokter());
+            if (listP.isEmpty()) {
+                listP = pendaftaranService.getPendaftaranByDokter(dokterSaatIni.getNamaLengkap());
+            }
+            if (listP.isEmpty()) {
+                listP = pendaftaranService.getAllPendaftaran();
+            }
+        } else {
+            listP = pendaftaranService.getAllPendaftaran();
+        }
+
+        for (Pendaftaran p : listP) {
+            mp().addRow(new Object[]{
+                p.getIdPendaftaran(),
+                p.getNamaPasien(),
+                p.getTanggalKunjungan(),
+                p.getKeluhan(),
+                p.getStatus() != null ? p.getStatus() : "Menunggu"
+            });
+        }
+
+        mr().setRowCount(0);
+        List<Pelayanan> listPel = pelayananService.getAllPelayanan();
+        for (Pelayanan pel : listPel) {
+            mr().addRow(new Object[]{
+                pel.getIdPendaftaran(),
+                pel.getNamaPasien(),
+                pel.getTanggalPelayanan(),
+                pel.getKeluhan(),
+                pel.getDiagnosis(),
+                pel.getTindakanHasil()
+            });
+        }
     }
 
     public MainDokter(String kartu) {
@@ -791,17 +879,32 @@ public class MainDokter extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         if (javax.swing.JOptionPane.showConfirmDialog(this, "Yakin ingin logout?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION) == javax.swing.JOptionPane.YES_OPTION) {
             FormLoginDokter.dokterAktif = null;
+            sistempendaftarandanpelayananpasien.auth.SessionManager.logout();
             new FormLoginDokter().setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnSimpanProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanProfilActionPerformed
-        if (txtNama.getText().trim().isEmpty() || txtJam.getText().trim().isEmpty()) {
+        String nama = txtNama.getText().trim();
+        String jam = txtJam.getText().trim();
+        if (nama.isEmpty() || jam.isEmpty()) {
             pesan("Nama dan jam praktik wajib diisi.");
             return;
         }
-        lblNamaDokter.setText(txtNama.getText().trim());
+        lblNamaDokter.setText(nama);
+        if (dokterSaatIni != null) {
+            dokterSaatIni.setNamaLengkap(nama);
+            dokterSaatIni.setSpesialisasi(txtSpesialis.getText().trim());
+            dokterSaatIni.setNoTelepon(txtTelp.getText().trim());
+            dokterService.perbaruiProfil(dokterSaatIni);
+
+            String hari = cbHari.getSelectedItem() != null ? cbHari.getSelectedItem().toString() : "Senin";
+            String[] splitJam = jam.split("-");
+            String mulai = splitJam.length > 0 ? splitJam[0].trim() : "08:00";
+            String selesai = splitJam.length > 1 ? splitJam[1].trim() : "12:00";
+            jadwalService.tambahJadwal(dokterSaatIni.getIdDokter(), nama, hari, mulai, selesai, 20);
+        }
         pesan("Profil dan jadwal praktik berhasil disimpan.");
     }//GEN-LAST:event_btnSimpanProfilActionPerformed
 
@@ -810,9 +913,8 @@ public class MainDokter extends javax.swing.JFrame {
         if (r < 0) {
             return;
         }
-        pesan("No. Daftar : " + mp().getValueAt(r, 0) + "\nNama Pasien : " + mp().getValueAt(r, 1)
-                + "\nTanggal : " + mp().getValueAt(r, 2) + "\nKeluhan Awal : " + mp().getValueAt(r, 3)
-                + "\nStatus : " + mp().getValueAt(r, 4));
+        FormDetailPendaftaran formDetail = new FormDetailPendaftaran();
+        formDetail.setVisible(true);
     }//GEN-LAST:event_btnDetailActionPerformed
 
     private void btnTerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerimaActionPerformed
@@ -820,10 +922,12 @@ public class MainDokter extends javax.swing.JFrame {
         if (r < 0) {
             return;
         }
-        if (!"Menunggu".equals(mp().getValueAt(r, 4))) {
+        if (!"Menunggu".equalsIgnoreCase(String.valueOf(mp().getValueAt(r, 4)))) {
             pesan("Hanya pendaftaran berstatus Menunggu yang dapat diproses.");
             return;
         }
+        String idReg = String.valueOf(mp().getValueAt(r, 0));
+        pendaftaranService.terimaPendaftaran(idReg);
         mp().setValueAt("Diterima", r, 4);
         refresh();
     }//GEN-LAST:event_btnTerimaActionPerformed
@@ -833,11 +937,13 @@ public class MainDokter extends javax.swing.JFrame {
         if (r < 0) {
             return;
         }
-        if (!"Menunggu".equals(mp().getValueAt(r, 4))) {
+        if (!"Menunggu".equalsIgnoreCase(String.valueOf(mp().getValueAt(r, 4)))) {
             pesan("Hanya pendaftaran berstatus Menunggu yang dapat diproses.");
             return;
         }
         if (javax.swing.JOptionPane.showConfirmDialog(this, "Tolak pendaftaran ini?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION) == javax.swing.JOptionPane.YES_OPTION) {
+            String idReg = String.valueOf(mp().getValueAt(r, 0));
+            pendaftaranService.tolakPendaftaran(idReg, "Ditolak oleh dokter");
             mp().setValueAt("Ditolak", r, 4);
             refresh();
         }
@@ -855,10 +961,12 @@ public class MainDokter extends javax.swing.JFrame {
             pesan("Tidak ada pasien yang dipilih.");
             return;
         }
-        if (!"Diterima".equals(mp().getValueAt(r, 4))) {
+        if (!"Diterima".equalsIgnoreCase(String.valueOf(mp().getValueAt(r, 4)))) {
             pesan("Pemeriksaan hanya dapat dimulai untuk pasien berstatus Diterima.");
             return;
         }
+        String idReg = String.valueOf(mp().getValueAt(r, 0));
+        pendaftaranService.ubahStatus(idReg, "Sedang Diperiksa");
         mp().setValueAt("Sedang Diperiksa", r, 4);
         refresh();
     }//GEN-LAST:event_btnMulaiActionPerformed
@@ -869,7 +977,7 @@ public class MainDokter extends javax.swing.JFrame {
             pesan("Tidak ada pasien yang dipilih.");
             return;
         }
-        if (!"Sedang Diperiksa".equals(mp().getValueAt(r, 4))) {
+        if (!"Sedang Diperiksa".equalsIgnoreCase(String.valueOf(mp().getValueAt(r, 4)))) {
             pesan("Ubah status menjadi Sedang Diperiksa terlebih dahulu.");
             return;
         }
@@ -878,8 +986,18 @@ public class MainDokter extends javax.swing.JFrame {
             pesan("Diagnosis dan hasil pemeriksaan wajib diisi.");
             return;
         }
+        String idReg = String.valueOf(mp().getValueAt(r, 0));
+        String namaPas = String.valueOf(mp().getValueAt(r, 1));
+        var optP = pendaftaranService.getPendaftaranById(idReg);
+        String idPas = optP.isPresent() ? optP.get().getIdPasien() : "PAS001";
+        String idDok = dokterSaatIni != null ? dokterSaatIni.getIdDokter() : "DOK001";
+        String namaDok = dokterSaatIni != null ? dokterSaatIni.getNamaLengkap() : lblNamaDokter.getText();
+
+        pendaftaranService.ubahStatus(idReg, "Selesai");
+        pelayananService.simpanHasilPemeriksaan(idReg, idPas, namaPas, idDok, namaDok, dx, keluhan, hasil, "-", "-");
+
         mp().setValueAt(keluhan, r, 3);
-        mr().addRow(new Object[]{mp().getValueAt(r, 0), mp().getValueAt(r, 1), mp().getValueAt(r, 2), keluhan, dx, hasil});
+        mr().addRow(new Object[]{idReg, namaPas, String.valueOf(mp().getValueAt(r, 2)), keluhan, dx, hasil});
         mp().setValueAt("Selesai", r, 4);
         txtDiagnosis.setText("");
         txtHasil.setText("");
@@ -892,7 +1010,13 @@ public class MainDokter extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Look and Feel: Metal (default), no changes needed. */
-        java.awt.EventQueue.invokeLater(() -> new MainDokter().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            if (FormLoginDokter.dokterAktif != null) {
+                new MainDokter().setVisible(true);
+            } else {
+                new FormLoginDokter().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
