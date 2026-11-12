@@ -11,6 +11,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.JadwalPraktik;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.JadwalService;
 
 public class FormJadwalDokter extends javax.swing.JFrame {
 
@@ -423,11 +427,21 @@ public class FormJadwalDokter extends javax.swing.JFrame {
     private void isiData() {
         DefaultTableModel model = (DefaultTableModel) tblDokter.getModel();
         model.setRowCount(0);
-        model.addRow(new Object[] {"1", "dr. Andi Pratama", "Poli Umum", "Senin", "08.00 - 12.00"});
-        model.addRow(new Object[] {"2", "dr. Siti Rahma, Sp.A", "Poli Anak", "Selasa", "09.00 - 13.00"});
-        model.addRow(new Object[] {"3", "drg. Budi Santoso", "Poli Gigi", "Rabu", "10.00 - 14.00"});
-        model.addRow(new Object[] {"4", "dr. Rina Wijaya, Sp.PD", "Poli Penyakit Dalam", "Kamis", "13.00 - 17.00"});
-        model.addRow(new Object[] {"5", "dr. Hadi Kusuma, Sp.M", "Poli Mata", "Jumat", "08.00 - 11.00"});
+        List<JadwalPraktik> daftarJadwal = JadwalService.getInstance().getAllJadwal();
+        int no = 1;
+        for (JadwalPraktik j : daftarJadwal) {
+            Dokter d = DokterService.getInstance().getDokterById(j.getIdDokter()).orElse(null);
+            String namaDokter = d != null ? d.getNama() : j.getIdDokter();
+            String poli = d != null ? (d.getPoli() != null && !d.getPoli().trim().isEmpty() ? d.getPoli() : ("Poli " + d.getSpesialisasi())) : "Poli Umum";
+            String jam = j.getJamMulai() + " - " + j.getJamSelesai();
+            model.addRow(new Object[] {
+                String.valueOf(no++),
+                namaDokter,
+                poli,
+                j.getHari(),
+                jam
+            });
+        }
     }
 
     private void aturKartu() {
