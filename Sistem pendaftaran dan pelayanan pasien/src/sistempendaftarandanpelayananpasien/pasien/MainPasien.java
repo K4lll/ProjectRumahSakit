@@ -97,7 +97,10 @@ public class MainPasien extends JFrame {
         in.addActionListener(e -> {
             String[] d = users.get(u.getText().trim());
             if (d != null && d[1].equals(new String(p.getPassword()))) {
-                cur = d; new FormMenuPasien().setVisible(true); dispose();
+                cur = d;
+                sistempendaftarandanpelayananpasien.auth.SessionManager.setSesi(d[0], d[2], "pasien");
+                new FormMenuPasien().setVisible(true);
+                dispose();
             } else JOptionPane.showMessageDialog(this, "Username atau password salah.", "Login gagal", JOptionPane.ERROR_MESSAGE);
         });
         reg.addActionListener(e -> ((CardLayout) host.getLayout()).show(host, "reg"));
