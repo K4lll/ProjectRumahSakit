@@ -38,6 +38,8 @@ public class MainDokter extends javax.swing.JFrame {
      */
     public MainDokter() {
         initComponents();
+        setMinimumSize(new java.awt.Dimension(1000, 650));
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         gayaTabel(tblPasien);
         gayaTabel(tblRiwayat);
@@ -130,7 +132,10 @@ public class MainDokter extends javax.swing.JFrame {
         switch (kartu) {
             case "profil" -> tampil("profil", btnProfil);
             case "pasien" -> tampil("pasien", btnPasien);
-            case "pemeriksaan" -> tampil("pemeriksaan", btnPeriksa);
+            case "pemeriksaan" -> {
+                tampil("pasien", btnPasien);
+                new FormDetailPendaftaran(null, FormDetailPendaftaran.HALAMAN_PEMERIKSAAN).setVisible(true);
+            }
             case "riwayat" -> tampil("riwayat", btnRiwayat);
             default -> tampil("dashboard", btnDashboard);
         }
@@ -864,7 +869,9 @@ public class MainDokter extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPasienActionPerformed
 
     private void btnPeriksaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriksaActionPerformed
-        tampil("pemeriksaan", btnPeriksa);
+        int r = tblPasien.getSelectedRow();
+        String idReg = (r >= 0) ? String.valueOf(mp().getValueAt(r, 0)) : null;
+        new FormDetailPendaftaran(idReg, FormDetailPendaftaran.HALAMAN_PEMERIKSAAN).setVisible(true);
     }//GEN-LAST:event_btnPeriksaActionPerformed
 
     private void btnRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiwayatActionPerformed
@@ -909,12 +916,9 @@ public class MainDokter extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSimpanProfilActionPerformed
 
     private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
-        int r = baris();
-        if (r < 0) {
-            return;
-        }
-        FormDetailPendaftaran formDetail = new FormDetailPendaftaran();
-        formDetail.setVisible(true);
+        int r = tblPasien.getSelectedRow();
+        String idReg = (r >= 0) ? String.valueOf(mp().getValueAt(r, 0)) : null;
+        new FormDetailPendaftaran(idReg, FormDetailPendaftaran.HALAMAN_DETAIL).setVisible(true);
     }//GEN-LAST:event_btnDetailActionPerformed
 
     private void btnTerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerimaActionPerformed

@@ -2,7 +2,10 @@ id_pendaftaran,id_pasien,nama_pasien,id_dokter,nama_dokter,id_jadwal,jadwal,tang
 REG-001,PAS-001,Budi Santoso,DOC-001,"dr. Andi Pratama, Sp.PD",JAD-001,Senin 08.00-12.00,10-11-2026,Demam 3 hari,Selesai,,09-11-2026
 REG-002,PAS-001,Budi Santoso,DOC-002,"dr. Sari Wulandari, Sp.A",JAD-003,Selasa 09.00-13.00,11-11-2026,Batuk pilek,Ditolak,Jadwal dokter berhalangan,10-11-2026
 REG-003,PAS-001,Budi Santoso,DOC-003,"dr. Rudi Hartono, Sp.JP",JAD-005,Rabu 13.00-17.00,12-11-2026,Nyeri dada ringan,Diterima,,11-11-2026
-REG-004,PAS-001,Budi Santoso,DOC-001,"dr. Andi Pratama, Sp.PD",JAD-002,Rabu 08.00-12.00,12-11-2026,Kontrol lambung,Menunggu,,11-11-2026
+REG-004,PAS-001,Budi Santoso,DOC-001,"dr. Andi Pratama, Sp.PD",JAD-002,Rabu 08.00-12.00,12-11-2026,Kontrol lambung,Selesai,,11-11-2026
 REG-005,PAS001,PAS001,DOK001,DOK001,JAD001,Pagi,20-11-2026,Demam tinggi sejak kemarin [Umum],Dibatalkan,,12-11-2026
 REG-006,PAS001,PAS001,DOK001,DOK001,JAD001,Pagi,12-11-2026,Batuk berdahak 3 hari [Umum],Selesai,,12-11-2026
 REG-007,pasien_e2e_8572,Ahmad Subarjo,DOC-001,"dr. Andi Pratama, Sp.PD",JAD001,Pagi,25-11-2026,Pusing berputar dan mual sejak pagi [Umum],Selesai,,12-11-2026
+REG-008,PAS-002,fahrul,DOC-001,"dr. Andi Pratama, Sp.PD",,Senin 08.00-12.00,12-11-2026,sakit kepala,Selesai,,12-11-2026
+REG-009,PAS-002,fahrul,DOC-001,"dr. Andi Pratama, Sp.PD",,Senin 08.00-12.00,12-11-2026,sakit perut,Selesai,,12-11-2026
+REG-010,PAS-006,nurhafiza,DOC-004,"dr. Maya Lestari, Sp.KK",,Senin 14.00-18.00,12-11-2026,gatal dan panu,Selesai,,12-11-2026

@@ -24,6 +24,8 @@ public class FormMenuPasien extends javax.swing.JFrame {
 
     public FormMenuPasien() {
         initComponents();
+        setMinimumSize(new java.awt.Dimension(1000, 650));
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         for (javax.swing.JTable t : new javax.swing.JTable[]{tblRecent, tblDokter, tblJadwal, tblRiwayat, tblHasil}) {
             t.getTableHeader().setBackground(TUA); t.getTableHeader().setForeground(java.awt.Color.WHITE);

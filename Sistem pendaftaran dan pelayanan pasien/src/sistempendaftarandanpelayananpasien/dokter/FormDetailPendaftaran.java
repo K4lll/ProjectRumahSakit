@@ -41,6 +41,9 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
      */
     public FormDetailPendaftaran() {
         initComponents();
+        setMinimumSize(new java.awt.Dimension(1000, 650));
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         // CardLayout khusus: setiap pemanggilan show() (dari sidebar maupun dari dalam halaman)
         // otomatis menandai menu sidebar yang aktif.
         panelKonten.removeAll();
@@ -57,6 +60,27 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
         halamanPemeriksaan.setRiwayat(halamanRiwayat);
         isiDaftarPendaftaran();
         tampilkan(HALAMAN_DETAIL);
+    }
+
+    public FormDetailPendaftaran(String idPendaftaran, String tab) {
+        this();
+        if (idPendaftaran != null && !idPendaftaran.trim().isEmpty()) {
+            for (int i = 0; i < listPendaftaran.size(); i++) {
+                if (idPendaftaran.equalsIgnoreCase(listPendaftaran.get(i).getIdPendaftaran())) {
+                    cmbPendaftaran.setSelectedIndex(i + 1);
+                    tampilkanPendaftaran(i);
+                    if (HALAMAN_PEMERIKSAAN.equalsIgnoreCase(tab)) {
+                        Pendaftaran p = listPendaftaran.get(i);
+                        halamanPemeriksaan.muatPasien(p.getIdPendaftaran(), p.getNamaPasien(), p.getKeluhan());
+                        tampilkan(HALAMAN_PEMERIKSAAN);
+                    }
+                    return;
+                }
+            }
+        }
+        if (tab != null && !tab.trim().isEmpty()) {
+            tampilkan(tab);
+        }
     }
 
     /**

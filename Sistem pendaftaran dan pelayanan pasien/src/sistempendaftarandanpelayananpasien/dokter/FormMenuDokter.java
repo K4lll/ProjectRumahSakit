@@ -17,6 +17,8 @@ public class FormMenuDokter extends javax.swing.JFrame {
      */
     public FormMenuDokter() {
         initComponents();
+        setMinimumSize(new java.awt.Dimension(900, 600));
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         if (FormLoginDokter.dokterAktif != null) {
             lblSideDokter.setText(FormLoginDokter.dokterAktif);

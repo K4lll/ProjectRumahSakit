@@ -2,3 +2,7 @@ id_pelayanan,id_pendaftaran,id_pasien,nama_pasien,id_dokter,nama_dokter,tanggal_
 PEL-001,REG-001,PAS-001,Budi Santoso,DOC-001,"dr. Andi Pratama, Sp.PD",10-11-2026,Infeksi virus ringan,Demam 3 hari,Istirahat dan hidrasi,Paracetamol 500mg 3x1,"Banyak minum air putih, istirahat cukup"
 PEL-002,REG-006,PAS001,PAS001,DOK001,dr. Andi Pratama,12-11-2026,Faringitis Akut,Batuk berdahak 3 hari [Umum],"Tenggorokan hiperemis, istirahat cukup","Amoxicillin 500mg, Paracetamol 500mg",Kontrol bila tidak membaik dalam 3 hari
 PEL-003,REG-007,pasien_e2e_8572,Ahmad Subarjo,DOC-001,"dr. Andi Pratama, Sp.PD",12-11-2026,Vertigo Posisi Paroksismal Jinak (BPPV),Pusing berputar dan mual sejak pagi [Umum],"Manuver Epley telah dilakukan, keluhan mual mereda","Betahistine Mesylate 6mg 3x1, Dimenhydrinate 50mg bila mual","Hindari gerakan kepala tiba-tiba, istirahat cukup"
+PEL-004,REG-008,PAS-002,fahrul,DOC-001,"dr. Andi Pratama, Sp.PD",12-11-2026,mati ini mah,sakit kepala,kebanyakan main hp,-,-
+PEL-005,REG-004,PAS-001,Budi Santoso,DOC-001,"dr. Andi Pratama, Sp.PD",12-11-2026,telat makan,Kontrol lambung,mati juga ini,-,-
+PEL-006,REG-009,PAS-002,fahrul,DOC-001,"dr. Andi Pratama, Sp.PD",12-11-2026,gtw,sakit perut,mokad,-,-
+PEL-007,REG-010,PAS-006,nurhafiza,DOC-004,"dr. Maya Lestari, Sp.KK",12-11-2026,minum es,gatal dan panu,sehat itu,-,-

@@ -242,41 +242,121 @@ public class FormLoginPasien extends javax.swing.JFrame {
 
     private void tampilkanDialogRegistrasi() {
         javax.swing.JDialog dlg = new javax.swing.JDialog(this, "Registrasi Pasien Baru", true);
-        dlg.setSize(440, 560);
+        dlg.setSize(560, 720);
+        dlg.setMinimumSize(new java.awt.Dimension(520, 640));
         dlg.setLocationRelativeTo(this);
-        dlg.setLayout(new java.awt.BorderLayout(10, 10));
+        dlg.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.JPanel pnl = new javax.swing.JPanel(new java.awt.GridLayout(0, 1, 4, 6));
-        pnl.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 20, 15, 20));
-        pnl.setBackground(new java.awt.Color(245, 238, 221));
+        // Header Panel
+        javax.swing.JPanel pnlHeader = new javax.swing.JPanel(new java.awt.GridLayout(0, 1, 2, 4));
+        pnlHeader.setBackground(new java.awt.Color(22, 88, 123));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 28, 20, 28));
+
+        javax.swing.JLabel lblHeaderTitle = new javax.swing.JLabel("Registrasi Pasien Baru");
+        lblHeaderTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 22));
+        lblHeaderTitle.setForeground(java.awt.Color.WHITE);
+
+        javax.swing.JLabel lblHeaderSub = new javax.swing.JLabel("Lengkapi identitas diri Anda untuk membuat akun berobat.");
+        lblHeaderSub.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        lblHeaderSub.setForeground(new java.awt.Color(132, 179, 206));
+
+        pnlHeader.add(lblHeaderTitle);
+        pnlHeader.add(lblHeaderSub);
+        dlg.add(pnlHeader, java.awt.BorderLayout.NORTH);
+
+        // Form Panel di dalam ScrollPane agar responsif
+        javax.swing.JPanel pnlForm = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        pnlForm.setBackground(new java.awt.Color(245, 238, 221));
+        pnlForm.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 28, 20, 28));
+
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.insets = new java.awt.Insets(6, 0, 4, 0);
+
+        java.awt.Font fontLabel = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13);
+        java.awt.Color warnaLabel = new java.awt.Color(22, 88, 123);
+        java.awt.Font fontInput = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14);
+        javax.swing.border.Border borderField = javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(132, 179, 206), 1, true),
+                javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12)
+        );
 
         javax.swing.JTextField txtRegNama = new javax.swing.JTextField();
-        javax.swing.JTextField txtRegNik = new javax.swing.JTextField();
-        javax.swing.JTextField txtRegTelp = new javax.swing.JTextField();
-        javax.swing.JTextField txtRegAlamat = new javax.swing.JTextField();
-        javax.swing.JTextField txtRegUser = new javax.swing.JTextField();
-        javax.swing.JPasswordField txtRegPass = new javax.swing.JPasswordField();
-        javax.swing.JPasswordField txtRegKonfirmasi = new javax.swing.JPasswordField();
+        txtRegNama.setFont(fontInput);
+        txtRegNama.setBorder(borderField);
 
-        pnl.add(new javax.swing.JLabel("Nama Lengkap:"));
-        pnl.add(txtRegNama);
-        pnl.add(new javax.swing.JLabel("NIK (16 Digit):"));
-        pnl.add(txtRegNik);
-        pnl.add(new javax.swing.JLabel("No. Telepon / HP:"));
-        pnl.add(txtRegTelp);
-        pnl.add(new javax.swing.JLabel("Alamat:"));
-        pnl.add(txtRegAlamat);
-        pnl.add(new javax.swing.JLabel("Username:"));
-        pnl.add(txtRegUser);
-        pnl.add(new javax.swing.JLabel("Password:"));
-        pnl.add(txtRegPass);
-        pnl.add(new javax.swing.JLabel("Konfirmasi Password:"));
-        pnl.add(txtRegKonfirmasi);
+        javax.swing.JTextField txtRegNik = new javax.swing.JTextField();
+        txtRegNik.setFont(fontInput);
+        txtRegNik.setBorder(borderField);
+
+        javax.swing.JTextField txtRegTelp = new javax.swing.JTextField();
+        txtRegTelp.setFont(fontInput);
+        txtRegTelp.setBorder(borderField);
+
+        javax.swing.JTextField txtRegAlamat = new javax.swing.JTextField();
+        txtRegAlamat.setFont(fontInput);
+        txtRegAlamat.setBorder(borderField);
+
+        javax.swing.JTextField txtRegUser = new javax.swing.JTextField();
+        txtRegUser.setFont(fontInput);
+        txtRegUser.setBorder(borderField);
+
+        javax.swing.JPasswordField txtRegPass = new javax.swing.JPasswordField();
+        txtRegPass.setFont(fontInput);
+        txtRegPass.setBorder(borderField);
+
+        javax.swing.JPasswordField txtRegKonfirmasi = new javax.swing.JPasswordField();
+        txtRegKonfirmasi.setFont(fontInput);
+        txtRegKonfirmasi.setBorder(borderField);
+
+        int[] gridy = {0};
+
+        java.util.function.BiConsumer<String, javax.swing.JComponent> tambahBaris = (label, comp) -> {
+            gbc.gridy = gridy[0]++;
+            javax.swing.JLabel lbl = new javax.swing.JLabel(label);
+            lbl.setFont(fontLabel);
+            lbl.setForeground(warnaLabel);
+            pnlForm.add(lbl, gbc);
+
+            gbc.gridy = gridy[0]++;
+            pnlForm.add(comp, gbc);
+        };
+
+        tambahBaris.accept("Nama Lengkap Pasien:", txtRegNama);
+        tambahBaris.accept("Nomor Induk Kependudukan (NIK 16 Digit):", txtRegNik);
+        tambahBaris.accept("Nomor Telepon / WhatsApp:", txtRegTelp);
+        tambahBaris.accept("Alamat Domisili:", txtRegAlamat);
+        tambahBaris.accept("Username Baru:", txtRegUser);
+        tambahBaris.accept("Kata Sandi (Password):", txtRegPass);
+        tambahBaris.accept("Konfirmasi Kata Sandi:", txtRegKonfirmasi);
+
+        javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(pnlForm);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        dlg.add(scrollPane, java.awt.BorderLayout.CENTER);
+
+        // Footer Tombol
+        javax.swing.JPanel pnlBottom = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 12, 16));
+        pnlBottom.setBackground(new java.awt.Color(245, 238, 221));
+        pnlBottom.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(210, 200, 185)));
+
+        javax.swing.JButton btnBatal = new javax.swing.JButton("Batal");
+        btnBatal.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
+        btnBatal.setBackground(java.awt.Color.WHITE);
+        btnBatal.setForeground(new java.awt.Color(102, 102, 102));
+        btnBatal.setPreferredSize(new java.awt.Dimension(110, 42));
+        btnBatal.setFocusPainted(false);
+        btnBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBatal.addActionListener(e -> dlg.dispose());
 
         javax.swing.JButton btnDaftar = new javax.swing.JButton("Daftar Sekarang");
         btnDaftar.setBackground(new java.awt.Color(22, 88, 123));
         btnDaftar.setForeground(java.awt.Color.WHITE);
-        btnDaftar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        btnDaftar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        btnDaftar.setPreferredSize(new java.awt.Dimension(160, 42));
+        btnDaftar.setFocusPainted(false);
+        btnDaftar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnDaftar.addActionListener(e -> {
             String nama = txtRegNama.getText().trim();
@@ -288,17 +368,24 @@ public class FormLoginPasien extends javax.swing.JFrame {
             String konf = new String(txtRegKonfirmasi.getPassword());
 
             if (nama.isEmpty() || nik.isEmpty() || telp.isEmpty() || alamat.isEmpty() || user.isEmpty() || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(dlg, "Semua kolom wajib diisi.", "Validasi", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(dlg, "Semua kolom pendaftaran wajib diisi.", "Validasi", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (!nik.matches("\\d{16}")) {
+                JOptionPane.showMessageDialog(dlg, "NIK harus berupa 16 digit angka.", "Validasi NIK", JOptionPane.WARNING_MESSAGE);
+                txtRegNik.requestFocusInWindow();
                 return;
             }
             if (!pass.equals(konf)) {
-                JOptionPane.showMessageDialog(dlg, "Konfirmasi password tidak cocok.", "Validasi", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(dlg, "Konfirmasi kata sandi tidak cocok.", "Validasi", JOptionPane.WARNING_MESSAGE);
+                txtRegKonfirmasi.requestFocusInWindow();
                 return;
             }
             AuthService auth = new AuthService();
             boolean berhasil = auth.registrasiPasien(user, pass, nama, nik, telp, alamat);
             if (!berhasil) {
-                JOptionPane.showMessageDialog(dlg, "Username sudah digunakan, pilih username lain.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(dlg, "Username sudah digunakan, silakan pilih username lain.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                txtRegUser.requestFocusInWindow();
                 return;
             }
 
@@ -306,18 +393,17 @@ public class FormLoginPasien extends javax.swing.JFrame {
             if (!MainPasien.regs.containsKey(user)) {
                 MainPasien.regs.put(user, new java.util.ArrayList<>());
             }
-            JOptionPane.showMessageDialog(dlg, "Pendaftaran akun berhasil! Silakan login.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(dlg, "Pendaftaran akun berhasil!\nSilakan masuk dengan username: " + user, "Registrasi Sukses", JOptionPane.INFORMATION_MESSAGE);
             txtUsername.setText(user);
             txtPassword.setText("");
             dlg.dispose();
         });
 
-        dlg.add(pnl, java.awt.BorderLayout.CENTER);
-        javax.swing.JPanel pnlBtn = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-        pnlBtn.setBackground(new java.awt.Color(245, 238, 221));
-        pnlBtn.add(btnDaftar);
-        dlg.add(pnlBtn, java.awt.BorderLayout.SOUTH);
-        dlg.pack();
+        pnlBottom.add(btnBatal);
+        pnlBottom.add(btnDaftar);
+        dlg.add(pnlBottom, java.awt.BorderLayout.SOUTH);
+
+        dlg.setLocationRelativeTo(this);
         dlg.setVisible(true);
     }
 
