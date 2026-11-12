@@ -4,7 +4,15 @@
  */
 package sistempendaftarandanpelayananpasien.dokter;
 
+import java.util.ArrayList;
+import java.util.List;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.Pasien;
+import sistempendaftarandanpelayananpasien.model.Pendaftaran;
 import sistempendaftarandanpelayananpasien.pasien.Tema;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.PasienService;
+import sistempendaftarandanpelayananpasien.service.PendaftaranService;
 
 /**
  *
@@ -23,16 +31,10 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
     private final FormPemeriksaan halamanPemeriksaan = new FormPemeriksaan();
     private final FormRiwayatPelayanan halamanRiwayat = new FormRiwayatPelayanan();
 
-    // DATA CONTOH untuk tampilan. Kolom: no. daftar, nama, NIK, poli, tanggal kunjungan, jadwal, keluhan, status, alasan penolakan.
-    // Ganti dengan data dari penyimpanan file pada tahap berikutnya.
-    private final String[][] dataPendaftaran = {
-        {"PD-001", "Budi Hartono", "3174010101900001", "Umum", "11-11-2026", "Rabu 08:00-12:00",
-            "Pusing dan tengkuk terasa berat sejak dua hari.", "Menunggu", ""},
-        {"PD-005", "Siti Rahmawati", "3174015505920002", "Umum", "11-11-2026", "Rabu 08:00-12:00",
-            "Batuk dan demam selama tiga hari.", "Menunggu", ""},
-        {"PD-008", "Andi Saputra", "3174012012880003", "Umum", "12-11-2026", "Kamis 13:00-16:00",
-            "Nyeri ulu hati setelah makan.", "Diterima", ""}
-    };
+    private final PendaftaranService pendaftaranService = PendaftaranService.getInstance();
+    private final PasienService pasienService = PasienService.getInstance();
+    private final DokterService dokterService = DokterService.getInstance();
+    private final List<Pendaftaran> listPendaftaran = new ArrayList<>();
 
     /**
      * Creates new form FormDetailPendaftaran
@@ -512,7 +514,7 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
 
     private void btnTolakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTolakActionPerformed
         int i = cmbPendaftaran.getSelectedIndex() - 1;
-        if (i < 0) {
+        if (i < 0 || i >= listPendaftaran.size()) {
             return;
         }
         String alasan = txaAlasan.getText().trim();
@@ -520,34 +522,41 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
             peringatan("Isi alasan penolakan terlebih dahulu.", txaAlasan);
             return;
         }
-        int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Tolak pendaftaran " + dataPendaftaran[i][0] + "?",
+        Pendaftaran p = listPendaftaran.get(i);
+        int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Tolak pendaftaran " + p.getIdPendaftaran() + "?",
                 "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
         if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
-            dataPendaftaran[i][7] = "Ditolak";
-            dataPendaftaran[i][8] = alasan;
+            pendaftaranService.tolakPendaftaran(p.getIdPendaftaran(), alasan);
+            p.setStatus("Ditolak");
+            p.setAlasanPenolakan(alasan);
             tampilkanPendaftaran(i);
         }
     }//GEN-LAST:event_btnTolakActionPerformed
 
     private void btnTerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerimaActionPerformed
         int i = cmbPendaftaran.getSelectedIndex() - 1;
-        if (i < 0) {
+        if (i < 0 || i >= listPendaftaran.size()) {
             return;
         }
-        int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Terima pendaftaran " + dataPendaftaran[i][0] + "?",
+        Pendaftaran p = listPendaftaran.get(i);
+        int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Terima pendaftaran " + p.getIdPendaftaran() + "?",
                 "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
         if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
-            dataPendaftaran[i][7] = "Diterima";
+            pendaftaranService.terimaPendaftaran(p.getIdPendaftaran());
+            p.setStatus("Diterima");
             tampilkanPendaftaran(i);
         }
     }//GEN-LAST:event_btnTerimaActionPerformed
 
     private void btnMulaiPemeriksaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMulaiPemeriksaanActionPerformed
         int i = cmbPendaftaran.getSelectedIndex() - 1;
-        if (i < 0) {
+        if (i < 0 || i >= listPendaftaran.size()) {
             return;
         }
-        halamanPemeriksaan.muatPasien(dataPendaftaran[i][0], dataPendaftaran[i][1], dataPendaftaran[i][6]);
+        Pendaftaran p = listPendaftaran.get(i);
+        pendaftaranService.ubahStatus(p.getIdPendaftaran(), "Sedang Diperiksa");
+        p.setStatus("Sedang Diperiksa");
+        halamanPemeriksaan.muatPasien(p.getIdPendaftaran(), p.getNamaPasien(), p.getKeluhan());
         tampilkan(HALAMAN_PEMERIKSAAN);
     }//GEN-LAST:event_btnMulaiPemeriksaanActionPerformed
 
@@ -568,10 +577,13 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
     }
 
     private void isiDaftarPendaftaran() {
-        String[] item = new String[dataPendaftaran.length + 1];
+        listPendaftaran.clear();
+        listPendaftaran.addAll(pendaftaranService.getAllPendaftaran());
+        String[] item = new String[listPendaftaran.size() + 1];
         item[0] = "Pilih pendaftaran";
-        for (int i = 0; i < dataPendaftaran.length; i++) {
-            item[i + 1] = dataPendaftaran[i][0] + " - " + dataPendaftaran[i][1];
+        for (int i = 0; i < listPendaftaran.size(); i++) {
+            Pendaftaran p = listPendaftaran.get(i);
+            item[i + 1] = p.getIdPendaftaran() + " - " + p.getNamaPasien();
         }
         cmbPendaftaran.setModel(new javax.swing.DefaultComboBoxModel<>(item));
         tampilkanPendaftaran(-1);
@@ -579,7 +591,7 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
 
     /** Menampilkan data pendaftaran ke-i (-1 untuk mengosongkan tampilan). */
     private void tampilkanPendaftaran(int i) {
-        if (i < 0) {
+        if (i < 0 || i >= listPendaftaran.size()) {
             txtNoDaftar.setText("");
             txtNamaPasien.setText("");
             txtNikPasien.setText("");
@@ -592,17 +604,22 @@ public class FormDetailPendaftaran extends javax.swing.JFrame {
             aturTombol("-");
             return;
         }
-        String[] d = dataPendaftaran[i];
-        txtNoDaftar.setText(d[0]);
-        txtNamaPasien.setText(d[1]);
-        txtNikPasien.setText(d[2]);
-        txtPoliDetail.setText(d[3]);
-        txtTanggalDetail.setText(d[4]);
-        txtJadwalDetail.setText(d[5]);
-        txaKeluhanDetail.setText(d[6]);
-        txaAlasan.setText(d[8]);
-        lblStatusNilai.setText(d[7]);
-        aturTombol(d[7]);
+        Pendaftaran p = listPendaftaran.get(i);
+        txtNoDaftar.setText(p.getIdPendaftaran());
+        txtNamaPasien.setText(p.getNamaPasien());
+        
+        Pasien pas = pasienService.getPasienById(p.getIdPasien());
+        txtNikPasien.setText(pas != null && pas.getNik() != null ? pas.getNik() : "-");
+
+        Dokter d = dokterService.getDokterById(p.getIdDokter()).orElse(null);
+        txtPoliDetail.setText(d != null && d.getPoli() != null ? d.getPoli() : "Poli Umum");
+
+        txtTanggalDetail.setText(p.getTanggalKunjungan());
+        txtJadwalDetail.setText(p.getJadwal() != null ? p.getJadwal() : "-");
+        txaKeluhanDetail.setText(p.getKeluhan());
+        txaAlasan.setText(p.getAlasanPenolakan() != null ? p.getAlasanPenolakan() : "");
+        lblStatusNilai.setText(p.getStatus() != null ? p.getStatus() : "-");
+        aturTombol(p.getStatus() != null ? p.getStatus() : "-");
     }
 
     private void aturTombol(String status) {
