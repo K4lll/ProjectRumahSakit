@@ -15,6 +15,13 @@ public class FormMenuPasien extends javax.swing.JFrame {
         {"dr. Rudi Hartono, Sp.JP", "Rabu", "13.00-17.00"}, {"dr. Rudi Hartono, Sp.JP", "Jumat", "13.00-17.00"},
         {"dr. Maya Lestari, Sp.KK", "Senin", "14.00-18.00"}, {"dr. Maya Lestari, Sp.KK", "Sabtu", "08.00-11.00"}};
 
+    private final sistempendaftarandanpelayananpasien.service.DokterService dokterService = new sistempendaftarandanpelayananpasien.service.DokterService();
+    private final sistempendaftarandanpelayananpasien.service.JadwalService jadwalService = new sistempendaftarandanpelayananpasien.service.JadwalService();
+    private final sistempendaftarandanpelayananpasien.service.PendaftaranService pendaftaranService = new sistempendaftarandanpelayananpasien.service.PendaftaranService();
+    private final sistempendaftarandanpelayananpasien.service.PelayananService pelayananService = new sistempendaftarandanpelayananpasien.service.PelayananService();
+    private final sistempendaftarandanpelayananpasien.service.PasienService pasienService = new sistempendaftarandanpelayananpasien.service.PasienService();
+    private final sistempendaftarandanpelayananpasien.service.AuthService authService = new sistempendaftarandanpelayananpasien.service.AuthService();
+
     public FormMenuPasien() {
         initComponents();
         setLocationRelativeTo(null);
@@ -23,9 +30,25 @@ public class FormMenuPasien extends javax.swing.JFrame {
             t.getTableHeader().setFont(FB); t.setSelectionBackground(MUDA);
             spOf(t).getViewport().setBackground(java.awt.Color.WHITE);
         }
-        for (String[] d : DOKTER) { mdl(tblDokter).addRow(d); cbDokter.addItem(d[0]); }
-        for (String[] j : JADWAL) mdl(tblJadwal).addRow(j);
-        fillJadwal(); refresh();
+        muatDataMaster();
+        fillJadwal();
+        refresh();
+    }
+
+    private void muatDataMaster() {
+        mdl(tblDokter).setRowCount(0);
+        cbDokter.removeAllItems();
+        java.util.List<sistempendaftarandanpelayananpasien.model.Dokter> dokters = dokterService.getAllDokter();
+        for (sistempendaftarandanpelayananpasien.model.Dokter d : dokters) {
+            mdl(tblDokter).addRow(new Object[]{d.getNamaLengkap(), d.getSpesialisasi()});
+            cbDokter.addItem(d.getNamaLengkap());
+        }
+
+        mdl(tblJadwal).setRowCount(0);
+        java.util.List<sistempendaftarandanpelayananpasien.model.JadwalPraktik> jadwals = jadwalService.getAllJadwal();
+        for (sistempendaftarandanpelayananpasien.model.JadwalPraktik j : jadwals) {
+            mdl(tblJadwal).addRow(new Object[]{j.getNamaDokter(), j.getHari(), j.getJamPraktik()});
+        }
     }
 
     /**
@@ -935,7 +958,16 @@ public class FormMenuPasien extends javax.swing.JFrame {
 
     // ---------- logika (kode manual) ----------
     public java.util.List<String[]> getRegistrasi() {
-    return regs.get(cur[0]);}
+        if (cur == null) {
+            return new java.util.ArrayList<>();
+        }
+        java.util.List<String[]> list = regs.get(cur[0]);
+        if (list == null) {
+            list = new java.util.ArrayList<>();
+            regs.put(cur[0], list);
+        }
+        return list;
+    }
     private DefaultTableModel mdl(javax.swing.JTable t) {
     return (DefaultTableModel) t.getModel();}
     private javax.swing.JScrollPane spOf(javax.swing.JTable t) { return (javax.swing.JScrollPane) t.getParent().getParent(); }
@@ -944,18 +976,36 @@ public class FormMenuPasien extends javax.swing.JFrame {
 
     private void fillJadwal() {
         cbJadwal.removeAllItems();
-        for (String[] x : JADWAL) if (x[0].equals(cbDokter.getSelectedItem())) cbJadwal.addItem(x[1] + " " + x[2]);
+        Object selected = cbDokter.getSelectedItem();
+        if (selected != null) {
+            java.util.List<sistempendaftarandanpelayananpasien.model.JadwalPraktik> list = jadwalService.getJadwalByDokter(selected.toString());
+            for (sistempendaftarandanpelayananpasien.model.JadwalPraktik j : list) {
+                cbJadwal.addItem(j.getHari() + " " + j.getJamPraktik());
+            }
+        }
     }
 
 
     private void refresh() {
-        lblNama.setText(cur[2]);
-        txtUsername.setText(cur[0]);
-        pwdPassword.setText(cur[1]);
-        txtNama.setText(cur[2]);
-        txtNik.setText(cur[3]);
-        txtTelp.setText(cur[4]);
-        txtAlamat.setText(cur[5]);
+        String u = sistempendaftarandanpelayananpasien.auth.SessionManager.getUsername();
+        if (u == null || u.isEmpty()) {
+            u = cur != null ? cur[0] : "demo";
+        }
+        java.util.Optional<sistempendaftarandanpelayananpasien.model.Pasien> optPasien = pasienService.getProfilByUsername(u);
+        if (optPasien.isPresent()) {
+            sistempendaftarandanpelayananpasien.model.Pasien p = optPasien.get();
+            cur = new String[]{p.getUsername(), cur != null ? cur[1] : "", p.getNamaLengkap(), p.getNik(), p.getNoTelepon(), p.getAlamat()};
+        } else if (cur == null) {
+            cur = MainPasien.users.get("demo");
+        }
+
+        lblNama.setText(cur != null ? cur[2] : "Pasien");
+        txtUsername.setText(cur != null ? cur[0] : "");
+        pwdPassword.setText(cur != null ? cur[1] : "");
+        txtNama.setText(cur != null ? cur[2] : "");
+        txtNik.setText(cur != null ? cur[3] : "");
+        txtTelp.setText(cur != null ? cur[4] : "");
+        txtAlamat.setText(cur != null ? cur[5] : "");
 
         DefaultTableModel a = mdl(tblRecent);
         DefaultTableModel r = mdl(tblRiwayat);
@@ -965,93 +1015,188 @@ public class FormMenuPasien extends javax.swing.JFrame {
         r.setRowCount(0);
         h.setRowCount(0);
 
-        java.util.List<String[]> l = getRegistrasi();
+        String idPasienOrUser = optPasien.map(sistempendaftarandanpelayananpasien.model.Pasien::getIdPasien).orElse(u);
+        java.util.List<sistempendaftarandanpelayananpasien.model.Pendaftaran> pendaftarans = pendaftaranService.getPendaftaranByPasien(idPasienOrUser);
+        if (pendaftarans.isEmpty() && !idPasienOrUser.equals(u)) {
+            pendaftarans = pendaftaranService.getPendaftaranByPasien(u);
+        }
 
         int wait = 0;
         int done = 0;
 
-        for (String[] x : l) {
+        for (sistempendaftarandanpelayananpasien.model.Pendaftaran x : pendaftarans) {
             r.addRow(new Object[]{
-                x[0], x[1], x[2], x[3], x[4]
+                x.getIdPendaftaran(), x.getNamaDokter(), x.getJadwal(), x.getKeluhan(), x.getStatus()
             });
 
-            if (x[4].equals("Menunggu")) {
+            if ("Menunggu".equalsIgnoreCase(x.getStatus())) {
                 wait++;
             }
 
-            if (x[4].equals("Selesai")) {
+            if ("Selesai".equalsIgnoreCase(x.getStatus())) {
                 done++;
-                h.addRow(new Object[]{
-                    x[0], x[1], x[5], x[6]
-                });
             }
         }
 
-        for (int i = l.size() - 1; i >= 0 && i >= l.size() - 5; i--) {
-            String[] x = l.get(i);
-            a.addRow(new Object[]{
-                x[0], x[1], x[2], x[4]
+        java.util.List<sistempendaftarandanpelayananpasien.model.Pelayanan> pelayanans = pelayananService.getPelayananByPasien(idPasienOrUser);
+        if (pelayanans.isEmpty() && !idPasienOrUser.equals(u)) {
+            pelayanans = pelayananService.getPelayananByPasien(u);
+        }
+        for (sistempendaftarandanpelayananpasien.model.Pelayanan pel : pelayanans) {
+            h.addRow(new Object[]{
+                pel.getIdPendaftaran(), pel.getNamaDokter(), pel.getDiagnosis(), pel.getTindakanHasil()
             });
         }
 
-        lblStatNilai1.setText("" + l.size());
-        lblStatNilai2.setText("" + wait);
-        lblStatNilai3.setText("" + done);
-        lblStatNilai4.setText("" + DOKTER.length);
+        for (int i = pendaftarans.size() - 1; i >= 0 && i >= pendaftarans.size() - 5; i--) {
+            sistempendaftarandanpelayananpasien.model.Pendaftaran x = pendaftarans.get(i);
+            a.addRow(new Object[]{
+                x.getIdPendaftaran(), x.getNamaDokter(), x.getJadwal(), x.getStatus()
+            });
+        }
+
+        lblStatNilai1.setText(String.valueOf(pendaftarans.size()));
+        lblStatNilai2.setText(String.valueOf(wait));
+        lblStatNilai3.setText(String.valueOf(done));
+        lblStatNilai4.setText(String.valueOf(dokterService.getAllDokter().size()));
     }
 
 
     private void doSimpan() {
-        if (!txtNama.getText().isBlank() && pwdPassword.getPassword().length != 0) {
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Nama dan password tidak boleh kosong."); return;
+        if (txtNama.getText().isBlank() || pwdPassword.getPassword().length == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Nama dan password tidak boleh kosong.", "Validasi", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        cur[1] = new String(pwdPassword.getPassword()); cur[2] = txtNama.getText().trim(); cur[3] = txtNik.getText().trim();
-        cur[4] = txtTelp.getText().trim(); cur[5] = txtAlamat.getText().trim();
-        refresh(); javax.swing.JOptionPane.showMessageDialog(this, "Profil berhasil diperbarui.");
+
+        String u = txtUsername.getText().trim();
+        String passBaru = new String(pwdPassword.getPassword());
+        String nama = txtNama.getText().trim();
+        String nik = txtNik.getText().trim();
+        String telp = txtTelp.getText().trim();
+        String alamat = txtAlamat.getText().trim();
+
+        java.util.Optional<sistempendaftarandanpelayananpasien.model.Pasien> opt = pasienService.getProfilByUsername(u);
+        if (opt.isPresent()) {
+            sistempendaftarandanpelayananpasien.model.Pasien p = opt.get();
+            p.setNamaLengkap(nama);
+            p.setNik(nik);
+            p.setNoTelepon(telp);
+            p.setAlamat(alamat);
+            pasienService.perbaruiProfil(p);
+        }
+
+        if (cur != null && !passBaru.equals(cur[1])) {
+            authService.ubahPassword(u, cur[1], passBaru);
+        }
+
+        cur[1] = passBaru;
+        cur[2] = nama;
+        cur[3] = nik;
+        cur[4] = telp;
+        cur[5] = alamat;
+
+        refresh();
+        javax.swing.JOptionPane.showMessageDialog(this, "Profil berhasil diperbarui.", "Berhasil", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void doDaftar() {
-        if (cbJadwal.getSelectedItem() == null || txtKeluhan.getText().isBlank()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Pilih jadwal dan isi keluhan."); return;
+        if (cbDokter.getSelectedItem() == null || cbJadwal.getSelectedItem() == null || txtKeluhan.getText().isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih dokter, jadwal, dan isi keluhan.", "Validasi", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        String id = String.format("REG-%03d", getRegistrasi().size() + 1);
-        getRegistrasi().add(new String[]{id, (String) cbDokter.getSelectedItem(), (String) cbJadwal.getSelectedItem(), txtKeluhan.getText().trim(), "Menunggu", "", ""});
+
+        String dokter = (String) cbDokter.getSelectedItem();
+        String jadwal = (String) cbJadwal.getSelectedItem();
+        String keluhan = txtKeluhan.getText().trim();
+        String u = sistempendaftarandanpelayananpasien.auth.SessionManager.getUsername();
+        if (u == null || u.isEmpty()) {
+            u = cur != null ? cur[0] : "demo";
+        }
+
+        String idPasien = u;
+        String namaPasien = cur != null ? cur[2] : u;
+        java.util.Optional<sistempendaftarandanpelayananpasien.model.Pasien> optP = pasienService.getProfilByUsername(u);
+        if (optP.isPresent()) {
+            idPasien = optP.get().getIdPasien();
+            namaPasien = optP.get().getNamaLengkap();
+        }
+
+        String idDokter = "DOC-001";
+        java.util.Optional<sistempendaftarandanpelayananpasien.model.Dokter> optD = dokterService.getDokterByNama(dokter);
+        if (optD.isPresent()) {
+            idDokter = optD.get().getIdDokter();
+        }
+
+        String idReg = pendaftaranService.daftarBaru(idPasien, namaPasien, idDokter, dokter, "", jadwal, sistempendaftarandanpelayananpasien.utils.FormatTanggal.hariIni(), keluhan);
         txtKeluhan.setText("");
-        javax.swing.JOptionPane.showMessageDialog(this, "Pendaftaran " + id + " berhasil. Status: Menunggu.");
+        javax.swing.JOptionPane.showMessageDialog(this, "Pendaftaran " + idReg + " berhasil. Status: Menunggu.", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         tampil("riwayat");
     }
 
-    /** Pendaftaran terpilih di tabel riwayat; hanya boleh jika masih Menunggu. */
-    private String[] pilih() {
-        int i = tblRiwayat.getSelectedRow();
-        if (i < 0) { javax.swing.JOptionPane.showMessageDialog(this, "Pilih satu pendaftaran di tabel."); return null; }
-        String[] r = getRegistrasi().get(i);
-        if (!r[4].equals("Menunggu")) { javax.swing.JOptionPane.showMessageDialog(this, "Hanya status Menunggu yang bisa diubah/dibatalkan."); return null; }
-        return r;
-    }
-
     private void doUbah() {
-        String[] r = pilih(); if (r == null) return;
+        int i = tblRiwayat.getSelectedRow();
+        if (i < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih satu pendaftaran di tabel.", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String idReg = (String) tblRiwayat.getValueAt(i, 0);
+        String dokter = (String) tblRiwayat.getValueAt(i, 1);
+        String jadwalLama = (String) tblRiwayat.getValueAt(i, 2);
+        String keluhanLama = (String) tblRiwayat.getValueAt(i, 3);
+        String status = (String) tblRiwayat.getValueAt(i, 4);
+
+        if (!"Menunggu".equalsIgnoreCase(status)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Hanya status Menunggu yang bisa diubah/dibatalkan.", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         javax.swing.JComboBox<String> j = new javax.swing.JComboBox<>();
-        javax.swing.JTextArea k = new javax.swing.JTextArea(r[3], 4, 25); k.setLineWrap(true);
-        for (String[] x : JADWAL) if (x[0].equals(r[1])) j.addItem(x[1] + " " + x[2]);
-        j.setSelectedItem(r[2]);
+        java.util.List<sistempendaftarandanpelayananpasien.model.JadwalPraktik> jadwals = jadwalService.getJadwalByDokter(dokter);
+        for (sistempendaftarandanpelayananpasien.model.JadwalPraktik jp : jadwals) {
+            j.addItem(jp.getHari() + " " + jp.getJamPraktik());
+        }
+        j.setSelectedItem(jadwalLama);
+
+        javax.swing.JTextArea k = new javax.swing.JTextArea(keluhanLama, 4, 25);
+        k.setLineWrap(true);
         javax.swing.JPanel p = new javax.swing.JPanel(new java.awt.BorderLayout(0, 8));
-        p.add(j, java.awt.BorderLayout.NORTH); p.add(new javax.swing.JScrollPane(k));
-        if (javax.swing.JOptionPane.showConfirmDialog(this, p, "Ubah " + r[0], javax.swing.JOptionPane.OK_CANCEL_OPTION) == 0 && !k.getText().isBlank()) {
-            r[2] = (String) j.getSelectedItem(); r[3] = k.getText().trim(); refresh();
+        p.add(j, java.awt.BorderLayout.NORTH);
+        p.add(new javax.swing.JScrollPane(k), java.awt.BorderLayout.CENTER);
+
+        if (javax.swing.JOptionPane.showConfirmDialog(this, p, "Ubah " + idReg, javax.swing.JOptionPane.OK_CANCEL_OPTION) == 0 && !k.getText().isBlank()) {
+            pendaftaranService.ubahPendaftaran(idReg, (String) j.getSelectedItem(), k.getText().trim());
+            refresh();
+            javax.swing.JOptionPane.showMessageDialog(this, "Pendaftaran " + idReg + " berhasil diperbarui.");
         }
     }
 
     private void doBatal() {
-        String[] r = pilih(); if (r == null) return;
-        if (javax.swing.JOptionPane.showConfirmDialog(this, "Batalkan " + r[0] + "?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION) == 0) { r[4] = "Dibatalkan"; refresh(); }
+        int i = tblRiwayat.getSelectedRow();
+        if (i < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih satu pendaftaran di tabel.", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String idReg = (String) tblRiwayat.getValueAt(i, 0);
+        String status = (String) tblRiwayat.getValueAt(i, 4);
+
+        if (!"Menunggu".equalsIgnoreCase(status)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Hanya status Menunggu yang bisa diubah/dibatalkan.", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (javax.swing.JOptionPane.showConfirmDialog(this, "Batalkan " + idReg + "?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
+            pendaftaranService.batalkanPendaftaran(idReg);
+            refresh();
+            javax.swing.JOptionPane.showMessageDialog(this, "Pendaftaran " + idReg + " telah dibatalkan.");
+        }
     }
 
     private void doLogout() {
         if (javax.swing.JOptionPane.showConfirmDialog(this, "Keluar dari aplikasi?", "Logout", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
-            cur = null; dispose(); new MainPasien().setVisible(true);
+            cur = null;
+            sistempendaftarandanpelayananpasien.auth.SessionManager.logout();
+            dispose();
+            new FormLoginPasien().setVisible(true);
         }
     }
 
