@@ -4,6 +4,13 @@
  */
 package sistempendaftarandanpelayananpasien.dokter;
 
+import sistempendaftarandanpelayananpasien.auth.SessionManager;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.Pendaftaran;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.PelayananService;
+import sistempendaftarandanpelayananpasien.service.PendaftaranService;
+
 /**
  *
  * @author LENOVO
@@ -14,6 +21,10 @@ public class FormPemeriksaan extends javax.swing.JPanel {
     public static final String STATUS_MENUNGGU = "Menunggu";
     public static final String STATUS_DIPERIKSA = "Sedang Diperiksa";
     public static final String STATUS_SELESAI = "Selesai";
+
+    private final PendaftaranService pendaftaranService = PendaftaranService.getInstance();
+    private final PelayananService pelayananService = PelayananService.getInstance();
+    private final DokterService dokterService = DokterService.getInstance();
 
     private FormRiwayatPelayanan riwayat;
 
@@ -292,6 +303,10 @@ public class FormPemeriksaan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMulaiPeriksaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMulaiPeriksaActionPerformed
+        String noDaftar = txtNoDaftarPeriksa.getText().trim();
+        if (!noDaftar.isEmpty()) {
+            pendaftaranService.ubahStatus(noDaftar, "Sedang Diperiksa");
+        }
         aturStatus(STATUS_DIPERIKSA);
     }//GEN-LAST:event_btnMulaiPeriksaActionPerformed
 
@@ -308,13 +323,28 @@ public class FormPemeriksaan extends javax.swing.JPanel {
             peringatan("Hasil pemeriksaan wajib diisi.", txaHasilPeriksa);
             return;
         }
+
+        String noDaftar = txtNoDaftarPeriksa.getText().trim();
+        String namaPasien = txtNamaPeriksa.getText().trim();
+        String keluhan = txaKeluhanPeriksa.getText().trim();
+        String diagnosis = txtDiagnosis.getText().trim();
+        String hasil = txaHasilPeriksa.getText().trim();
+
+        var optP = pendaftaranService.getPendaftaranById(noDaftar);
+        String idPasien = optP.isPresent() ? optP.get().getIdPasien() : "PAS001";
+        String idDokter = optP.isPresent() ? optP.get().getIdDokter() : "DOK001";
+        var optD = dokterService.getDokterById(idDokter);
+        String namaDokter = optD.isPresent() ? optD.get().getNamaLengkap() : (SessionManager.getNama() != null ? SessionManager.getNama() : "dr. Dokter");
+
+        pendaftaranService.ubahStatus(noDaftar, "Selesai");
+        pelayananService.simpanHasilPemeriksaan(noDaftar, idPasien, namaPasien, idDokter, namaDokter, diagnosis, keluhan, hasil, "-", "-");
+
         if (riwayat != null) {
-            riwayat.tambahRiwayat(txtNoDaftarPeriksa.getText(), txtNamaPeriksa.getText(), txaKeluhanPeriksa.getText().trim(),
-                    txtDiagnosis.getText().trim(), txaHasilPeriksa.getText().trim());
+            riwayat.tambahRiwayat(noDaftar, namaPasien, keluhan, diagnosis, hasil);
         }
         aturStatus(STATUS_SELESAI);
         javax.swing.JOptionPane.showMessageDialog(this,
-                "Hasil pemeriksaan dicatat di Riwayat Pelayanan.\nPenyimpanan ke file akan disambungkan pada tahap berikutnya.",
+                "Hasil pemeriksaan berhasil disimpan ke sistem dan dicatat di Riwayat Pelayanan.",
                 "Pemeriksaan Selesai", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSimpanSelesaiActionPerformed
 
