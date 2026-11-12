@@ -4,7 +4,11 @@
  */
 package sistempendaftarandanpelayananpasien.dokter;
 
+import java.util.ArrayList;
+import java.util.List;
+import sistempendaftarandanpelayananpasien.model.Pelayanan;
 import sistempendaftarandanpelayananpasien.pasien.Tema;
+import sistempendaftarandanpelayananpasien.service.PelayananService;
 
 /**
  *
@@ -15,18 +19,8 @@ public class FormRiwayatPelayanan extends javax.swing.JPanel {
 
     private static final java.time.format.DateTimeFormatter FORMAT_TANGGAL = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    // DATA CONTOH untuk tampilan. Kolom: no. daftar, tanggal, pasien, diagnosis, keluhan, hasil.
-    // Ganti dengan data dari penyimpanan file pada tahap berikutnya.
-    private final java.util.List<String[]> data = new java.util.ArrayList<>(java.util.Arrays.asList(
-        new String[]{"PD-011", "03-11-2026", "Siti Rahmawati", "Infeksi saluran pernapasan atas",
-            "Batuk dan demam selama tiga hari.", "Tenggorokan tampak merah. Disarankan istirahat dan banyak minum."},
-        new String[]{"PD-012", "04-11-2026", "Budi Hartono", "Hipertensi ringan",
-            "Pusing dan tengkuk terasa berat.", "Tekanan darah sedikit tinggi. Disarankan mengurangi garam dan kontrol ulang."},
-        new String[]{"PD-013", "05-11-2026", "Dewi Lestari", "Gastritis",
-            "Nyeri ulu hati setelah makan.", "Nyeri tekan ringan di ulu hati. Disarankan makan teratur."},
-        new String[]{"PD-014", "09-11-2026", "Andi Saputra", "Karies gigi",
-            "Gigi berlubang dan terasa nyeri.", "Karies pada gigi geraham. Disarankan penambalan."}
-    ));
+    private final PelayananService pelayananService = PelayananService.getInstance();
+    private final java.util.List<String[]> data = new ArrayList<>();
 
     private javax.swing.table.TableRowSorter<javax.swing.table.TableModel> sorter;
 
@@ -38,8 +32,7 @@ public class FormRiwayatPelayanan extends javax.swing.JPanel {
         Tema.gayaTabel(tblLayanan);
         sorter = new javax.swing.table.TableRowSorter<>(tblLayanan.getModel());
         tblLayanan.setRowSorter(sorter);
-        isiDataContoh();
-        perbaruiStatistik();
+        muatData();
     }
 
     /**
@@ -382,12 +375,25 @@ public class FormRiwayatPelayanan extends javax.swing.JPanel {
         perbaruiStatistik();
     }
 
-    private void isiDataContoh() {
+    public void muatData() {
+        data.clear();
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblLayanan.getModel();
         model.setRowCount(0);
-        for (String[] baris : data) {
-            model.addRow(new Object[]{baris[0], baris[1], baris[2], baris[3]});
+
+        List<Pelayanan> list = pelayananService.getAllPelayanan();
+        for (Pelayanan pel : list) {
+            String[] row = new String[]{
+                pel.getIdPendaftaran(),
+                pel.getTanggalPelayanan(),
+                pel.getNamaPasien(),
+                pel.getDiagnosis(),
+                pel.getKeluhan(),
+                pel.getTindakanHasil()
+            };
+            data.add(row);
+            model.addRow(new Object[]{row[0], row[1], row[2], row[3]});
         }
+        perbaruiStatistik();
     }
 
     private void tampilkanDetail(int indeksModel) {
