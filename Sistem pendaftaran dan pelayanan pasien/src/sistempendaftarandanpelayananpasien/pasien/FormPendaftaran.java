@@ -4,6 +4,18 @@
  */
 package sistempendaftarandanpelayananpasien.pasien;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import sistempendaftarandanpelayananpasien.auth.SessionManager;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.Pasien;
+import sistempendaftarandanpelayananpasien.model.Pendaftaran;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.PasienService;
+import sistempendaftarandanpelayananpasien.service.PendaftaranService;
+
 /**
  *
  * @author LENOVO
@@ -20,6 +32,11 @@ public class FormPendaftaran extends javax.swing.JFrame {
 
     private final FormRiwayatPendaftaran halamanRiwayat = new FormRiwayatPendaftaran();
     private final FormHasilPemeriksaan halamanHasil = new FormHasilPemeriksaan();
+
+    private final DokterService dokterService = DokterService.getInstance();
+    private final PasienService pasienService = PasienService.getInstance();
+    private final PendaftaranService pendaftaranService = PendaftaranService.getInstance();
+    private final List<Dokter> listDokter = new ArrayList<>();
 
     /**
      * Creates new form FormPendaftaran
@@ -39,6 +56,7 @@ public class FormPendaftaran extends javax.swing.JFrame {
         panelKonten.add(panelPendaftaran, HALAMAN_PENDAFTARAN);
         panelKonten.add(halamanRiwayat, HALAMAN_RIWAYAT);
         panelKonten.add(halamanHasil, HALAMAN_HASIL);
+        inisialisasiDataForm();
         tampilkan(HALAMAN_PENDAFTARAN);
     }
 
@@ -374,10 +392,12 @@ public class FormPendaftaran extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuPendaftaranActionPerformed
 
     private void btnMenuRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuRiwayatActionPerformed
+        halamanRiwayat.muatData();
         tampilkan(HALAMAN_RIWAYAT);
     }//GEN-LAST:event_btnMenuRiwayatActionPerformed
 
     private void btnMenuHasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuHasilActionPerformed
+        halamanHasil.muatData();
         tampilkan(HALAMAN_HASIL);
     }//GEN-LAST:event_btnMenuHasilActionPerformed
 
@@ -386,9 +406,7 @@ public class FormPendaftaran extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKembaliActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        txtNama.setText("");
-        txtNik.setText("");
-        txtTanggal.setText("");
+        txtTanggal.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         txaKeluhan.setText("");
         cmbJk.setSelectedIndex(0);
         cmbPoli.setSelectedIndex(0);
@@ -398,11 +416,16 @@ public class FormPendaftaran extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
-        if (txtNama.getText().trim().isEmpty()) {
+        String nama = txtNama.getText().trim();
+        String nik = txtNik.getText().trim();
+        String tanggal = txtTanggal.getText().trim();
+        String keluhan = txaKeluhan.getText().trim();
+
+        if (nama.isEmpty()) {
             peringatan("Nama pasien wajib diisi.", txtNama);
             return;
         }
-        if (!txtNik.getText().trim().matches("\\d{16}")) {
+        if (!nik.matches("\\d{16}")) {
             peringatan("NIK harus terdiri dari 16 digit angka.", txtNik);
             return;
         }
@@ -418,18 +441,68 @@ public class FormPendaftaran extends javax.swing.JFrame {
             peringatan("Pilih dokter.", cmbDokter);
             return;
         }
-        if (!txtTanggal.getText().trim().matches("\\d{2}-\\d{2}-\\d{4}")) {
-            peringatan("Tanggal kunjungan harus berformat dd-mm-yyyy.", txtTanggal);
+        if (!tanggal.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            peringatan("Tanggal kunjungan harus berformat dd-MM-yyyy.", txtTanggal);
             return;
         }
-        if (txaKeluhan.getText().trim().isEmpty()) {
+        if (keluhan.isEmpty()) {
             peringatan("Keluhan wajib diisi.", txaKeluhan);
             return;
         }
-        javax.swing.JOptionPane.showMessageDialog(this,
-                "Data pendaftaran sudah valid.\nPenyimpanan ke file akan disambungkan pada tahap berikutnya.",
-                "Pendaftaran", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        int selectedDokterIdx = cmbDokter.getSelectedIndex() - 1;
+        String idDokter = "DOK001";
+        if (selectedDokterIdx >= 0 && selectedDokterIdx < listDokter.size()) {
+            idDokter = listDokter.get(selectedDokterIdx).getIdDokter();
+        }
+
+        SessionManager sess = SessionManager.getSesi();
+        String idPasien = (sess != null && sess.isLoggedIn()) ? sess.getUsername() : "PAS001";
+        boolean isBpjs = chkBpjs.isSelected();
+
+        Pendaftaran p = pendaftaranService.daftarBaru(idPasien, idDokter, tanggal, keluhan, isBpjs);
+        if (p != null) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Pendaftaran berhasil disimpan!\nNomor Antrean: " + p.getNomorAntrean() + "\nKode Pendaftaran: " + p.getIdPendaftaran(),
+                    "Pendaftaran Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            txaKeluhan.setText("");
+            halamanRiwayat.muatData();
+            tampilkan(HALAMAN_RIWAYAT);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Gagal menyimpan pendaftaran ke penyimpanan.",
+                    "Pendaftaran Gagal", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnDaftarActionPerformed
+
+    private void inisialisasiDataForm() {
+        txtTanggal.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+
+        SessionManager sess = SessionManager.getSesi();
+        if (sess != null && sess.isLoggedIn()) {
+            Pasien pas = pasienService.getPasienById(sess.getUsername());
+            if (pas != null) {
+                txtNama.setText(pas.getNama());
+                txtNik.setText(pas.getNik());
+                if ("Laki-laki".equalsIgnoreCase(pas.getJenisKelamin())) {
+                    cmbJk.setSelectedItem("Laki-laki");
+                } else if ("Perempuan".equalsIgnoreCase(pas.getJenisKelamin())) {
+                    cmbJk.setSelectedItem("Perempuan");
+                }
+            } else if (sess.getNama() != null) {
+                txtNama.setText(sess.getNama());
+            }
+        }
+
+        listDokter.clear();
+        listDokter.addAll(dokterService.getAllDokter());
+        cmbDokter.removeAllItems();
+        cmbDokter.addItem("Pilih dokter");
+        for (Dokter d : listDokter) {
+            String label = d.getNama() + " (" + d.getSpesialisasi() + ")";
+            cmbDokter.addItem(label);
+        }
+    }
 
     private void cmbJkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJkActionPerformed
         // TODO add your handling code here:
