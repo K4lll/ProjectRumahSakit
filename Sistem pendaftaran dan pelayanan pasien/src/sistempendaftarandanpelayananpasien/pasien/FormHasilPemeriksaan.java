@@ -4,6 +4,15 @@
  */
 package sistempendaftarandanpelayananpasien.pasien;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import sistempendaftarandanpelayananpasien.auth.SessionManager;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.Pelayanan;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.PelayananService;
+
 /**
  *
  * @author LENOVO
@@ -11,19 +20,9 @@ package sistempendaftarandanpelayananpasien.pasien;
 
 public class FormHasilPemeriksaan extends javax.swing.JPanel {
 
-    // DATA CONTOH untuk tampilan. Kolom: no. daftar, tanggal, dokter, diagnosa, catatan, resep.
-    // Ganti dengan data dari penyimpanan file pada tahap berikutnya.
-    private static final String[][] DATA_CONTOH = {
-        {"PD-002", "08-11-2026", "drg. Budi Santoso", "Karies gigi",
-            "Gigi geraham kiri bawah ditambal. Jaga kebersihan gigi dan kurangi makanan manis.",
-            "Obat pereda nyeri sesuai anjuran dokter."},
-        {"PD-003", "05-11-2026", "dr. Sari Wulandari", "Infeksi saluran pernapasan atas",
-            "Istirahat cukup dan perbanyak minum air putih. Kontrol ulang bila keluhan berlanjut.",
-            "Obat sesuai resep dokter."},
-        {"PD-000", "20-10-2026", "dr. Andi Pratama", "Hipertensi ringan",
-            "Kurangi garam, olahraga ringan teratur, dan kontrol ulang dua minggu lagi.",
-            "Obat sesuai resep dokter."}
-    };
+    private final PelayananService pelayananService = PelayananService.getInstance();
+    private final DokterService dokterService = DokterService.getInstance();
+    private final List<Pelayanan> listPelayananAktif = new ArrayList<>();
 
     /**
      * Creates new form FormHasilPemeriksaan
@@ -31,7 +30,7 @@ public class FormHasilPemeriksaan extends javax.swing.JPanel {
     public FormHasilPemeriksaan() {
         initComponents();
         Tema.gayaTabel(tblHasil);
-        isiDataContoh();
+        muatData();
     }
 
     /**
@@ -318,27 +317,66 @@ public class FormHasilPemeriksaan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnKembaliRiwayatActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(this, "Fitur cetak belum tersambung.", "Cetak Hasil", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        int baris = tblHasil.getSelectedRow();
+        if (baris < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih hasil pemeriksaan yang ingin dicetak.", "Cetak", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String noDaftar = String.valueOf(tblHasil.getValueAt(baris, 0));
+        javax.swing.JOptionPane.showMessageDialog(this, "Resume medis untuk pendaftaran " + noDaftar + " berhasil disiapkan untuk dicetak.", "Cetak Hasil", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnCetakActionPerformed
 
-    private void isiDataContoh() {
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblHasil.getModel();
+    public void muatData() {
+        DefaultTableModel model = (DefaultTableModel) tblHasil.getModel();
         model.setRowCount(0);
-        for (String[] baris : DATA_CONTOH) {
-            model.addRow(new Object[]{baris[0], baris[1], baris[2], baris[3]});
+        listPelayananAktif.clear();
+
+        SessionManager sess = SessionManager.getSesi();
+        List<Pelayanan> list;
+        if (sess != null && sess.isLoggedIn()) {
+            list = pelayananService.getPelayananByPasien(sess.getUsername());
+            if (list.isEmpty()) {
+                list = pelayananService.getAllPelayanan();
+            }
+        } else {
+            list = pelayananService.getAllPelayanan();
         }
+
+        listPelayananAktif.addAll(list);
+        for (Pelayanan pel : list) {
+            Dokter d = dokterService.getDokterById(pel.getIdDokter()).orElse(null);
+            String namaDokter = d != null ? d.getNama() : pel.getIdDokter();
+            model.addRow(new Object[]{
+                pel.getIdPendaftaran(),
+                pel.getTanggalPelayanan(),
+                namaDokter,
+                pel.getDiagnosa()
+            });
+        }
+
         if (model.getRowCount() > 0) {
             tblHasil.setRowSelectionInterval(0, 0);
             tampilkanDetail(0);
+        } else {
+            txtDokterPeriksa.setText("");
+            txtDiagnosa.setText("");
+            txaCatatan.setText("");
+            txaResep.setText("");
         }
     }
 
     private void tampilkanDetail(int baris) {
-        String[] data = DATA_CONTOH[baris];
-        txtDokterPeriksa.setText(data[2]);
-        txtDiagnosa.setText(data[3]);
-        txaCatatan.setText(data[4]);
-        txaResep.setText(data[5]);
+        if (baris < 0 || baris >= listPelayananAktif.size()) {
+            return;
+        }
+        Pelayanan pel = listPelayananAktif.get(baris);
+        Dokter d = dokterService.getDokterById(pel.getIdDokter()).orElse(null);
+        String namaDokter = d != null ? d.getNama() : pel.getIdDokter();
+
+        txtDokterPeriksa.setText(namaDokter);
+        txtDiagnosa.setText(pel.getDiagnosa());
+        txaCatatan.setText(pel.getCatatanDokter() != null ? pel.getCatatanDokter() : "-");
+        txaResep.setText(pel.getResepObat() != null ? pel.getResepObat() : "-");
         txaCatatan.setCaretPosition(0);
         txaResep.setCaretPosition(0);
     }
