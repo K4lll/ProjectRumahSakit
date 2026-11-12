@@ -4,6 +4,15 @@
  */
 package sistempendaftarandanpelayananpasien.pasien;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import sistempendaftarandanpelayananpasien.auth.SessionManager;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.Pendaftaran;
+import sistempendaftarandanpelayananpasien.model.StatusPendaftaran;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.PendaftaranService;
+
 /**
  *
  * @author LENOVO
@@ -11,13 +20,8 @@ package sistempendaftarandanpelayananpasien.pasien;
 
 public class FormRiwayatPendaftaran extends javax.swing.JPanel {
 
-    // DATA CONTOH untuk tampilan. Ganti dengan data dari penyimpanan file pada tahap berikutnya.
-    private static final String[][] DATA_CONTOH = {
-        {"PD-001", "10-11-2026", "Umum", "dr. Andi Pratama", "Menunggu"},
-        {"PD-002", "08-11-2026", "Gigi", "drg. Budi Santoso", "Selesai"},
-        {"PD-003", "05-11-2026", "Anak", "dr. Sari Wulandari", "Selesai"},
-        {"PD-004", "01-11-2026", "Penyakit Dalam", "dr. Andi Pratama", "Dibatalkan"}
-    };
+    private final PendaftaranService pendaftaranService = PendaftaranService.getInstance();
+    private final DokterService dokterService = DokterService.getInstance();
 
     /**
      * Creates new form FormRiwayatPendaftaran
@@ -25,8 +29,7 @@ public class FormRiwayatPendaftaran extends javax.swing.JPanel {
     public FormRiwayatPendaftaran() {
         initComponents();
         Tema.gayaTabel(tblRiwayat);
-        isiDataContoh();
-        perbaruiStatistik();
+        muatData();
     }
 
     /**
@@ -295,14 +298,20 @@ public class FormRiwayatPendaftaran extends javax.swing.JPanel {
             return;
         }
         String noDaftar = String.valueOf(tblRiwayat.getValueAt(baris, 0));
-        if (!"Menunggu".equals(String.valueOf(tblRiwayat.getValueAt(baris, 4)))) {
+        String statusStr = String.valueOf(tblRiwayat.getValueAt(baris, 4));
+        if (!"Menunggu".equalsIgnoreCase(statusStr)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Hanya pendaftaran berstatus Menunggu yang dapat dibatalkan.", "Batalkan", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         int pilihan = javax.swing.JOptionPane.showConfirmDialog(this, "Batalkan pendaftaran " + noDaftar + "?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
         if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
-            tblRiwayat.setValueAt("Dibatalkan", baris, 4);
-            perbaruiStatistik();
+            boolean sukses = pendaftaranService.batalkanPendaftaran(noDaftar);
+            if (sukses) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Pendaftaran berhasil dibatalkan.", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                muatData();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Gagal membatalkan pendaftaran.", "Gagal", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnBatalkanActionPerformed
 
@@ -313,12 +322,32 @@ public class FormRiwayatPendaftaran extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLihatHasilActionPerformed
 
-    private void isiDataContoh() {
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblRiwayat.getModel();
+    public void muatData() {
+        DefaultTableModel model = (DefaultTableModel) tblRiwayat.getModel();
         model.setRowCount(0);
-        for (String[] baris : DATA_CONTOH) {
-            model.addRow(baris);
+        SessionManager sess = SessionManager.getSesi();
+        List<Pendaftaran> list;
+        if (sess != null && sess.isLoggedIn()) {
+            list = pendaftaranService.getPendaftaranByPasien(sess.getUsername());
+            if (list.isEmpty()) {
+                list = pendaftaranService.getAllPendaftaran();
+            }
+        } else {
+            list = pendaftaranService.getAllPendaftaran();
         }
+        for (Pendaftaran p : list) {
+            Dokter d = dokterService.getDokterById(p.getIdDokter()).orElse(null);
+            String namaDokter = d != null ? d.getNama() : p.getIdDokter();
+            String poli = d != null && d.getPoli() != null ? d.getPoli() : "Poli Umum";
+            model.addRow(new Object[] {
+                p.getIdPendaftaran(),
+                p.getTanggalPendaftaran(),
+                poli,
+                namaDokter,
+                p.getStatus() != null ? p.getStatus() : "Menunggu"
+            });
+        }
+        perbaruiStatistik();
     }
 
     private void perbaruiStatistik() {
