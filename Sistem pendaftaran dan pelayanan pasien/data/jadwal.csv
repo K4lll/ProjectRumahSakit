@@ -1,0 +1,9 @@
+id_jadwal,id_dokter,nama_dokter,hari,jam_mulai,jam_selesai,kuota
+JAD-001,DOC-001,"dr. Andi Pratama, Sp.PD",Senin,08.00,12.00,20
+JAD-002,DOC-001,"dr. Andi Pratama, Sp.PD",Rabu,08.00,12.00,20
+JAD-003,DOC-002,"dr. Sari Wulandari, Sp.A",Selasa,09.00,13.00,15
+JAD-004,DOC-002,"dr. Sari Wulandari, Sp.A",Kamis,09.00,13.00,15
+JAD-005,DOC-003,"dr. Rudi Hartono, Sp.JP",Rabu,13.00,17.00,15
+JAD-006,DOC-003,"dr. Rudi Hartono, Sp.JP",Jumat,13.00,17.00,15
+JAD-007,DOC-004,"dr. Maya Lestari, Sp.KK",Senin,14.00,18.00,15
+JAD-008,DOC-004,"dr. Maya Lestari, Sp.KK",Sabtu,08.00,11.00,10

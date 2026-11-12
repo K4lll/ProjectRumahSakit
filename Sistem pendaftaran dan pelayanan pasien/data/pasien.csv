@@ -1,0 +1,5 @@
+id_pasien,username,nama_lengkap,nik,no_telepon,alamat,tanggal_lahir,jenis_kelamin,golongan_darah
+PAS-001,demo,Budi Santoso,1471010101900001,081234567890,"Jl. Sudirman No. 10, Pekanbaru",01-01-1990,Laki-laki,O
+PAS-002,fahrul,M. Fahrul Rozi,3174015505920002,082198765432,"Jl. Melati No. 45, Pekanbaru",15-05-1992,Laki-laki,B
+PAS-003,siti,Siti Rahmawati,3174012012880003,085211223344,"Jl. Ahmad Yani No. 12, Pekanbaru",20-12-1988,Perempuan,A
+PAS-004,pasien_e2e_8572,Ahmad Subarjo,3201234567890001,08123456789,Jl. Kenanga No. 15,,,

@@ -1,0 +1,7 @@
+username,password_hash,salt,peran
+demo,Ajjcter3VsxB2swuQucPT+O5b1N+LvalR/acaadvWIM=,2xAHxgaLAwUzQpjPgisCcQ==,pasien
+fahrul,z0/RpFjZdVcP7Gm2mYCrqfydBPPDghGEw6KLbGacX/g=,l/ZCL1VSm2LFj2UU70XW8A==,pasien
+dokter,Rq7n/II0UR5miL3juSLghM84LTMQge43kt+cP1LA/Jg=,/WrTARI24OJ28kbit7x2Ug==,dokter
+andi,Caq9KkQhxWrUtJiLKCnr6ur/FPjx4WotX2V9fn5/LNY=,nN6Oa47J2YCdjzUzXZQIfg==,dokter
+sari,dAjouJ4SnM4QH0yXX6sRukA40IXSsXDp+wbNJyUZC6g=,rz1Sq48Bgr1IdWmz2T43Cw==,dokter
+pasien_e2e_8572,IFHL3+PQzh98X581WLfrIa1EC+WQ9IlWMMputx7LDlg=,0MRIUErVlQnnysZsJSLUAA==,pasien
