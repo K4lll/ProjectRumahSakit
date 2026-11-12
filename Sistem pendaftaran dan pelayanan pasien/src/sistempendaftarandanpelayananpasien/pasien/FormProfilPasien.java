@@ -48,11 +48,34 @@ public class FormProfilPasien extends javax.swing.JFrame {
         }
     }
 
+    private final sistempendaftarandanpelayananpasien.service.PasienService pasienService = new sistempendaftarandanpelayananpasien.service.PasienService();
+
     public FormProfilPasien() {
         initComponents();
         bulatkanKartu();
         aturKursor();
         setLocationRelativeTo(null);
+        muatDataProfil();
+    }
+
+    private void muatDataProfil() {
+        String u = sistempendaftarandanpelayananpasien.auth.SessionManager.getUsername();
+        if (u == null || u.isEmpty()) {
+            u = "demo";
+        }
+        pasienService.getProfilByUsername(u).ifPresent(p -> {
+            txtNama.setText(p.getNamaLengkap());
+            txtNik.setText(p.getNik());
+            txtHp.setText(p.getNoTelepon());
+            txtAlamat.setText(p.getAlamat());
+            txtTglLahir.setText(p.getTanggalLahir());
+            if (p.getJenisKelamin() != null && !p.getJenisKelamin().isEmpty()) {
+                cmbJk.setSelectedItem(p.getJenisKelamin());
+            }
+            if (p.getGolonganDarah() != null && !p.getGolonganDarah().isEmpty()) {
+                cmbGolDarah.setSelectedItem(p.getGolonganDarah());
+            }
+        });
     }
 
     /** Memasang border bulat saat runtime (di Design kartu tampil dengan padding saja). */
@@ -394,7 +417,25 @@ public class FormProfilPasien extends javax.swing.JFrame {
                     "Validasi", javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
-        javax.swing.JOptionPane.showMessageDialog(this, "Profil pasien berhasil disimpan.",
+
+        String u = sistempendaftarandanpelayananpasien.auth.SessionManager.getUsername();
+        if (u == null || u.isEmpty()) {
+            u = "demo";
+        }
+        java.util.Optional<sistempendaftarandanpelayananpasien.model.Pasien> opt = pasienService.getProfilByUsername(u);
+        if (opt.isPresent()) {
+            sistempendaftarandanpelayananpasien.model.Pasien p = opt.get();
+            p.setNamaLengkap(txtNama.getText().trim());
+            p.setNik(txtNik.getText().trim());
+            p.setNoTelepon(txtHp.getText().trim());
+            p.setAlamat(txtAlamat.getText().trim());
+            p.setTanggalLahir(txtTglLahir.getText().trim());
+            p.setJenisKelamin(String.valueOf(cmbJk.getSelectedItem()));
+            p.setGolonganDarah(String.valueOf(cmbGolDarah.getSelectedItem()));
+            pasienService.perbaruiProfil(p);
+        }
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Profil pasien berhasil disimpan ke file data.",
                 "Berhasil", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSimpanActionPerformed
 
