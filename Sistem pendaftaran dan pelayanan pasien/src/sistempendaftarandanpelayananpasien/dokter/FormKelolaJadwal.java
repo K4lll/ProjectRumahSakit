@@ -4,8 +4,16 @@
  */
 package sistempendaftarandanpelayananpasien.dokter;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sistempendaftarandanpelayananpasien.auth.SessionManager;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.model.JadwalPraktik;
+import sistempendaftarandanpelayananpasien.model.Pendaftaran;
+import sistempendaftarandanpelayananpasien.service.DokterService;
+import sistempendaftarandanpelayananpasien.service.JadwalService;
+import sistempendaftarandanpelayananpasien.service.PendaftaranService;
 
 /**
  *
@@ -18,6 +26,11 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
     private static final java.awt.Color VENICE = new java.awt.Color(0x16587B);
     private static final java.awt.Color ROCK = new java.awt.Color(0x84B3CE);
     private static final java.awt.Color MERINO = new java.awt.Color(0xF5EEDD);
+
+    private final DokterService dokterService = DokterService.getInstance();
+    private final JadwalService jadwalService = JadwalService.getInstance();
+    private final PendaftaranService pendaftaranService = PendaftaranService.getInstance();
+    private Dokter dokterAktifModel = null;
 
     // Data pasien: {no, nama, tanggal, keluhan, status, diagnosis, hasil}
     private final java.util.List<String[]> dataPasien = new java.util.ArrayList<>();
@@ -1068,7 +1081,10 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
 
     private void logout() {
         if (JOptionPane.showConfirmDialog(this, "Yakin ingin keluar dari akun dokter?", "Keluar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            dispose(); // TODO: buka form login proyek di sini
+            FormLoginDokter.dokterAktif = null;
+            sistempendaftarandanpelayananpasien.auth.SessionManager.logout();
+            new FormLoginDokter().setVisible(true);
+            dispose();
         }
     }
 
@@ -1087,20 +1103,36 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
         }
         isiProfil();
         DefaultTableModel mj = (DefaultTableModel) tblJadwal.getModel();
-        String[][] jd = {{"Senin", "08:00", "12:00", "20", "Aktif"}, {"Rabu", "08:00", "12:00", "20", "Aktif"}, {"Jumat", "13:00", "16:00", "15", "Aktif"}};
-        for (String[] r : jd) {
-            mj.addRow(r);
+        mj.setRowCount(0);
+        List<JadwalPraktik> listJ = (dokterAktifModel != null)
+                ? jadwalService.getJadwalByDokter(dokterAktifModel.getIdDokter())
+                : jadwalService.getAllJadwal();
+        if (listJ.isEmpty()) {
+            listJ = jadwalService.getAllJadwal();
         }
-        String[][] ps = {
-            {"001", "Budi Santoso", "11-11-2026", "Demam dan batuk 3 hari", "Menunggu", "", ""},
-            {"002", "Siti Aminah", "11-11-2026", "Nyeri lambung", "Menunggu", "", ""},
-            {"003", "Rudi Hartono", "11-11-2026", "Sakit kepala berulang", "Diterima", "", ""},
-            {"004", "Dewi Lestari", "11-11-2026", "Pusing dan mual", "Diperiksa", "", ""},
-            {"005", "Agus Salim", "10-11-2026", "Kontrol tekanan darah", "Selesai", "Hipertensi grade 1", "TD 150/95, resep amlodipin"},
-            {"006", "Rina Marlina", "10-11-2026", "Batuk pilek", "Ditolak", "", ""}};
-        for (String[] p : ps) {
-            dataPasien.add(p);
+        for (JadwalPraktik j : listJ) {
+            mj.addRow(new Object[]{j.getHari(), j.getJamMulai(), j.getJamSelesai(), String.valueOf(j.getKuotaPasien()), "Aktif"});
         }
+
+        dataPasien.clear();
+        List<Pendaftaran> listP = (dokterAktifModel != null)
+                ? pendaftaranService.getPendaftaranByDokter(dokterAktifModel.getIdDokter())
+                : pendaftaranService.getAllPendaftaran();
+        if (listP.isEmpty()) {
+            listP = pendaftaranService.getAllPendaftaran();
+        }
+        for (Pendaftaran p : listP) {
+            dataPasien.add(new String[]{
+                p.getIdPendaftaran(),
+                p.getNamaPasien(),
+                p.getTanggalKunjungan(),
+                p.getKeluhan(),
+                p.getStatus() != null ? p.getStatus() : "Menunggu",
+                "",
+                ""
+            });
+        }
+
         tblJadwal.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 isiFormJadwal();
@@ -1118,13 +1150,38 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
 
     // ===================== Profil =====================
     private void isiProfil() {
-        txtNamaDokter.setText("dr. Andi Pratama, Sp.PD");
-        cmbSpesialisasi.setSelectedItem("Penyakit Dalam");
-        txtStr.setText("3171012345678901");
-        txtEmail.setText("andi.pratama@medicare.id");
-        txtTelepon.setText("081234567890");
-        txtAlamat.setText("Jl. Kesehatan No. 1");
-        lblNamaDokter.setText(txtNamaDokter.getText());
+        String user = SessionManager.getUsername();
+        if (user == null || user.trim().isEmpty()) {
+            user = FormLoginDokter.dokterAktif;
+        }
+        if (user != null && !user.trim().isEmpty()) {
+            var optD = dokterService.getDokterByUsername(user);
+            if (optD.isEmpty()) {
+                optD = dokterService.getDokterByNama(user);
+            }
+            if (optD.isEmpty()) {
+                optD = dokterService.getDokterById(user);
+            }
+            if (optD.isPresent()) {
+                dokterAktifModel = optD.get();
+            }
+        }
+        if (dokterAktifModel == null) {
+            List<Dokter> all = dokterService.getAllDokter();
+            if (!all.isEmpty()) {
+                dokterAktifModel = all.get(0);
+            }
+        }
+
+        if (dokterAktifModel != null) {
+            txtNamaDokter.setText(dokterAktifModel.getNamaLengkap());
+            lblNamaDokter.setText(dokterAktifModel.getNamaLengkap());
+            cmbSpesialisasi.setSelectedItem(dokterAktifModel.getSpesialisasi());
+            txtEmail.setText(dokterAktifModel.getEmail() != null ? dokterAktifModel.getEmail() : "dokter@medicare.id");
+            txtTelepon.setText(dokterAktifModel.getNoTelepon() != null ? dokterAktifModel.getNoTelepon() : "081234567890");
+            txtStr.setText("3171012345678901");
+            txtAlamat.setText("Poliklinik " + dokterAktifModel.getSpesialisasi());
+        }
     }
 
     private void simpanProfil() {
@@ -1136,7 +1193,14 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
             info("No. telepon harus 8-15 digit angka.");
         } else {
             lblNamaDokter.setText(txtNamaDokter.getText().trim());
-            info("Profil berhasil disimpan.");
+            if (dokterAktifModel != null) {
+                dokterAktifModel.setNamaLengkap(txtNamaDokter.getText().trim());
+                dokterAktifModel.setSpesialisasi(String.valueOf(cmbSpesialisasi.getSelectedItem()));
+                dokterAktifModel.setEmail(txtEmail.getText().trim());
+                dokterAktifModel.setNoTelepon(txtTelepon.getText().trim());
+                dokterService.perbaruiProfil(dokterAktifModel);
+            }
+            info("Profil berhasil disimpan ke penyimpanan.");
         }
     }
 
@@ -1166,6 +1230,10 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
     private void tambahJadwal() {
         if (validJadwal()) {
             ((DefaultTableModel) tblJadwal.getModel()).addRow(barisJadwal());
+            String idDok = dokterAktifModel != null ? dokterAktifModel.getIdDokter() : "DOK001";
+            String namaDok = dokterAktifModel != null ? dokterAktifModel.getNamaLengkap() : lblNamaDokter.getText();
+            int kuota = Integer.parseInt(txtKuota.getText().trim());
+            jadwalService.tambahJadwal(idDok, namaDok, String.valueOf(cmbHari.getSelectedItem()), txtMulai.getText().trim(), txtSelesai.getText().trim(), kuota);
             bersihJadwal();
         }
     }
@@ -1181,6 +1249,10 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
             for (int i = 0; i < b.length; i++) {
                 tblJadwal.getModel().setValueAt(b[i], r, i);
             }
+            String idDok = dokterAktifModel != null ? dokterAktifModel.getIdDokter() : "DOK001";
+            String namaDok = dokterAktifModel != null ? dokterAktifModel.getNamaLengkap() : lblNamaDokter.getText();
+            int kuota = Integer.parseInt(txtKuota.getText().trim());
+            jadwalService.tambahJadwal(idDok, namaDok, String.valueOf(cmbHari.getSelectedItem()), txtMulai.getText().trim(), txtSelesai.getText().trim(), kuota);
         }
     }
 
@@ -1263,7 +1335,7 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
             return;
         }
         String[] p = dataPasien.get(selPasien);
-        if (!p[4].equals(syarat)) {
+        if (!p[4].equalsIgnoreCase(syarat)) {
             info("Aksi ini hanya untuk pasien berstatus \"" + syarat + "\".");
             return;
         }
@@ -1273,6 +1345,24 @@ public class FormKelolaJadwal extends javax.swing.JFrame {
         }
         simpanDetail(p);
         p[4] = baru;
+
+        String idReg = p[0];
+        if ("Diterima".equalsIgnoreCase(baru)) {
+            pendaftaranService.terimaPendaftaran(idReg);
+        } else if ("Ditolak".equalsIgnoreCase(baru)) {
+            pendaftaranService.tolakPendaftaran(idReg, "Ditolak oleh dokter");
+        } else if ("Selesai".equalsIgnoreCase(baru)) {
+            pendaftaranService.ubahStatus(idReg, "Selesai");
+            var optP = pendaftaranService.getPendaftaranById(idReg);
+            String idPas = optP.isPresent() ? optP.get().getIdPasien() : "PAS001";
+            String idDok = dokterAktifModel != null ? dokterAktifModel.getIdDokter() : "DOK001";
+            String namaDok = dokterAktifModel != null ? dokterAktifModel.getNamaLengkap() : lblNamaDokter.getText();
+            sistempendaftarandanpelayananpasien.service.PelayananService.getInstance().simpanHasilPemeriksaan(
+                    idReg, idPas, p[1], idDok, namaDok, p[5], p[3], p[6], "-", "-");
+        } else {
+            pendaftaranService.ubahStatus(idReg, baru);
+        }
+
         tampilPasien();
     }
 
