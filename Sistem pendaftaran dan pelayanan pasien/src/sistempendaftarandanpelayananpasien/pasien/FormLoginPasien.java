@@ -4,6 +4,12 @@
  */
 package sistempendaftarandanpelayananpasien.pasien;
 
+import javax.swing.JOptionPane;
+import sistempendaftarandanpelayananpasien.auth.SessionManager;
+import sistempendaftarandanpelayananpasien.model.Pasien;
+import sistempendaftarandanpelayananpasien.service.AuthService;
+import sistempendaftarandanpelayananpasien.service.PasienService;
+
 /**
  *
  * @author LENOVO
@@ -202,12 +208,118 @@ public class FormLoginPasien extends javax.swing.JFrame {
     }//GEN-LAST:event_chkTampilkanActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+        String u = txtUsername.getText().trim();
+        String p = new String(txtPassword.getPassword());
+        if (u.isEmpty() || p.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username dan password wajib diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        AuthService authService = new AuthService();
+        boolean ok = authService.login(u, p);
+        if (ok && SessionManager.isPasien()) {
+            PasienService pasienService = new PasienService();
+            java.util.Optional<Pasien> opt = pasienService.getProfilByUsername(u);
+            if (opt.isPresent()) {
+                Pasien pas = opt.get();
+                MainPasien.cur = new String[]{u, p, pas.getNamaLengkap(), pas.getNik(), pas.getNoTelepon(), pas.getAlamat()};
+                MainPasien.users.put(u, MainPasien.cur);
+            }
+            new FormMenuPasien().setVisible(true);
+            dispose();
+        } else if (ok && !SessionManager.isPasien()) {
+            JOptionPane.showMessageDialog(this, "Akun ini terdaftar sebagai dokter. Silakan login melalui Portal Dokter.", "Akses Ditolak", JOptionPane.WARNING_MESSAGE);
+            SessionManager.logout();
+        } else {
+            JOptionPane.showMessageDialog(this, "Username atau password salah.", "Login Gagal", JOptionPane.ERROR_MESSAGE);
+            txtPassword.setText("");
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnRegistrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrasiActionPerformed
-        // TODO add your handling code here:
+        tampilkanDialogRegistrasi();
     }//GEN-LAST:event_btnRegistrasiActionPerformed
+
+    private void tampilkanDialogRegistrasi() {
+        javax.swing.JDialog dlg = new javax.swing.JDialog(this, "Registrasi Pasien Baru", true);
+        dlg.setSize(440, 560);
+        dlg.setLocationRelativeTo(this);
+        dlg.setLayout(new java.awt.BorderLayout(10, 10));
+
+        javax.swing.JPanel pnl = new javax.swing.JPanel(new java.awt.GridLayout(0, 1, 4, 6));
+        pnl.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 20, 15, 20));
+        pnl.setBackground(new java.awt.Color(245, 238, 221));
+
+        javax.swing.JTextField txtRegNama = new javax.swing.JTextField();
+        javax.swing.JTextField txtRegNik = new javax.swing.JTextField();
+        javax.swing.JTextField txtRegTelp = new javax.swing.JTextField();
+        javax.swing.JTextField txtRegAlamat = new javax.swing.JTextField();
+        javax.swing.JTextField txtRegUser = new javax.swing.JTextField();
+        javax.swing.JPasswordField txtRegPass = new javax.swing.JPasswordField();
+        javax.swing.JPasswordField txtRegKonfirmasi = new javax.swing.JPasswordField();
+
+        pnl.add(new javax.swing.JLabel("Nama Lengkap:"));
+        pnl.add(txtRegNama);
+        pnl.add(new javax.swing.JLabel("NIK (16 Digit):"));
+        pnl.add(txtRegNik);
+        pnl.add(new javax.swing.JLabel("No. Telepon / HP:"));
+        pnl.add(txtRegTelp);
+        pnl.add(new javax.swing.JLabel("Alamat:"));
+        pnl.add(txtRegAlamat);
+        pnl.add(new javax.swing.JLabel("Username:"));
+        pnl.add(txtRegUser);
+        pnl.add(new javax.swing.JLabel("Password:"));
+        pnl.add(txtRegPass);
+        pnl.add(new javax.swing.JLabel("Konfirmasi Password:"));
+        pnl.add(txtRegKonfirmasi);
+
+        javax.swing.JButton btnDaftar = new javax.swing.JButton("Daftar Sekarang");
+        btnDaftar.setBackground(new java.awt.Color(22, 88, 123));
+        btnDaftar.setForeground(java.awt.Color.WHITE);
+        btnDaftar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+
+        btnDaftar.addActionListener(e -> {
+            String nama = txtRegNama.getText().trim();
+            String nik = txtRegNik.getText().trim();
+            String telp = txtRegTelp.getText().trim();
+            String alamat = txtRegAlamat.getText().trim();
+            String user = txtRegUser.getText().trim();
+            String pass = new String(txtRegPass.getPassword());
+            String konf = new String(txtRegKonfirmasi.getPassword());
+
+            if (nama.isEmpty() || nik.isEmpty() || telp.isEmpty() || alamat.isEmpty() || user.isEmpty() || pass.isEmpty()) {
+                JOptionPane.showMessageDialog(dlg, "Semua kolom wajib diisi.", "Validasi", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (!pass.equals(konf)) {
+                JOptionPane.showMessageDialog(dlg, "Konfirmasi password tidak cocok.", "Validasi", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            AuthService auth = new AuthService();
+            boolean berhasil = auth.registrasiPasien(user, pass, nama, nik, telp, alamat);
+            if (!berhasil) {
+                JOptionPane.showMessageDialog(dlg, "Username sudah digunakan, pilih username lain.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            MainPasien.users.put(user, new String[]{user, pass, nama, nik, telp, alamat});
+            if (!MainPasien.regs.containsKey(user)) {
+                MainPasien.regs.put(user, new java.util.ArrayList<>());
+            }
+            JOptionPane.showMessageDialog(dlg, "Pendaftaran akun berhasil! Silakan login.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            txtUsername.setText(user);
+            txtPassword.setText("");
+            dlg.dispose();
+        });
+
+        dlg.add(pnl, java.awt.BorderLayout.CENTER);
+        javax.swing.JPanel pnlBtn = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        pnlBtn.setBackground(new java.awt.Color(245, 238, 221));
+        pnlBtn.add(btnDaftar);
+        dlg.add(pnlBtn, java.awt.BorderLayout.SOUTH);
+        dlg.pack();
+        dlg.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
