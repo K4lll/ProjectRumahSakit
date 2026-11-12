@@ -158,6 +158,7 @@ public class FormMenuDokter extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         if (javax.swing.JOptionPane.showConfirmDialog(this, "Yakin ingin logout?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION) == javax.swing.JOptionPane.YES_OPTION) {
             FormLoginDokter.dokterAktif = null;
+            sistempendaftarandanpelayananpasien.auth.SessionManager.logout();
             new FormLoginDokter().setVisible(true);
             dispose();
         }
