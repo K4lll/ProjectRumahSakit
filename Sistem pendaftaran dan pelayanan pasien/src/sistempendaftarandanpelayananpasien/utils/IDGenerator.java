@@ -1,13 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sistempendaftarandanpelayananpasien.utils;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
- *
- * @author LENOVO
+ * Pembangkit nomor identifikasi unik otomatis dengan awalan (prefix).
  */
 public class IDGenerator {
-    
+
+    private static final AtomicInteger COUNTER = new AtomicInteger(100);
+
+    private IDGenerator() {
+    }
+
+    public static String generateId(String prefix, int totalExisting) {
+        return String.format("%s-%03d", prefix, totalExisting + 1);
+    }
+
+    public static String generateIdRandom(String prefix) {
+        return String.format("%s-%03d", prefix, COUNTER.incrementAndGet());
+    }
 }
