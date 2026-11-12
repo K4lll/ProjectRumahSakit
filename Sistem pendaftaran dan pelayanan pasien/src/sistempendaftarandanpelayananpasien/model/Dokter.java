@@ -2,26 +2,35 @@ package sistempendaftarandanpelayananpasien.model;
 
 /**
  * Entitas profil dokter rumah sakit.
+ * Mewarisi kelas abstrak Orang (Inheritance & Abstraction).
  */
-public class Dokter {
+public class Dokter extends Orang {
 
     private String idDokter;
     private String username;
-    private String namaLengkap;
     private String spesialisasi;
-    private String noTelepon;
     private String email;
 
     public Dokter() {
+        super();
     }
 
     public Dokter(String idDokter, String username, String namaLengkap, String spesialisasi, String noTelepon, String email) {
+        super(namaLengkap, noTelepon);
         this.idDokter = idDokter;
         this.username = username;
-        this.namaLengkap = namaLengkap;
         this.spesialisasi = spesialisasi;
-        this.noTelepon = noTelepon;
         this.email = email;
+    }
+
+    @Override
+    public String getPeran() {
+        return "Dokter";
+    }
+
+    @Override
+    public String getInfoSingkat() {
+        return "Dokter: " + getNamaLengkap() + " (Spesialisasi: " + spesialisasi + ")";
     }
 
     public String getIdDokter() {
@@ -40,24 +49,8 @@ public class Dokter {
         this.username = username;
     }
 
-    public String getNamaLengkap() {
-        return namaLengkap;
-    }
-
-    public String getNama() {
-        return namaLengkap;
-    }
-
-    public void setNama(String nama) {
-        this.namaLengkap = nama;
-    }
-
     public String getPoli() {
         return "Poli " + (spesialisasi != null && !spesialisasi.trim().isEmpty() ? spesialisasi : "Umum");
-    }
-
-    public void setNamaLengkap(String namaLengkap) {
-        this.namaLengkap = namaLengkap;
     }
 
     public String getSpesialisasi() {
@@ -68,19 +61,16 @@ public class Dokter {
         this.spesialisasi = spesialisasi;
     }
 
-    public String getNoTelepon() {
-        return noTelepon;
-    }
-
-    public void setNoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return getNamaLengkap() + " (" + spesialisasi + ")";
     }
 }

@@ -2,32 +2,41 @@ package sistempendaftarandanpelayananpasien.model;
 
 /**
  * Entitas profil pasien rumah sakit.
+ * Mewarisi kelas abstrak Orang (Inheritance & Abstraction).
  */
-public class Pasien {
+public class Pasien extends Orang {
 
     private String idPasien;
     private String username;
-    private String namaLengkap;
     private String nik;
-    private String noTelepon;
     private String alamat;
     private String tanggalLahir;
     private String jenisKelamin;
     private String golonganDarah;
 
     public Pasien() {
+        super();
     }
 
     public Pasien(String idPasien, String username, String namaLengkap, String nik, String noTelepon, String alamat, String tanggalLahir, String jenisKelamin, String golonganDarah) {
+        super(namaLengkap, noTelepon);
         this.idPasien = idPasien;
         this.username = username;
-        this.namaLengkap = namaLengkap;
         this.nik = nik;
-        this.noTelepon = noTelepon;
         this.alamat = alamat;
         this.tanggalLahir = tanggalLahir;
         this.jenisKelamin = jenisKelamin;
         this.golonganDarah = golonganDarah;
+    }
+
+    @Override
+    public String getPeran() {
+        return "Pasien";
+    }
+
+    @Override
+    public String getInfoSingkat() {
+        return "Pasien: " + getNamaLengkap() + " (NIK: " + nik + ")";
     }
 
     public String getIdPasien() {
@@ -46,36 +55,12 @@ public class Pasien {
         this.username = username;
     }
 
-    public String getNamaLengkap() {
-        return namaLengkap;
-    }
-
-    public String getNama() {
-        return namaLengkap;
-    }
-
-    public void setNama(String nama) {
-        this.namaLengkap = nama;
-    }
-
-    public void setNamaLengkap(String namaLengkap) {
-        this.namaLengkap = namaLengkap;
-    }
-
     public String getNik() {
         return nik;
     }
 
     public void setNik(String nik) {
         this.nik = nik;
-    }
-
-    public String getNoTelepon() {
-        return noTelepon;
-    }
-
-    public void setNoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
     }
 
     public String getAlamat() {
