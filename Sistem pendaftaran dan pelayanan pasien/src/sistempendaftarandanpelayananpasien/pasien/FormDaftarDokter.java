@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import sistempendaftarandanpelayananpasien.model.Dokter;
+import sistempendaftarandanpelayananpasien.service.DokterService;
 
 public class FormDaftarDokter extends javax.swing.JFrame {
 
@@ -423,11 +425,37 @@ public class FormDaftarDokter extends javax.swing.JFrame {
     private void isiData() {
         DefaultTableModel model = (DefaultTableModel) tblDokter.getModel();
         model.setRowCount(0);
-        model.addRow(new Object[] {"1", "dr. Andi Pratama", "Umum", "Poli Umum"});
-        model.addRow(new Object[] {"2", "dr. Siti Rahma, Sp.A", "Anak", "Poli Anak"});
-        model.addRow(new Object[] {"3", "drg. Budi Santoso", "Gigi", "Poli Gigi"});
-        model.addRow(new Object[] {"4", "dr. Rina Wijaya, Sp.PD", "Penyakit Dalam", "Poli Penyakit Dalam"});
-        model.addRow(new Object[] {"5", "dr. Hadi Kusuma, Sp.M", "Mata", "Poli Mata"});
+        List<Dokter> daftarDokter = DokterService.getInstance().getAllDokter();
+        java.util.Set<String> setSpesialis = new java.util.TreeSet<>();
+        int no = 1;
+        for (Dokter d : daftarDokter) {
+            String poli = d.getPoli() != null && !d.getPoli().trim().isEmpty() ? d.getPoli() : ("Poli " + d.getSpesialisasi());
+            model.addRow(new Object[] {
+                String.valueOf(no++),
+                d.getNama(),
+                d.getSpesialisasi(),
+                poli
+            });
+            if (d.getSpesialisasi() != null && !d.getSpesialisasi().trim().isEmpty()) {
+                setSpesialis.add(d.getSpesialisasi());
+            }
+        }
+        
+        // Perbarui pilihan cmbSpesialis tanpa menghilangkan opsi default "Semua Spesialis"
+        if (cmbSpesialis.getItemCount() <= 1 && !setSpesialis.isEmpty()) {
+            for (String sp : setSpesialis) {
+                boolean ada = false;
+                for (int i = 0; i < cmbSpesialis.getItemCount(); i++) {
+                    if (sp.equalsIgnoreCase(cmbSpesialis.getItemAt(i))) {
+                        ada = true;
+                        break;
+                    }
+                }
+                if (!ada) {
+                    cmbSpesialis.addItem(sp);
+                }
+            }
+        }
     }
 
     private void aturKartu() {
