@@ -32,13 +32,13 @@ public class FormLoginDokter extends javax.swing.JFrame {
             pesan("Username dan password wajib diisi.");
             return;
         }
-        // TODO: ganti dengan pengecekan ke data akun dokter yang dibuat admin.
-        if (u.equals("dokter") && p.equals("dokter123")) {
-            dokterAktif = "dr. Andi Pratama, Sp.PD";
+        sistempendaftarandanpelayananpasien.service.AuthService auth = new sistempendaftarandanpelayananpasien.service.AuthService();
+        if (auth.login(u, p) && sistempendaftarandanpelayananpasien.auth.SessionManager.isDokter()) {
+            dokterAktif = sistempendaftarandanpelayananpasien.auth.SessionManager.getNama();
             new FormMenuDokter().setVisible(true);
             dispose();
         } else {
-            pesan("Username atau password salah.");
+            pesan("Username atau password salah (atau bukan akun dokter).");
             txtPassword.setText("");
         }
     }
